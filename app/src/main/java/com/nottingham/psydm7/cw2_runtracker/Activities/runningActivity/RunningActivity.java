@@ -1,10 +1,13 @@
 package com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.icu.util.Calendar;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.content.Context;
@@ -16,8 +19,14 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.nottingham.psydm7.cw2_runtracker.R;
+import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.DAOs.SavedRunDAO;
+import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.Entities.SavedRun;
+import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.RunTrackerRoomDatabase;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class RunningActivity extends AppCompatActivity {
@@ -29,6 +38,9 @@ public class RunningActivity extends AppCompatActivity {
     TextView tvTime;
     TextView tvKilos;
     TextView tvAverageSpeed;
+
+    RunTrackerRoomDatabase db;
+    SavedRunDAO savedRunDAO;
 
     long startTime;
 
@@ -74,6 +86,11 @@ public class RunningActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running);
 
+        //region "initialising DAOs"
+        db = RunTrackerRoomDatabase.getDatabase(getApplicationContext());
+        savedRunDAO = db.savedRunDAO();
+        //endregion
+
         //region "creating and binding service"
         // MY BOUND
         Log.d("g53mdp", "RunningActivity starting MyBoundService");
@@ -100,6 +117,7 @@ public class RunningActivity extends AppCompatActivity {
     }
 
     //region "inter-activity communication"
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void onButtonClick (View v) {
 
         // generically handling button presses via id
@@ -107,22 +125,29 @@ public class RunningActivity extends AppCompatActivity {
 
             case R.id.button_stop: {
 
-                Log.d("g53mdp", "Saving the current run!");
-
+                Log.d("g53mdp", "Finished the current run!");
 
                 runningService.finishService();
 
-                long totalTime = getDuration();
-                String stringTime = formatTimeNicely(totalTime);
-                float averageSpeed = calculateSpeed(totalDistance, totalTime);
+                RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
+                    //region "values which will be saved in database"
+                    long totalTime = getDuration();
+                    String stringTime = formatTimeNicely(totalTime);
+                    float averageSpeed = calculateSpeed(totalDistance, totalTime);
+                    Date date = Calendar.getInstance().getTime();
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd' at 'hh:mm:ss");
+                    String dateString = dateFormat.format(date);
+                    String name = "Run on "+dateString;
+                    ArrayList<LatLng> path = mapsFragment.getPath();
+                    //endregion
 
-                ArrayList<LatLng> path = mapsFragment.getPath();
+                    Log.d("g53mdp","Saving run to savedRuns table, with values: name = "+name+"; date = "+dateString+";time = "+stringTime+"; distance = "+totalDistance+"km; speed = "+averageSpeed+"km/h; path size= "+path.size());
 
-                Log.d("g53mdp","Finished run with: time = "+stringTime+"; distance = "+totalDistance+"km; speed = "+averageSpeed+"km/h; path = "+path.size());
-
-                // TODO - code for storing this run into database
-
-                // ID, Name (default to "Run: <ID>"), DateTime, distance time, speed, path
+                    //region "updating savedRuns table"
+                    SavedRun savedRun = new SavedRun(name, dateString, totalDistance, averageSpeed, stringTime, path);
+                    savedRunDAO.insert(savedRun);
+                    //endregion
+                });
 
                 finish();
                 break;
@@ -143,9 +168,11 @@ public class RunningActivity extends AppCompatActivity {
             return 0;
         return Math.round(distance/time*3600000 * 1000f) / 1000f;  // multiplying by 3,600,000 to convert from millis to hours, then rounding to 3 decimal places
     }
+
+    private long getDuration(){
+        return System.currentTimeMillis() - startTime;
+    }
     //endregion
-
-
 
     //region "formatting time nice"
     private String formatTimeNicely(long timeMillis){
@@ -175,9 +202,6 @@ public class RunningActivity extends AppCompatActivity {
 
     }
 
-    private long getDuration(){
-        return System.currentTimeMillis() - startTime;
-    }
     //endregion
 
     //region "service and callback logic"
@@ -225,8 +249,4 @@ public class RunningActivity extends AppCompatActivity {
     //endregion
     //endregion
 
-
-//
-//
-//
 }

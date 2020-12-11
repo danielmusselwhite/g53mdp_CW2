@@ -14,13 +14,6 @@ import java.util.List;
 @Dao
 public interface SavedRunDAO {
 
-//    this.name = name;
-//    this.date = date;
-//    this.distance = distance;
-//    this.speed = speed;
-//    this.time = time;
-//    this.path = path;
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insert(SavedRun savedRun);
 

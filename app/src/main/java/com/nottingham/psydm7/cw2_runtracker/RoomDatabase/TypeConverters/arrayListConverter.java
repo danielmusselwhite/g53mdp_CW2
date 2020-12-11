@@ -1,4 +1,4 @@
-package com.nottingham.psydm7.cw2_runtracker.RoomDatabase;
+package com.nottingham.psydm7.cw2_runtracker.RoomDatabase.TypeConverters;
 
 import androidx.room.TypeConverter;
 
