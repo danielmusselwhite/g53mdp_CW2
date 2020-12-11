@@ -1,4 +1,4 @@
-package com.nottingham.psydm7.cw2_runtracker.runningActivity;
+package com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity;
 
 import android.location.Location;
 

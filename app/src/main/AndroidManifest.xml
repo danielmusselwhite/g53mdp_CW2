@@ -28,13 +28,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CW2_RunTracker">
         <service
-            android:name=".runningActivity.RunningService"
+            android:name=".Activities.runningActivity.RunningService"
             android:enabled="true"
             android:exported="true"
             android:foregroundServiceType="location"
             ></service>
 
-        <activity android:name=".runningActivity.RunningActivity" />
+        <activity android:name=".Activities.runningActivity.RunningActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -47,7 +47,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

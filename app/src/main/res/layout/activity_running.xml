@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".runningActivity.RunningActivity">
+    tools:context=".Activities.runningActivity.RunningActivity">
 
 
     <fragment
         android:id="@+id/fragment_maps"
-        android:name="com.nottingham.psydm7.cw2_runtracker.runningActivity.RunningMapsFragment"
+        android:name="com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity.RunningMapsFragment"
         android:layout_width="321dp"
         android:layout_height="399dp"
         app:layout_constraintBottom_toTopOf="@+id/textViewTime"
@@ -109,7 +109,7 @@
          app:layout_constraintHorizontal_bias="0.5"
          app:layout_constraintStart_toStartOf="parent"
          app:layout_constraintTop_toTopOf="parent"
-         tools:context="com.nottingham.psydm7.cw2_runtracker.RunningActivity" />
+         tools:context="com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity.RunningActivity" />
 
  -->
 

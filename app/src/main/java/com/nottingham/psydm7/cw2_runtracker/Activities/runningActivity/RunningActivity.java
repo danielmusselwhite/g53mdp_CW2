@@ -1,21 +1,15 @@
-package com.nottingham.psydm7.cw2_runtracker.runningActivity;
+package com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import android.content.Context;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.IBinder;
-import android.util.AndroidRuntimeException;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -127,6 +121,8 @@ public class RunningActivity extends AppCompatActivity {
                 Log.d("g53mdp","Finished run with: time = "+stringTime+"; distance = "+totalDistance+"km; speed = "+averageSpeed+"km/h; path = "+path.size());
 
                 // TODO - code for storing this run into database
+
+                // ID, Name (default to "Run: <ID>"), DateTime, distance time, speed, path
 
                 finish();
                 break;

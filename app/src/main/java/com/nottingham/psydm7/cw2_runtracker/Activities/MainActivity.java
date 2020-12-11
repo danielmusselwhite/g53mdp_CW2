@@ -1,4 +1,4 @@
-package com.nottingham.psydm7.cw2_runtracker;
+package com.nottingham.psydm7.cw2_runtracker.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -11,9 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.nottingham.psydm7.cw2_runtracker.runningActivity.RunningActivity;
-
-import java.util.concurrent.TimeUnit;
+import com.nottingham.psydm7.cw2_runtracker.R;
+import com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity.RunningActivity;
 
 public class MainActivity extends AppCompatActivity{
 

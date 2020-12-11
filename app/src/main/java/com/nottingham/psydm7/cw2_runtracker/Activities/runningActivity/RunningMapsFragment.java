@@ -1,17 +1,12 @@
-package com.nottingham.psydm7.cw2_runtracker.runningActivity;
+package com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +20,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.nottingham.psydm7.cw2_runtracker.R;
 

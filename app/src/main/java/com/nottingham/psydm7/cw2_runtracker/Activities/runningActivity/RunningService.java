@@ -1,10 +1,9 @@
-package com.nottingham.psydm7.cw2_runtracker.runningActivity;
+package com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity;
 
 import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -22,11 +21,8 @@ import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.TaskStackBuilder;
 
 import com.nottingham.psydm7.cw2_runtracker.R;
-
-import java.util.concurrent.TimeUnit;
 
 public class RunningService extends Service {
 
