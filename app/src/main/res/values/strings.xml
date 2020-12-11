@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">CW2_RunTracker</string>
+    <string name="main_button_viewStats">Stats</string>
+    <string name="main_button_viewAllRuns">Runs</string>
+    <string name="main_button_viewAllRoutes">Routes</string>
+    <string name="average_speed">Average Speed:</string>
+    <string name="time">Time</string>
+    <string name="kilometers">Kilometers</string>
+    <string name="stop">Save Run</string>
+    <string name="records">Records</string>
+    <string name="start_run">Start Run</string>
+    <string name="past_runs">Past Runs</string>
+    <string name="distance">Distance</string>
+    <string name="_00_00">00:00</string>
+    <string name="_0_km">0 km</string>
+    <string name="_0_km_h">0 km/h</string>
+</resources>
