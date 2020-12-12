@@ -80,6 +80,7 @@ public class RunningActivity extends AppCompatActivity {
     };
     //endregion
 
+    //region "Lifecycle methods"
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("g53mdp","RunningActivity onCreate");
@@ -116,6 +117,16 @@ public class RunningActivity extends AppCompatActivity {
         playBackTextViewThread.start();
     }
 
+    @Override
+    public void onDestroy() {
+        Log.d("g53mdp", "RunningActivity onDestroy");
+        if(runningService!=null)
+            runningService.finishService();
+        super.onDestroy();
+    }
+
+    //endregion
+
     //region "inter-activity communication"
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void onButtonClick (View v) {
@@ -128,6 +139,7 @@ public class RunningActivity extends AppCompatActivity {
                 Log.d("g53mdp", "Finished the current run!");
 
                 runningService.finishService();
+                runningService=null;
 
                 RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
                     //region "values which will be saved in database"
