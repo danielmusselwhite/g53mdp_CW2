@@ -6,4 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".Activities.savedRunsActivity.SavedRunsActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/savedRuns_recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="533dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="316dp"
+        android:layout_height="175dp"
+        android:text="Placeholder - replace with settings and filters for recycler view"
+        android:textColor="@color/purple_500"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/savedRuns_recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
