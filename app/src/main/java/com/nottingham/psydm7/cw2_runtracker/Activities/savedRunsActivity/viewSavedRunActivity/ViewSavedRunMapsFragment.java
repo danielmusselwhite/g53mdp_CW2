@@ -1,12 +1,10 @@
-package com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity;
+package com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSavedRunActivity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,17 +15,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity.RunningMapsFragment;
 import com.nottingham.psydm7.cw2_runtracker.R;
 
 import java.util.ArrayList;
 
-public class SavedRunMapsFragment extends Fragment {
+public class ViewSavedRunMapsFragment extends Fragment {
 
     private static GoogleMap googleMap;
     private ArrayList<LatLng> path;
@@ -46,7 +42,7 @@ public class SavedRunMapsFragment extends Fragment {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-            SavedRunMapsFragment.googleMap = googleMap;
+            ViewSavedRunMapsFragment.googleMap = googleMap;
 
             if(path!=null)
                 updateMap(path);
@@ -73,6 +69,8 @@ public class SavedRunMapsFragment extends Fragment {
 
     public void savePath(ArrayList<LatLng> path){
         this.path = path;
+        if(googleMap!=null)
+            updateMap(path);
     }
 
     private void updateMap(ArrayList<LatLng> path) {
@@ -90,7 +88,7 @@ public class SavedRunMapsFragment extends Fragment {
         //endregion
 
         //moving the camera to the start of the run
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(start, 13f));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(start, 17f));
 
         //region "drawing the path to the map"
         for(int i=0; i<path.size()-1; i++)

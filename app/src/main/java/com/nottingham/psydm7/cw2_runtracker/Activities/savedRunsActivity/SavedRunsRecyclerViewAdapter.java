@@ -10,17 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSavedRunActivity.ViewSavedRunActivity;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.Entities.SavedRun;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRunsRecyclerViewAdapter.ViewHolder>{
@@ -75,20 +74,15 @@ public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRuns
         TextView speedView;
         TextView distanceView;
         TextView timeView;
-        //SavedRunMapsFragment mapFragment;
-
-
 
         ViewHolder(View itemView) {
             super(itemView);
             //getting all text views
             nameView = itemView.findViewById(R.id.recyclerTextViewRunTitle);
             dateView = itemView.findViewById(R.id.recyclerTextViewDate);
-            speedView = itemView.findViewById(R.id.recyclerTextViewSpeedValue);
-            distanceView = itemView.findViewById(R.id.recyclerTextViewDistanceValue);
-            timeView = itemView.findViewById(R.id.recyclerTextViewTimeValue);
-            //getting the map fragment
-            //mapFragment = (SavedRunMapsFragment) ((FragmentActivity)context).getSupportFragmentManager().findFragmentById(R.id.fragment_savedRunItemViewMap);
+            speedView = itemView.findViewById(R.id.viewRunTextViewSpeedValue);
+            distanceView = itemView.findViewById(R.id.viewRunTextViewDistanceValue);
+            timeView = itemView.findViewById(R.id.viewRunTextViewTimeValue);
 
             // this can be clicked (allow user to view more info on the run and annotate the data)
             itemView.setOnClickListener(this);
@@ -107,9 +101,6 @@ public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRuns
             speedView.setText(savedRun.getSpeed()+" km/h");
             distanceView.setText(savedRun.getDistance()+" km");
             timeView.setText(savedRun.getTime());
-            // drawing the runs path
-            ArrayList<LatLng> path = savedRun.getPath();
-            //mapFragment.savePath(path);
         }
 
 
@@ -117,12 +108,12 @@ public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRuns
         public void onClick(View view) {
             Log.d("g53mdp","Clicked "+data.get(getAdapterPosition()).getName()+", the savedRun in position "+getAdapterPosition());
 
-//            Bundle bundle = new Bundle();
-//            bundle.putLong("RecipeID",data.get(getAdapterPosition()).get_id());
-//            Intent intent = new Intent(context, ViewRecipeActivity.class);
-//            intent.putExtras(bundle);
-//
-//            ((Activity) context).startActivityForResult(intent, VIEW_RECIPE_ACTIVITY_REQUEST_CODE);
+            Bundle bundle = new Bundle();
+            bundle.putLong("SavedRunID",data.get(getAdapterPosition()).get_id());
+            Intent intent = new Intent(context, ViewSavedRunActivity.class);
+            intent.putExtras(bundle);
+
+            ((Activity) context).startActivityForResult(intent, VIEW_SAVEDRUN_ACTIVITY_REQUEST_CODE);
         }
     }
     //endregion

@@ -41,6 +41,9 @@ public interface SavedRunDAO {
     @Query("SELECT COUNT(_id) FROM savedRun_table")
     int getCount();
 
+    @Query("SELECT * FROM savedRun_table WHERE _id = :id")
+    SavedRun getRunWithID(long id);
+
     //region "Updating fields"
     @Query("Update savedRun_table SET name = :newName WHERE _id = :id")
     void rateRecipe(long id, String newName);

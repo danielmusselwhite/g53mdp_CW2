@@ -27,7 +27,7 @@
         android:text="@string/distance"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerTextViewSpeed"
-        app:layout_constraintStart_toStartOf="@+id/recyclerTextViewDistanceValue" />
+        app:layout_constraintStart_toStartOf="@+id/viewRunTextViewDistanceValue" />
 
     <TextView
         android:id="@+id/recyclerTextViewTime"
@@ -36,32 +36,32 @@
         android:text="@string/time"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerTextViewDistance"
-        app:layout_constraintStart_toStartOf="@+id/recyclerTextViewTimeValue" />
+        app:layout_constraintStart_toStartOf="@+id/viewRunTextViewTimeValue" />
 
     <TextView
-        android:id="@+id/recyclerTextViewDistanceValue"
+        android:id="@+id/viewRunTextViewDistanceValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_0_km"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/recyclerTextViewSpeedValue"
+        app:layout_constraintEnd_toStartOf="@+id/viewRunTextViewSpeedValue"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/recyclerTextViewTimeValue"
-        app:layout_constraintTop_toTopOf="@+id/recyclerTextViewSpeedValue" />
+        app:layout_constraintStart_toEndOf="@+id/viewRunTextViewTimeValue"
+        app:layout_constraintTop_toTopOf="@+id/viewRunTextViewSpeedValue" />
 
     <TextView
-        android:id="@+id/recyclerTextViewTimeValue"
+        android:id="@+id/viewRunTextViewTimeValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_00_00"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/recyclerTextViewDistanceValue"
+        app:layout_constraintEnd_toStartOf="@+id/viewRunTextViewDistanceValue"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/recyclerTextViewDistanceValue" />
+        app:layout_constraintTop_toTopOf="@+id/viewRunTextViewDistanceValue" />
 
     <TextView
-        android:id="@+id/recyclerTextViewSpeedValue"
+        android:id="@+id/viewRunTextViewSpeedValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -71,7 +71,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/recyclerTextViewDistanceValue"
+        app:layout_constraintStart_toEndOf="@+id/viewRunTextViewDistanceValue"
         app:layout_constraintTop_toBottomOf="@+id/recyclerTextViewSpeed"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -97,20 +97,8 @@
         android:text="@string/average_speed"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/recyclerTextViewSpeedValue"
+        app:layout_constraintStart_toStartOf="@+id/viewRunTextViewSpeedValue"
         app:layout_constraintTop_toBottomOf="@+id/recyclerTextViewRunTitle"
         app:layout_constraintVertical_bias="0.01" />
-
-    <!-- <fragment
-        android:id="@+id/fragment_savedRunItemViewMap"
-        android:name="com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.SavedRunMapsFragment"
-        android:layout_width="337dp"
-        android:layout_height="175dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerTextViewDistanceValue"
-        app:layout_constraintVertical_bias="0.071" /> -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
