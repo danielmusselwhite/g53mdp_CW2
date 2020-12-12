@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".Activities.savedRunsActivity.SavedRunsItemViewActivity">
 
     <TextView
         android:id="@+id/recyclerTextViewRunTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/name"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,6 +39,17 @@
         app:layout_constraintStart_toStartOf="@+id/recyclerTextViewTimeValue" />
 
     <TextView
+        android:id="@+id/recyclerTextViewDistanceValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_0_km"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/recyclerTextViewSpeedValue"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/recyclerTextViewTimeValue"
+        app:layout_constraintTop_toTopOf="@+id/recyclerTextViewSpeedValue" />
+
+    <TextView
         android:id="@+id/recyclerTextViewTimeValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,6 +64,8 @@
         android:id="@+id/recyclerTextViewSpeedValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/_0_km_h"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,20 +76,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/recyclerTextViewDistanceValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/_0_km"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/recyclerTextViewSpeedValue"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/recyclerTextViewTimeValue"
-        app:layout_constraintTop_toTopOf="@+id/recyclerTextViewSpeedValue" />
-
-    <TextView
         android:id="@+id/recyclerTextViewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/date"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -89,6 +93,7 @@
         android:id="@+id/recyclerTextViewSpeed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/average_speed"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -96,28 +101,16 @@
         app:layout_constraintTop_toBottomOf="@+id/recyclerTextViewRunTitle"
         app:layout_constraintVertical_bias="0.01" />
 
-    <androidx.core.widget.NestedScrollView
+    <!-- <fragment
+        android:id="@+id/fragment_savedRunItemViewMap"
+        android:name="com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.SavedRunMapsFragment"
         android:layout_width="337dp"
         android:layout_height="175dp"
-        android:fillViewport="true"
-        android:isScrollContainer="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerTextViewDistanceValue"
-        app:layout_constraintVertical_bias="0.03">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <fragment
-                android:id="@+id/fragment_savedRunItemViewMap"
-                android:name="com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.SavedRunMapsFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        app:layout_constraintVertical_bias="0.071" /> -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

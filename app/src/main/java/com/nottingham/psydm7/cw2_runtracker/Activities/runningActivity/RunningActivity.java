@@ -147,16 +147,15 @@ public class RunningActivity extends AppCompatActivity {
                     String stringTime = formatTimeNicely(totalTime);
                     float averageSpeed = calculateSpeed(totalDistance, totalTime);
                     Date date = Calendar.getInstance().getTime();
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd' at 'hh:mm:ss");
-                    String dateString = dateFormat.format(date);
-                    String name = "Run on "+dateString;
+                    DateFormat dateFormat = new SimpleDateFormat("'Run on 'MMM, dd' at 'HH:mm");
+                    String name = dateFormat.format(date);
                     ArrayList<LatLng> path = mapsFragment.getPath();
                     //endregion
 
-                    Log.d("g53mdp","Saving run to savedRuns table, with values: name = "+name+"; date = "+dateString+";time = "+stringTime+"; distance = "+totalDistance+"km; speed = "+averageSpeed+"km/h; path size= "+path.size());
+                    Log.d("g53mdp","Saving run to savedRuns table, with values: name = "+name+";time = "+stringTime+"; distance = "+totalDistance+"km; speed = "+averageSpeed+"km/h; path size= "+path.size());
 
                     //region "updating savedRuns table"
-                    SavedRun savedRun = new SavedRun(name, dateString, totalDistance, averageSpeed, stringTime, path);
+                    SavedRun savedRun = new SavedRun(name, date, totalDistance, averageSpeed, stringTime, path);
                     savedRunDAO.insert(savedRun);
                     //endregion
                 });

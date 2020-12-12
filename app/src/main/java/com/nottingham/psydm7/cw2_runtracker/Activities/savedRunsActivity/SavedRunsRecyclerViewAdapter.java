@@ -17,7 +17,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.Entities.SavedRun;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRunsRecyclerViewAdapter.ViewHolder>{
@@ -72,7 +75,7 @@ public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRuns
         TextView speedView;
         TextView distanceView;
         TextView timeView;
-        SavedRunMapsFragment mapFragment;
+        //SavedRunMapsFragment mapFragment;
 
 
 
@@ -85,7 +88,7 @@ public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRuns
             distanceView = itemView.findViewById(R.id.recyclerTextViewDistanceValue);
             timeView = itemView.findViewById(R.id.recyclerTextViewTimeValue);
             //getting the map fragment
-            mapFragment = (SavedRunMapsFragment) ((FragmentActivity)context).getSupportFragmentManager().findFragmentById(R.id.fragment_savedRunItemViewMap);
+            //mapFragment = (SavedRunMapsFragment) ((FragmentActivity)context).getSupportFragmentManager().findFragmentById(R.id.fragment_savedRunItemViewMap);
 
             // this can be clicked (allow user to view more info on the run and annotate the data)
             itemView.setOnClickListener(this);
@@ -94,14 +97,21 @@ public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRuns
         void bind(final SavedRun savedRun) {
             // updating the text views
             nameView.setText(savedRun.getName());
-            dateView.setText(savedRun.getDate());
+
+            //region "formatting the date"
+            DateFormat dateFormat = new SimpleDateFormat("MMM, dd, yyyy 'at' HH:mm");
+            String dateString = dateFormat.format(savedRun.getDate());
+            //endregion
+
+            dateView.setText(dateString);
             speedView.setText(savedRun.getSpeed()+" km/h");
             distanceView.setText(savedRun.getDistance()+" km");
             timeView.setText(savedRun.getTime());
             // drawing the runs path
             ArrayList<LatLng> path = savedRun.getPath();
-            mapFragment.savePath(path);
+            //mapFragment.savePath(path);
         }
+
 
         @Override
         public void onClick(View view) {

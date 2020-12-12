@@ -8,8 +8,10 @@ import androidx.room.TypeConverters;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.TypeConverters.arrayListConverter;
+import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.TypeConverters.dateConverter;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @Entity(tableName = "savedRun_table")
 public class SavedRun {
@@ -25,7 +27,8 @@ public class SavedRun {
 
     @NonNull
     @ColumnInfo(name = "date")
-    private String date;
+    @TypeConverters({dateConverter.class})
+    private Date date;
 
     @NonNull
     @ColumnInfo(name = "distance")
@@ -46,7 +49,7 @@ public class SavedRun {
 
 
 
-    public SavedRun(@NonNull String name, @NonNull String date, @NonNull float distance, @NonNull float speed, @NonNull String time, @NonNull  ArrayList<LatLng> path) {
+    public SavedRun(@NonNull String name, @NonNull Date date, @NonNull float distance, @NonNull float speed, @NonNull String time, @NonNull  ArrayList<LatLng> path) {
         this.name = name;
         this.date = date;
         this.distance = distance;
@@ -73,11 +76,11 @@ public class SavedRun {
     }
 
     @NonNull
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(@NonNull String date) {
+    public void setDate(@NonNull Date date) {
         this.date = date;
     }
 
