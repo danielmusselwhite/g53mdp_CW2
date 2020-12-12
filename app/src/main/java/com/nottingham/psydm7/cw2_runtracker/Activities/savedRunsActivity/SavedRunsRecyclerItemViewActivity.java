@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.nottingham.psydm7.cw2_runtracker.R;
 
-public class SavedRunItemViewActivity extends AppCompatActivity {
+public class SavedRunsRecyclerItemViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved_run_item_view);
+        setContentView(R.layout.activity_saved_runs_recycler_item_view);
     }
 }
