@@ -8,7 +8,7 @@
 
 
     <fragment
-        android:id="@+id/fragment_maps"
+        android:id="@+id/fragment_runningMap"
         android:name="com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity.RunningMapsFragment"
         android:layout_width="321dp"
         android:layout_height="399dp"
@@ -50,7 +50,7 @@
         app:layout_constraintEnd_toStartOf="@+id/textViewTimeValue"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_maps" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_runningMap" />
 
     <TextView
         android:id="@+id/textViewKilometersValue"
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewTime"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_maps" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_runningMap" />
 
     <TextView
         android:id="@+id/textViewKilometers"

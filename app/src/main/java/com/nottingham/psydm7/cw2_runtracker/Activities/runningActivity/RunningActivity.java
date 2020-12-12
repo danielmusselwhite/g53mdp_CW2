@@ -104,7 +104,7 @@ public class RunningActivity extends AppCompatActivity {
         startTime = System.currentTimeMillis();
 
         //region "setting up map"
-        mapsFragment = (RunningMapsFragment) RunningActivity.this.getSupportFragmentManager().findFragmentById(R.id.fragment_maps);
+        mapsFragment = (RunningMapsFragment) RunningActivity.this.getSupportFragmentManager().findFragmentById(R.id.fragment_runningMap);
         //endregion
 
         //region "sorting out stuff for text views"

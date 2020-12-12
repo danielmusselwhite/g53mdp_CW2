@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.SavedRunsActivity;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity.RunningActivity;
 
@@ -46,6 +47,10 @@ public class MainActivity extends AppCompatActivity{
 
 
             case R.id.button_pastRuns: {
+
+                Log.d("g53mdp", "Starting the saved runs activity!");
+                Intent intent = new Intent(MainActivity.this, SavedRunsActivity.class);
+                startActivity(intent);
                 break;
             }
 

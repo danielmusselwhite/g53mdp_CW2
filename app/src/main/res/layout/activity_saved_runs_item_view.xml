@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.savedRunsActivity.SavedRunsRecyclerItemViewActivity">
+    tools:context=".Activities.savedRunsActivity.SavedRunsItemViewActivity">
 
     <TextView
         android:id="@+id/recyclerTextViewRunTitle"
@@ -96,16 +96,28 @@
         app:layout_constraintTop_toBottomOf="@+id/recyclerTextViewRunTitle"
         app:layout_constraintVertical_bias="0.01" />
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.SavedRunMapsFragment"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="337dp"
         android:layout_height="175dp"
+        android:fillViewport="true"
+        android:isScrollContainer="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerTextViewDistanceValue"
-        app:layout_constraintVertical_bias="0.071" />
+        app:layout_constraintVertical_bias="0.03">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <fragment
+                android:id="@+id/fragment_savedRunItemViewMap"
+                android:name="com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.SavedRunMapsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

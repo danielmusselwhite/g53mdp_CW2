@@ -33,7 +33,7 @@ public class RunningMapsFragment extends Fragment {
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
-        @SuppressLint("MissingPermission") // ONLY NEEDED FOR SETMYLOCATIONENABLED TRUE
+        @SuppressLint("MissingPermission") // NEEDED FOR SETMYLOCATIONENABLED TRUE, Okay to surpress as we have already checked that the permission is granted in the activity
         @Override
         public void onMapReady(GoogleMap googleMap) {
             googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);

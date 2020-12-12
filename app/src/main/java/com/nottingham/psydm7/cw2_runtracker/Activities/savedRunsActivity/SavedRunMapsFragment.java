@@ -4,7 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +17,20 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity.RunningMapsFragment;
 import com.nottingham.psydm7.cw2_runtracker.R;
 
+import java.util.ArrayList;
+
 public class SavedRunMapsFragment extends Fragment {
+
+    private static GoogleMap googleMap;
+    private ArrayList<LatLng> path;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -32,9 +45,11 @@ public class SavedRunMapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            SavedRunMapsFragment.googleMap = googleMap;
+
+            if(path!=null)
+                updateMap(path);
         }
     };
 
@@ -43,7 +58,7 @@ public class SavedRunMapsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_saved_run_maps, container, false);
+        return inflater.inflate(R.layout.fragment_maps, container, false);
     }
 
     @Override
@@ -54,5 +69,35 @@ public class SavedRunMapsFragment extends Fragment {
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
+    }
+
+    public void savePath(ArrayList<LatLng> path){
+        this.path = path;
+    }
+
+    private void updateMap(ArrayList<LatLng> path) {
+
+        //region "getting the first and last coordinate in the path"
+        LatLng start = path.get(0);
+        LatLng end = path.get(path.size()-1);
+        //endregion
+
+        Log.d("g53mdp","SavedRunsMapFragment, updating the map with path of size: "+path.size()+"; start coords"+start.toString()+"; end coords"+end.toString());
+
+        //region "adding markers for start and end of the run"
+        googleMap.addMarker(new MarkerOptions().position(start).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("Start of run"));
+        googleMap.addMarker(new MarkerOptions().position(end).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("End of run"));
+        //endregion
+
+        //moving the camera to the start of the run
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(start, 13f));
+
+        //region "drawing the path to the map"
+        for(int i=0; i<path.size()-1; i++)
+            googleMap.addPolyline(new PolylineOptions()
+                    .add(path.get(i), path.get(i+1))
+                    .width(7)
+                    .color(Color.BLUE));
+        //endregion
     }
 }
