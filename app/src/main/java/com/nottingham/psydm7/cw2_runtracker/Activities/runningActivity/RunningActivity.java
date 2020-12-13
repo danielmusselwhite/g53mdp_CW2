@@ -147,7 +147,7 @@ public class RunningActivity extends AppCompatActivity {
                     String stringTime = formatTimeNicely(totalTime);
                     float averageSpeed = calculateSpeed(totalDistance, totalTime);
                     Date date = Calendar.getInstance().getTime();
-                    DateFormat dateFormat = new SimpleDateFormat("'Run on 'MMM, dd' at 'HH:mm");
+                    DateFormat dateFormat = new SimpleDateFormat("'Run on 'MMMM, dd");
                     String name = dateFormat.format(date);
                     ArrayList<LatLng> path = mapsFragment.getPath();
                     //endregion

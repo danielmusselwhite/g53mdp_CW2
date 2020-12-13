@@ -93,7 +93,7 @@ public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRuns
             nameView.setText(savedRun.getName());
 
             //region "formatting the date"
-            DateFormat dateFormat = new SimpleDateFormat("MMM, dd, yyyy 'at' HH:mm");
+            DateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy 'at' HH:mm");
             String dateString = dateFormat.format(savedRun.getDate());
             //endregion
 
