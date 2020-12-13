@@ -1,9 +1,14 @@
 package com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -20,6 +25,9 @@ public class SavedRunsActivity extends AppCompatActivity {
 
     RunTrackerRoomDatabase db;
     SavedRunDAO savedRunDAO;
+
+    LiveData<List<SavedRun>> savedRuns;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,28 +47,32 @@ public class SavedRunsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //endregion
 
-
-        updateDatabaseDisplay();
-    }
-
-    public void updateDatabaseDisplay() {
-
-        //region "sorting by date"
+        //region "Getting the runs DAO and creating observer for live data"
         RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
-            List<SavedRun> runs = savedRunDAO.getRunsSortedByDate();
-            for (SavedRun run : runs) {
-                Log.d("g53mdp", "Sorting by date " + run.get_id() + " " + run.getName());
-            }
+            savedRuns = savedRunDAO.getRunsSortedByDate(); //getting all runs default sorted by date
 
-            // running on UI thread to safely update the recyclerView with new new data
+            //region "creating and attaching obsever for the live data"
+            //running on the UI thread as necessary for attaching observer and updating the UI
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    ((SavedRunsRecyclerViewAdapter) recyclerView.getAdapter()).setData(runs);
+
+                    // telling the recyclerView to update when Runs have changed
+                    final Observer<List<SavedRun>> runsObserver = new Observer<List<SavedRun>>() {
+                        @Override
+                        public void onChanged(@Nullable final List<SavedRun> newRuns) {
+                            ((SavedRunsRecyclerViewAdapter) recyclerView.getAdapter()).setData(newRuns);
+                        }
+                    };
+
+                    //attaching the observer to the runs livedata
+                    savedRuns.observe(SavedRunsActivity.this, runsObserver);
                 }
             });
+            //endregion
         });
         //endregion
+
     }
 
 }

@@ -2,6 +2,7 @@ package com.nottingham.psydm7.cw2_runtracker.RoomDatabase.DAOs;
 
 import android.database.Cursor;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -22,27 +23,27 @@ public interface SavedRunDAO {
 
     //region "sorting the entries by different columns"
     @Query("SELECT * FROM savedRun_table ORDER BY name ASC")
-    List<SavedRun> getRunsSortedByName();
+    LiveData<List<SavedRun>> getRunsSortedByName();
 
     @Query("SELECT * FROM savedRun_table ORDER BY date DESC")
-    List<SavedRun> getRunsSortedByDate();
+    LiveData<List<SavedRun>> getRunsSortedByDate();
 
     @Query("SELECT * FROM savedRun_table ORDER BY distance DESC")
-    List<SavedRun> getRunsSortedByDistance();
+    LiveData<List<SavedRun>> getRunsSortedByDistance();
 
     @Query("SELECT * FROM savedRun_table ORDER BY time DESC")
-    List<SavedRun> getRunsSortedByTime();
+    LiveData<List<SavedRun>> getRunsSortedByTime();
 
     @Query("SELECT * FROM savedRun_table ORDER BY speed DESC")
-    List<SavedRun> getRunsSortedBySpeed();
+    LiveData<List<SavedRun>> getRunsSortedBySpeed();
 
     //endregion
 
     @Query("SELECT COUNT(_id) FROM savedRun_table")
-    int getCount();
+    LiveData<Integer> getCount();
 
     @Query("SELECT * FROM savedRun_table WHERE _id = :id")
-    SavedRun getRunWithID(long id);
+    LiveData<SavedRun> getRunWithID(long id);
 
     //region "Updating fields"
     @Query("Update savedRun_table SET name = :newName WHERE _id = :id")

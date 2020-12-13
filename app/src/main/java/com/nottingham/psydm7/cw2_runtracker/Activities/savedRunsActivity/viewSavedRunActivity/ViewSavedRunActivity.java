@@ -1,12 +1,17 @@
 package com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSavedRunActivity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.SavedRunsActivity;
+import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.SavedRunsRecyclerViewAdapter;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.DAOs.SavedRunDAO;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.Entities.SavedRun;
@@ -15,6 +20,7 @@ import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.RunTrackerRoomDatabase;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ViewSavedRunActivity extends AppCompatActivity {
 
@@ -26,6 +32,7 @@ public class ViewSavedRunActivity extends AppCompatActivity {
     ViewSavedRunMapsFragment mapFragment;
 
     long savedRunID;
+    LiveData<SavedRun> savedRun;
 
     RunTrackerRoomDatabase db;
     SavedRunDAO savedRunDAO;
@@ -59,28 +66,38 @@ public class ViewSavedRunActivity extends AppCompatActivity {
         //region "updating using the values from the database"
         RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
 
-            //getting this runs details
-            SavedRun savedRun = savedRunDAO.getRunWithID(savedRunID);
-            String name = savedRun.getName();
-            DateFormat dateFormat = new SimpleDateFormat("MMM, dd, yyyy 'at' HH:mm");
-            String dateString = dateFormat.format(savedRun.getDate());
-            String speed = (savedRun.getSpeed()+" km/h");
-            String distance = (savedRun.getDistance()+" km");
-            String time = savedRun.getTime();
-            ArrayList<LatLng> path = savedRun.getPath();
+            savedRun = savedRunDAO.getRunWithID(savedRunID); //getting this run
 
-            //region "running on UI thread to safely update the different UI components"
+            //region "creating and attaching observer for the live data"
+            //running on the UI thread as necessary for attaching observer and updating the UI
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    nameView.setText(name);
-                    dateView.setText(dateString);
-                    speedView.setText(speed);
-                    distanceView.setText(distance);
-                    timeView.setText(time);
-                    mapFragment.savePath(path);
-                }
 
+                    // observer that updates the UI when the run has changed
+                    final Observer<SavedRun> runObserver = new Observer<SavedRun>() {
+                        @Override
+                        public void onChanged(@Nullable final SavedRun newRun) {
+                            String name = newRun.getName();
+                            DateFormat dateFormat = new SimpleDateFormat("MMM, dd, yyyy 'at' HH:mm");
+                            String dateString = dateFormat.format(newRun.getDate());
+                            String speed = (newRun.getSpeed()+" km/h");
+                            String distance = (newRun.getDistance()+" km");
+                            String time = newRun.getTime();
+                            ArrayList<LatLng> path = newRun.getPath();
+
+                            nameView.setText(name);
+                            dateView.setText(dateString);
+                            speedView.setText(speed);
+                            distanceView.setText(distance);
+                            timeView.setText(time);
+                            mapFragment.savePath(path);
+                        }
+                    };
+
+                    //attaching the observer to the runs livedata
+                    savedRun.observe(ViewSavedRunActivity.this, runObserver);
+                }
             });
             //endregion
         });
