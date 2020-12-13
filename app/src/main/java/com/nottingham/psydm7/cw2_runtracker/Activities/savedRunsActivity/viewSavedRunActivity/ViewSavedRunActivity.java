@@ -88,20 +88,27 @@ public class ViewSavedRunActivity extends AppCompatActivity {
                     final Observer<SavedRun> runObserver = new Observer<SavedRun>() {
                         @Override
                         public void onChanged(@Nullable final SavedRun newRun) {
-                            String name = newRun.getName();
-                            DateFormat dateFormat = new SimpleDateFormat("MMM, dd, yyyy 'at' HH:mm");
-                            String dateString = dateFormat.format(newRun.getDate());
-                            String speed = (newRun.getSpeed()+" km/h");
-                            String distance = (newRun.getDistance()+" km");
-                            String time = newRun.getTime();
-                            ArrayList<LatLng> path = newRun.getPath();
+                            //if this entry has been deleted
+                            if(newRun==null){
+                                finish();
+                            }
+                            //else this has been updated
+                            else {
+                                String name = newRun.getName();
+                                DateFormat dateFormat = new SimpleDateFormat("MMM, dd, yyyy 'at' HH:mm");
+                                String dateString = dateFormat.format(newRun.getDate());
+                                String speed = (newRun.getSpeed() + " km/h");
+                                String distance = (newRun.getDistance() + " km");
+                                String time = newRun.getTime();
+                                ArrayList<LatLng> path = newRun.getPath();
 
-                            nameView.setText(name);
-                            dateView.setText(dateString);
-                            speedView.setText(speed);
-                            distanceView.setText(distance);
-                            timeView.setText(time);
-                            mapFragment.savePath(path);
+                                nameView.setText(name);
+                                dateView.setText(dateString);
+                                speedView.setText(speed);
+                                distanceView.setText(distance);
+                                timeView.setText(time);
+                                mapFragment.savePath(path);
+                            }
                         }
                     };
 

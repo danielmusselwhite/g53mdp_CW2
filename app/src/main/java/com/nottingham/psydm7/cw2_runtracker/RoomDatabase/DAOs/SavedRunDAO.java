@@ -21,6 +21,9 @@ public interface SavedRunDAO {
     @Query("DELETE FROM savedRun_table")
     void deleteAll();
 
+    @Query("DELETE FROM savedRun_table WHERE _id = :id")
+    void deleteRun(long id);
+
     //region "sorting the entries by different columns"
     @Query("SELECT * FROM savedRun_table ORDER BY name ASC")
     LiveData<List<SavedRun>> getRunsSortedByName();
@@ -47,7 +50,7 @@ public interface SavedRunDAO {
 
     //region "Updating fields"
     @Query("Update savedRun_table SET name = :newName WHERE _id = :id")
-    void rateRecipe(long id, String newName);
+    void updateName(long id, String newName);
 
     // TODO - add ability to update route and also give your performance a rating
     //endregion
