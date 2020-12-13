@@ -2,16 +2,26 @@ package com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSa
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.nottingham.psydm7.cw2_runtracker.Activities.MainActivity;
+import com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity.RunningActivity;
 import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.SavedRunsActivity;
 import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.SavedRunsRecyclerViewAdapter;
+import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSavedRunActivity.editSavedRunActivity.EditSavedRunActivity;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.DAOs.SavedRunDAO;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.Entities.SavedRun;
@@ -103,4 +113,27 @@ public class ViewSavedRunActivity extends AppCompatActivity {
         });
         //endregion
     }
+
+    //region "inter-activity communication"
+    public void onButtonClick (View v) {
+
+        // generically handling button presses via id
+        switch (v.getId()) {
+
+            case R.id.editButton: {
+
+                Bundle bundle = new Bundle();
+                bundle.putLong("SavedRunID",savedRunID);
+                Intent intent = new Intent(ViewSavedRunActivity.this, EditSavedRunActivity.class);
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+                break;
+            }
+
+        }
+
+    }
+
+    //endregion
 }

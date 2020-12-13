@@ -16,4 +16,13 @@
     <string name="_0_km_h">0 km/h</string>
     <string name="name">Name</string>
     <string name="date">Date</string>
+
+    <string-array name="sports_array">
+        <item>Run</item>
+        <item>Jog</item>
+        <item>Walk</item>
+        <item>Cycle</item>
+        <item>Hike</item>
+        <item>Marathon</item>
+    </string-array>
 </resources>

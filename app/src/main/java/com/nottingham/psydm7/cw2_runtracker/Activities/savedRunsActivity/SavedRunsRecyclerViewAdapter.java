@@ -24,8 +24,6 @@ import java.util.List;
 
 public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRunsRecyclerViewAdapter.ViewHolder>{
 
-    public static final int VIEW_SAVEDRUN_ACTIVITY_REQUEST_CODE = 2;
-
     private List<SavedRun> data;
     private Context context;
     private LayoutInflater layoutInflater;
@@ -113,7 +111,7 @@ public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRuns
             Intent intent = new Intent(context, ViewSavedRunActivity.class);
             intent.putExtras(bundle);
 
-            ((Activity) context).startActivityForResult(intent, VIEW_SAVEDRUN_ACTIVITY_REQUEST_CODE);
+            ((Activity) context).startActivity(intent);
         }
     }
     //endregion
