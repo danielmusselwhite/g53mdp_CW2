@@ -40,6 +40,8 @@ public interface SavedRunDAO {
     @Query("SELECT * FROM savedRun_table ORDER BY speed DESC")
     LiveData<List<SavedRun>> getRunsSortedBySpeed();
 
+    @Query("SELECT * FROM savedRun_table ORDER BY sportIndex ASC")
+    LiveData<List<SavedRun>> getRunsSortedBySport();
     //endregion
 
     @Query("SELECT COUNT(_id) FROM savedRun_table")
@@ -52,7 +54,17 @@ public interface SavedRunDAO {
     @Query("Update savedRun_table SET name = :newName WHERE _id = :id")
     void updateName(long id, String newName);
 
-    // TODO - add ability to update route and also give your performance a rating
+    @Query("Update savedRun_table SET sportIndex = :newSportIndex WHERE _id = :id")
+    void updateSportIndex(long id, int newSportIndex);
+
+    @Query("Update savedRun_table SET description = :newDescription WHERE _id = :id")
+    void updateDescription(long id, String newDescription);
+
+    @Query("Update savedRun_table SET difficulty = :newDifficulty WHERE _id = :id")
+    void updateDifficulty(long id, Integer newDifficulty);
+
+    @Query("Update savedRun_table SET picturePath = :newPicturePath WHERE _id = :id")
+    void updatePicturePath(long id, String newPicturePath);
     //endregion
 
     //region "Used for ContentProvider as it requires cursors"

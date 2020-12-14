@@ -118,9 +118,10 @@
 
                 <Spinner
                     android:id="@+id/editRun_spinner_SportValue"
-                    android:layout_width="108dp"
-                    android:layout_height="24dp"
+                    android:layout_width="169dp"
+                    android:layout_height="27dp"
                     app:layout_constraintBottom_toBottomOf="@+id/editRun_textView_Sport"
+                    app:layout_constraintEnd_toEndOf="@+id/editRun_editText_NameValue"
                     app:layout_constraintStart_toStartOf="@+id/editRun_editText_NameValue"
                     app:layout_constraintTop_toTopOf="@+id/editRun_textView_Sport" />
 

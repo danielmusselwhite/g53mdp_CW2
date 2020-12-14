@@ -150,12 +150,16 @@ public class RunningActivity extends AppCompatActivity {
                     DateFormat dateFormat = new SimpleDateFormat("'Run on 'MMMM, dd");
                     String name = dateFormat.format(date);
                     ArrayList<LatLng> path = mapsFragment.getPath();
+
+                    //TODO - Sport index value from spinner
+                    int sportIndex = 3;
+
                     //endregion
 
-                    Log.d("g53mdp","Saving run to savedRuns table, with values: name = "+name+";time = "+stringTime+"; distance = "+totalDistance+"km; speed = "+averageSpeed+"km/h; path size= "+path.size());
+                    Log.d("g53mdp","Saving run to savedRuns table, with values: name = "+name+";time = "+stringTime+"; distance = "+totalDistance+"km; speed = "+averageSpeed+"km/h; path size= "+path.size()+"; sportIndex = "+sportIndex);
 
                     //region "updating savedRuns table"
-                    SavedRun savedRun = new SavedRun(name, date, totalDistance, averageSpeed, stringTime, path);
+                    SavedRun savedRun = new SavedRun(name, date, totalDistance, averageSpeed, stringTime, path,sportIndex);
                     savedRunDAO.insert(savedRun);
                     //endregion
                 });

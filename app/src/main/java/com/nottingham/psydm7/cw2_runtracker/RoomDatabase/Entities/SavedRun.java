@@ -48,14 +48,27 @@ public class SavedRun {
     private ArrayList<LatLng> path;
 
 
+    @NonNull
+    @ColumnInfo(name = "sportIndex")
+    private int sportIndex;
 
-    public SavedRun(@NonNull String name, @NonNull Date date, @NonNull float distance, @NonNull float speed, @NonNull String time, @NonNull  ArrayList<LatLng> path) {
+    @ColumnInfo(name = "description")
+    private String description;
+
+    @ColumnInfo(name = "difficulty")
+    private Integer difficulty; //can be NULL so Integer not int
+
+    @ColumnInfo(name = "picturePath")
+    private String picturePath;
+
+    public SavedRun(@NonNull String name, @NonNull Date date, @NonNull float distance, @NonNull float speed, @NonNull String time, @NonNull  ArrayList<LatLng> path, @NonNull int sportIndex) {
         this.name = name;
         this.date = date;
         this.distance = distance;
         this.speed = speed;
         this.time = time;
         this.path = path;
+        this.sportIndex=sportIndex;
     }
 
     public long get_id() {
@@ -116,5 +129,37 @@ public class SavedRun {
 
     public void setPath(@NonNull ArrayList<LatLng> path) {
         this.path = path;
+    }
+
+    public int getSportIndex() {
+        return sportIndex;
+    }
+
+    public void setSportIndex(int sportIndex) {
+        this.sportIndex = sportIndex;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Integer difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
     }
 }

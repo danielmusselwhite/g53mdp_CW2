@@ -32,6 +32,5 @@
         <item>Walk</item>
         <item>Cycle</item>
         <item>Hike</item>
-        <item>Marathon</item>
     </string-array>
 </resources>

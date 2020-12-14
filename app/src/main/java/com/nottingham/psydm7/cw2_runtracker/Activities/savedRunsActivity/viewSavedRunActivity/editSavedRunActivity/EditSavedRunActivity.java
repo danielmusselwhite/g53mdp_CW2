@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 
 import com.nottingham.psydm7.cw2_runtracker.R;
@@ -28,10 +29,16 @@ public class EditSavedRunActivity extends AppCompatActivity {
 
     private static int RESULT_LOAD_IMAGE = 1;
 
+    Boolean pictureUpdated = false;
+    String newPicturePath = null;
+
     long savedRunID;
     EditText et_Name;
+    EditText et_description;
     ImageView iv_associatedPhoto;
     Button button_removeImage;
+    Spinner spinner_sportValue;
+    SeekBar seekBar_difficulty;
 
     RunTrackerRoomDatabase db;
     SavedRunDAO savedRunDAO;
@@ -44,16 +51,6 @@ public class EditSavedRunActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_saved_run);
 
-        //region "populating the spinner for sports"
-        Spinner spinner = (Spinner) findViewById(R.id.editRun_spinner_SportValue);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.sports_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-        //endregion
-
         //region "retrieving the bundle passed to this activity"
         Bundle bundle = getIntent().getExtras();
         savedRunID = bundle.getLong("SavedRunID");
@@ -63,7 +60,21 @@ public class EditSavedRunActivity extends AppCompatActivity {
         et_Name = findViewById(R.id.editRun_editText_NameValue);
         iv_associatedPhoto = (ImageView) findViewById(R.id.editRun_imageView_associatedPhoto);
         button_removeImage = findViewById(R.id.editRun_button_removeImage);
+        spinner_sportValue = (Spinner) findViewById(R.id.editRun_spinner_SportValue);
+        et_description = findViewById(R.id.editRun_editText_DescriptionValue);
+        seekBar_difficulty = (SeekBar) findViewById(R.id.editRun_seekBar_FeelValue);
         //endregion
+
+        //region "populating the spinner for sports"
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.sports_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner_sportValue.setAdapter(adapter);
+        //endregion
+
+
 
         //region "getting room database and DAOs"
         db = RunTrackerRoomDatabase.getDatabase(getApplicationContext());
@@ -85,8 +96,36 @@ public class EditSavedRunActivity extends AppCompatActivity {
                     final Observer<SavedRun> runObserver = new Observer<SavedRun>() {
                         @Override
                         public void onChanged(@Nullable final SavedRun newRun) {
-                            String name = newRun.getName();
-                            et_Name.setText(name);
+                            et_Name.setText(newRun.getName());
+
+                            spinner_sportValue.setSelection(newRun.getSportIndex());
+
+                            String description = newRun.getDescription();
+                            if(description!=null)
+                                et_description.setText(description);
+                            else
+                                et_description.setText("");
+
+                            String picturePath = newRun.getPicturePath();
+                            if(picturePath!=null) {
+                                try {
+                                    iv_associatedPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                    button_removeImage.setVisibility(View.VISIBLE);
+                                } catch (Exception e) {
+                                    Log.d("g53mdp", "Exception when trying to set image: " + e.toString());
+                                }
+                            }
+                            else{
+                                iv_associatedPhoto.setImageBitmap(null);
+                                button_removeImage.setVisibility(View.INVISIBLE);
+                            }
+
+                            Integer difficulty = newRun.getDifficulty();
+                            if(difficulty!=null)
+                                seekBar_difficulty.setProgress(difficulty);
+                            else{
+                                seekBar_difficulty.setProgress(0);
+                            }
                         }
                     };
 
@@ -115,6 +154,11 @@ public class EditSavedRunActivity extends AppCompatActivity {
 
                 RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
                     savedRunDAO.updateName(savedRunID, et_Name.getText().toString());
+                    savedRunDAO.updateSportIndex(savedRunID, spinner_sportValue.getSelectedItemPosition());
+                    savedRunDAO.updateDescription(savedRunID, et_description.getText().toString());
+                    savedRunDAO.updateDifficulty(savedRunID, seekBar_difficulty.getProgress());
+                    if(pictureUpdated==true)
+                        savedRunDAO.updatePicturePath(savedRunID, newPicturePath);
                 });
 
                 finish();
@@ -147,8 +191,10 @@ public class EditSavedRunActivity extends AppCompatActivity {
             }
 
             case R.id.editRun_button_removeImage: {
+                newPicturePath=null;
                 iv_associatedPhoto.setImageBitmap(null);
                 button_removeImage.setVisibility(View.INVISIBLE);
+                pictureUpdated=true;
                 break;
             }
 
@@ -167,11 +213,12 @@ public class EditSavedRunActivity extends AppCompatActivity {
                     filePathColumn, null, null, null);
             if(cursor.moveToFirst()){
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                String picturePath = cursor.getString(columnIndex);
+                newPicturePath = cursor.getString(columnIndex);
                 cursor.close();
                 try{
-                    iv_associatedPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    iv_associatedPhoto.setImageBitmap(BitmapFactory.decodeFile(newPicturePath));
                     button_removeImage.setVisibility(View.VISIBLE);
+                    pictureUpdated=true;
                 }
                 catch(Exception e){
                     Log.d("g53mdp","Exception when trying to set image: " + e.toString());
