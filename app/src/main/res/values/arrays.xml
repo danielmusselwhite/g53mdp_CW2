@@ -1,0 +1,11 @@
+<resources>
+
+    <string-array name="sports_array">
+        <item>Run</item>
+        <item>Jog</item>
+        <item>Walk</item>
+        <item>Cycle</item>
+        <item>Hike</item>
+    </string-array>
+
+</resources>

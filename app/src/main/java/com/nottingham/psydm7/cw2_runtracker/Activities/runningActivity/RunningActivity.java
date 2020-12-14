@@ -147,12 +147,16 @@ public class RunningActivity extends AppCompatActivity {
                     String stringTime = formatTimeNicely(totalTime);
                     float averageSpeed = calculateSpeed(totalDistance, totalTime);
                     Date date = Calendar.getInstance().getTime();
-                    DateFormat dateFormat = new SimpleDateFormat("'Run on 'MMMM, dd");
+
+                    //TODO - Sport index value from spinner before the service is launched
+                    int sportIndex = 3;
+                    String sport = getResources().getStringArray(R.array.sports_array)[sportIndex];
+
+                    DateFormat dateFormat = new SimpleDateFormat("'"+sport+" on 'MMMM, dd");
                     String name = dateFormat.format(date);
                     ArrayList<LatLng> path = mapsFragment.getPath();
 
-                    //TODO - Sport index value from spinner
-                    int sportIndex = 3;
+
 
                     //endregion
 

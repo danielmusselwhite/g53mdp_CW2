@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
+import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSavedRunActivity.ViewSavedRunActivity;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.DAOs.SavedRunDAO;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.Entities.SavedRun;
@@ -110,14 +111,19 @@ public class EditSavedRunActivity extends AppCompatActivity {
                             if(picturePath!=null) {
                                 try {
                                     iv_associatedPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                    iv_associatedPhoto.setVisibility(View.VISIBLE);
                                     button_removeImage.setVisibility(View.VISIBLE);
                                 } catch (Exception e) {
                                     Log.d("g53mdp", "Exception when trying to set image: " + e.toString());
+                                    iv_associatedPhoto.setImageBitmap(null);
+                                    button_removeImage.setVisibility(View.INVISIBLE);
+                                    iv_associatedPhoto.setVisibility(View.INVISIBLE);
                                 }
                             }
                             else{
                                 iv_associatedPhoto.setImageBitmap(null);
                                 button_removeImage.setVisibility(View.INVISIBLE);
+                                iv_associatedPhoto.setVisibility(View.INVISIBLE);
                             }
 
                             Integer difficulty = newRun.getDifficulty();
@@ -150,18 +156,31 @@ public class EditSavedRunActivity extends AppCompatActivity {
 
                 Log.d("g53mdp", "Updating entry for this run!");
 
-                savedRun.removeObservers(this);
+                //only allow the run to be saved if the name exists!
+                String name = et_Name.getText().toString();
+                if(name!=""){
+                    savedRun.removeObservers(this);
 
-                RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
-                    savedRunDAO.updateName(savedRunID, et_Name.getText().toString());
-                    savedRunDAO.updateSportIndex(savedRunID, spinner_sportValue.getSelectedItemPosition());
-                    savedRunDAO.updateDescription(savedRunID, et_description.getText().toString());
-                    savedRunDAO.updateDifficulty(savedRunID, seekBar_difficulty.getProgress());
-                    if(pictureUpdated==true)
-                        savedRunDAO.updatePicturePath(savedRunID, newPicturePath);
-                });
+                    RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
 
-                finish();
+                        savedRunDAO.updateName(savedRunID, name);
+                        savedRunDAO.updateSportIndex(savedRunID, spinner_sportValue.getSelectedItemPosition());
+                        savedRunDAO.updateDifficulty(savedRunID, seekBar_difficulty.getProgress());
+
+                        String description = et_description.getText().toString();
+                        if(!description.isEmpty())
+                            savedRunDAO.updateDescription(savedRunID, description);
+                        else
+                            savedRunDAO.updateDescription(savedRunID, null);
+
+                        if(pictureUpdated==true)
+                            savedRunDAO.updatePicturePath(savedRunID, newPicturePath);
+                    });
+
+                    finish();
+                }
+
+
                 break;
             }
 
@@ -193,6 +212,7 @@ public class EditSavedRunActivity extends AppCompatActivity {
             case R.id.editRun_button_removeImage: {
                 newPicturePath=null;
                 iv_associatedPhoto.setImageBitmap(null);
+                iv_associatedPhoto.setVisibility(View.INVISIBLE);
                 button_removeImage.setVisibility(View.INVISIBLE);
                 pictureUpdated=true;
                 break;
@@ -213,19 +233,19 @@ public class EditSavedRunActivity extends AppCompatActivity {
                     filePathColumn, null, null, null);
             if(cursor.moveToFirst()){
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                newPicturePath = cursor.getString(columnIndex);
+                String picturePath = cursor.getString(columnIndex);
                 cursor.close();
                 try{
+                    newPicturePath = picturePath;
                     iv_associatedPhoto.setImageBitmap(BitmapFactory.decodeFile(newPicturePath));
+                    iv_associatedPhoto.setVisibility(View.VISIBLE);
                     button_removeImage.setVisibility(View.VISIBLE);
                     pictureUpdated=true;
                 }
                 catch(Exception e){
                     Log.d("g53mdp","Exception when trying to set image: " + e.toString());
                 }
-
             }
-
         }
     }
     //endregion

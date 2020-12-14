@@ -25,12 +25,8 @@
     <string name="easy">Easy</string>
     <string name="how_did_it_go_were_you_rested_how_was_the_weather_leave_your_notes_here">How did it go? Were you rested? How was the weather? Leave your notes here.</string>
     <string name="max_effort">Max Effort</string>
+    <string name="edit">Edit</string>
+    <string name="this_activity_felt">This activity felt:</string>
+    <string name="associated_image">Associated Image:</string>
 
-    <string-array name="sports_array">
-        <item>Run</item>
-        <item>Jog</item>
-        <item>Walk</item>
-        <item>Cycle</item>
-        <item>Hike</item>
-    </string-array>
 </resources>

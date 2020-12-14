@@ -76,26 +76,28 @@ public class ViewSavedRunMapsFragment extends Fragment {
     private void updateMap(ArrayList<LatLng> path) {
 
         //region "getting the first and last coordinate in the path"
-        LatLng start = path.get(0);
-        LatLng end = path.get(path.size()-1);
-        //endregion
+        if(!path.isEmpty()) {
+            LatLng start = path.get(0);
+            LatLng end = path.get(path.size() - 1);
+            //endregion
 
-        Log.d("g53mdp","SavedRunsMapFragment, updating the map with path of size: "+path.size()+"; start coords"+start.toString()+"; end coords"+end.toString());
+            Log.d("g53mdp", "SavedRunsMapFragment, updating the map with path of size: " + path.size() + "; start coords" + start.toString() + "; end coords" + end.toString());
 
-        //region "adding markers for start and end of the run"
-        googleMap.addMarker(new MarkerOptions().position(start).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("Start of run"));
-        googleMap.addMarker(new MarkerOptions().position(end).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("End of run"));
-        //endregion
+            //region "adding markers for start and end of the run"
+            googleMap.addMarker(new MarkerOptions().position(start).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("Start of run"));
+            googleMap.addMarker(new MarkerOptions().position(end).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("End of run"));
+            //endregion
 
-        //moving the camera to the start of the run
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(start, 17f));
+            //moving the camera to the start of the run
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(start, 17f));
 
-        //region "drawing the path to the map"
-        for(int i=0; i<path.size()-1; i++)
-            googleMap.addPolyline(new PolylineOptions()
-                    .add(path.get(i), path.get(i+1))
-                    .width(7)
-                    .color(Color.BLUE));
-        //endregion
+            //region "drawing the path to the map"
+            for (int i = 0; i < path.size() - 1; i++)
+                googleMap.addPolyline(new PolylineOptions()
+                        .add(path.get(i), path.get(i + 1))
+                        .width(7)
+                        .color(Color.BLUE));
+            //endregion
+        }
     }
 }

@@ -2,25 +2,19 @@ package com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSa
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.nottingham.psydm7.cw2_runtracker.Activities.MainActivity;
-import com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity.RunningActivity;
-import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.SavedRunsActivity;
-import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.SavedRunsRecyclerViewAdapter;
 import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSavedRunActivity.editSavedRunActivity.EditSavedRunActivity;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.DAOs.SavedRunDAO;
@@ -30,7 +24,6 @@ import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.RunTrackerRoomDatabase;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewSavedRunActivity extends AppCompatActivity {
 
@@ -39,6 +32,17 @@ public class ViewSavedRunActivity extends AppCompatActivity {
     TextView speedView;
     TextView distanceView;
     TextView timeView;
+    TextView tv_sport;
+
+    TextView tv_description;
+    TextView tv_descriptionValue;
+
+    TextView tv_image;
+    ImageView iv_associatedPhoto;
+
+    TextView tv_difficulty;
+    SeekBar seekBar_difficulty;
+
     ViewSavedRunMapsFragment mapFragment;
 
     long savedRunID;
@@ -58,6 +62,14 @@ public class ViewSavedRunActivity extends AppCompatActivity {
         speedView = findViewById(R.id.viewRunTextViewSpeedValue);
         distanceView = findViewById(R.id.viewRunTextViewDistanceValue);
         timeView = findViewById(R.id.viewRunTextViewTimeValue);
+        tv_sport = findViewById(R.id.viewRunTextViewSport);
+
+        tv_description  = findViewById(R.id.viewRunTextViewDescription);
+        tv_descriptionValue  = findViewById(R.id.viewRunTextViewDescriptionValue);
+        tv_image  = findViewById(R.id.viewRunTextViewImage);
+        tv_difficulty  = findViewById(R.id.viewRunTextViewFeeling);
+        seekBar_difficulty = (SeekBar) findViewById(R.id.viewRun_seekBar_FeelValue);
+        iv_associatedPhoto = (ImageView) findViewById(R.id.viewRun_imageView_associatedPhoto);
 
         //getting the map fragment
         mapFragment = (ViewSavedRunMapsFragment) this.getSupportFragmentManager().findFragmentById(R.id.viewRun_mapFragment);
@@ -101,13 +113,52 @@ public class ViewSavedRunActivity extends AppCompatActivity {
                                 String distance = (newRun.getDistance() + " km");
                                 String time = newRun.getTime();
                                 ArrayList<LatLng> path = newRun.getPath();
+                                String sport = getResources().getStringArray(R.array.sports_array)[newRun.getSportIndex()];
 
                                 nameView.setText(name);
                                 dateView.setText(dateString);
                                 speedView.setText(speed);
                                 distanceView.setText(distance);
                                 timeView.setText(time);
+                                tv_sport.setText(sport);
                                 mapFragment.savePath(path);
+
+                                //region "handling columns which can contain nulls"
+                                String description = newRun.getDescription();
+                                if(description!=null){
+                                    tv_descriptionValue.setText(description);
+                                    tv_description.setVisibility(View.VISIBLE);
+                                    tv_descriptionValue.setVisibility(View.VISIBLE);
+                                }
+                                else{
+                                    tv_description.setVisibility(View.GONE);
+                                    tv_descriptionValue.setVisibility(View.GONE);
+                                }
+
+                                String picturePath = newRun.getPicturePath();
+                                if(picturePath!=null){
+                                    try {
+                                        iv_associatedPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                        //TODO - either remove this or implement it; decide which look you prefer
+                                        //region "scaling the image for taking up 75% of the screens width
+//                                        int screenWidth = ViewSavedRunActivity.this.getResources().getDisplayMetrics().widthPixels;
+//                                        iv_associatedPhoto.getLayoutParams().width = (int) (0.75 * screenWidth);
+                                        //endregion
+                                        tv_image.setVisibility(View.VISIBLE);
+                                        iv_associatedPhoto.setVisibility(View.VISIBLE);
+                                    } catch (Exception e) {
+                                        Log.d("g53mdp", "Exception when trying to set image: " + e.toString());
+                                        iv_associatedPhoto.setImageBitmap(null);
+                                        tv_image.setVisibility(View.GONE);
+                                        iv_associatedPhoto.setVisibility(View.GONE);
+                                    }
+                                }
+                                else{
+                                    iv_associatedPhoto.setImageBitmap(null);
+                                    tv_image.setVisibility(View.GONE);
+                                    iv_associatedPhoto.setVisibility(View.GONE);
+                                }
+                                //endregion
                             }
                         }
                     };
