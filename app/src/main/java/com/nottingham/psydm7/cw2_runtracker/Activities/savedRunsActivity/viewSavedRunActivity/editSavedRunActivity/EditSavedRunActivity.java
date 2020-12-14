@@ -1,36 +1,37 @@
 package com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSavedRunActivity.editSavedRunActivity;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
-import android.icu.util.Calendar;
-import android.os.Build;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSavedRunActivity.ViewSavedRunActivity;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.DAOs.SavedRunDAO;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.Entities.SavedRun;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.RunTrackerRoomDatabase;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
 public class EditSavedRunActivity extends AppCompatActivity {
+
+    private static int RESULT_LOAD_IMAGE = 1;
 
     long savedRunID;
     EditText et_Name;
+    ImageView iv_associatedPhoto;
+    Button button_removeImage;
 
     RunTrackerRoomDatabase db;
     SavedRunDAO savedRunDAO;
@@ -60,6 +61,8 @@ public class EditSavedRunActivity extends AppCompatActivity {
 
         //region "getting references to the different views"
         et_Name = findViewById(R.id.editRun_editText_NameValue);
+        iv_associatedPhoto = (ImageView) findViewById(R.id.editRun_imageView_associatedPhoto);
+        button_removeImage = findViewById(R.id.editRun_button_removeImage);
         //endregion
 
         //region "getting room database and DAOs"
@@ -132,8 +135,53 @@ public class EditSavedRunActivity extends AppCompatActivity {
                 break;
             }
 
+            case R.id.editRun_button_loadImage: {
+
+                Log.d("g53mdp", "Deleting entry for this run!");
+
+                // launching gallery to pick image
+                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, RESULT_LOAD_IMAGE);
+
+                break;
+            }
+
+            case R.id.editRun_button_removeImage: {
+                iv_associatedPhoto.setImageBitmap(null);
+                button_removeImage.setVisibility(View.INVISIBLE);
+                break;
+            }
+
         }
 
     }
+
+    //region "reference: https://www.viralpatel.net/pick-image-from-galary-android-app/"
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            if(cursor.moveToFirst()){
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String picturePath = cursor.getString(columnIndex);
+                cursor.close();
+                try{
+                    iv_associatedPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    button_removeImage.setVisibility(View.VISIBLE);
+                }
+                catch(Exception e){
+                    Log.d("g53mdp","Exception when trying to set image: " + e.toString());
+                }
+
+            }
+
+        }
+    }
+    //endregion
+
     //endregion
 }

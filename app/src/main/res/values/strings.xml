@@ -3,19 +3,28 @@
     <string name="main_button_viewStats">Stats</string>
     <string name="main_button_viewAllRuns">Runs</string>
     <string name="main_button_viewAllRoutes">Routes</string>
-    <string name="average_speed">Average Speed:</string>
-    <string name="time">Time</string>
+    <string name="average_speed">Average Speed: </string>
+    <string name="time">Time: </string>
     <string name="kilometers">Kilometers</string>
     <string name="stop">Save Run</string>
     <string name="records">Records</string>
     <string name="start_run">Start Run</string>
     <string name="past_runs">Past Runs</string>
-    <string name="distance">Distance</string>
+    <string name="distance">Distance: </string>
     <string name="_00_00">00:00</string>
     <string name="_0_km">0 km</string>
     <string name="_0_km_h">0 km/h</string>
-    <string name="name">Name</string>
-    <string name="date">Date</string>
+    <string name="name">Name: </string>
+    <string name="date">Date: </string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+    <string name="description">Description: </string>
+    <string name="sport">Sport: </string>
+    <string name="run_name">Run Name</string>
+    <string name="how_did_this_activity_feel">How did this activity feel?</string>
+    <string name="easy">Easy</string>
+    <string name="how_did_it_go_were_you_rested_how_was_the_weather_leave_your_notes_here">How did it go? Were you rested? How was the weather? Leave your notes here.</string>
+    <string name="max_effort">Max Effort</string>
 
     <string-array name="sports_array">
         <item>Run</item>

@@ -6,129 +6,189 @@
     android:layout_height="match_parent"
     tools:context=".Activities.savedRunsActivity.viewSavedRunActivity.editSavedRunActivity.EditSavedRunActivity">
 
-    <TextView
-        android:id="@+id/editRun_textView_Description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Description:"
-        app:layout_constraintStart_toStartOf="@+id/editRun_textView_Sport"
-        app:layout_constraintTop_toBottomOf="@+id/editRun_textView_Sport" />
-
-    <TextView
-        android:id="@+id/editRun_textView_feel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="How did this activity feel?"
-        app:layout_constraintStart_toStartOf="@+id/editRun_editText_DescriptionValue"
-        app:layout_constraintTop_toBottomOf="@+id/editRun_editText_DescriptionValue" />
-
-    <TextView
-        android:id="@+id/editRun_textView_feelMaxEffort"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Max Effort"
-        app:layout_constraintEnd_toEndOf="@+id/editRun_seekBar_FeelValue"
-        app:layout_constraintTop_toBottomOf="@+id/editRun_seekBar_FeelValue" />
-
-    <TextView
-        android:id="@+id/editRun_textView_feelEasy2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Easy"
-        app:layout_constraintStart_toStartOf="@+id/editRun_seekBar_FeelValue"
-        app:layout_constraintTop_toBottomOf="@+id/editRun_seekBar_FeelValue" />
-
     <Button
         android:id="@+id/editRun_button_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:onClick="onButtonClick"
-        android:text="Update"
+        android:text="@string/update"
         app:backgroundTint="@android:color/holo_green_dark"
-        app:layout_constraintBottom_toBottomOf="@+id/editRun_button_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/editRun_button_delete"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="610dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <SeekBar
+                    android:id="@+id/editRun_seekBar_FeelValue"
+                    style="@style/Widget.AppCompat.SeekBar.Discrete"
+                    android:layout_width="256dp"
+                    android:layout_height="59dp"
+                    android:layout_marginTop="1dp"
+                    android:max="10"
+                    android:progress="3"
+                    app:layout_constraintStart_toStartOf="@+id/editRun_textView_feel"
+                    app:layout_constraintTop_toBottomOf="@+id/editRun_textView_feel" />
+
+                <EditText
+                    android:id="@+id/editRun_editText_DescriptionValue"
+                    android:layout_width="264dp"
+                    android:layout_height="78dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="@string/how_did_it_go_were_you_rested_how_was_the_weather_leave_your_notes_here"
+                    android:inputType="textMultiLine"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/editRun_textView_Description"
+                    app:layout_constraintTop_toBottomOf="@+id/editRun_textView_Description" />
+
+                <TextView
+                    android:id="@+id/editRun_textView_feelMaxEffort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/max_effort"
+                    app:layout_constraintEnd_toEndOf="@+id/editRun_seekBar_FeelValue"
+                    app:layout_constraintTop_toBottomOf="@+id/editRun_seekBar_FeelValue" />
+
+                <TextView
+                    android:id="@+id/editRun_textView_Sport"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/sport"
+                    app:layout_constraintStart_toStartOf="@+id/editRun_textView_Name"
+                    app:layout_constraintTop_toBottomOf="@+id/editRun_editText_NameValue" />
+
+                <TextView
+                    android:id="@+id/editRun_textView_feelEasy2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/easy"
+                    app:layout_constraintStart_toStartOf="@+id/editRun_seekBar_FeelValue"
+                    app:layout_constraintTop_toBottomOf="@+id/editRun_seekBar_FeelValue" />
+
+                <TextView
+                    android:id="@+id/editRun_textView_Description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/description"
+                    app:layout_constraintStart_toStartOf="@+id/editRun_textView_Sport"
+                    app:layout_constraintTop_toBottomOf="@+id/editRun_spinner_SportValue" />
+
+                <TextView
+                    android:id="@+id/editRun_textView_Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.159"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/editRun_imageView_associatedPhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/editRun_button_removeImage"
+                    app:layout_constraintStart_toStartOf="@+id/editRun_button_loadImage"
+                    app:layout_constraintTop_toBottomOf="@+id/editRun_button_loadImage"
+                    app:srcCompat="@android:drawable/screen_background_dark" />
+
+                <Spinner
+                    android:id="@+id/editRun_spinner_SportValue"
+                    android:layout_width="108dp"
+                    android:layout_height="24dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/editRun_textView_Sport"
+                    app:layout_constraintStart_toStartOf="@+id/editRun_editText_NameValue"
+                    app:layout_constraintTop_toTopOf="@+id/editRun_textView_Sport" />
+
+                <TextView
+                    android:id="@+id/editRun_textView_feel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/how_did_this_activity_feel"
+                    app:layout_constraintStart_toStartOf="@+id/editRun_editText_DescriptionValue"
+                    app:layout_constraintTop_toBottomOf="@+id/editRun_editText_DescriptionValue" />
+
+                <Button
+                    android:id="@+id/editRun_button_loadImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:onClick="onButtonClick"
+                    android:text="Load Image"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@+id/editRun_button_removeImage"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editRun_textView_feelEasy2" />
+
+                <Button
+                    android:id="@+id/editRun_button_removeImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onButtonClick"
+                    android:text="Remove Image"
+                    android:textSize="14sp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/editRun_button_loadImage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/editRun_button_loadImage" />
+
+                <EditText
+                    android:id="@+id/editRun_editText_NameValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/run_name"
+                    android:inputType="textPersonName"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/editRun_textView_Name"
+                    app:layout_constraintStart_toEndOf="@+id/editRun_textView_Name"
+                    app:layout_constraintTop_toTopOf="@+id/editRun_textView_Name" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/editRun_button_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onButtonClick"
-        android:text="Delete"
+        android:text="@string/delete"
         app:backgroundTint="@android:color/holo_red_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/editRun_button_update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/editRun_button_update"
-        app:layout_constraintTop_toBottomOf="@+id/editRun_seekBar_FeelValue"
-        app:layout_constraintVertical_bias="0.916" />
-
-    <TextView
-        android:id="@+id/editRun_textView_Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name: "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.204"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024" />
-
-    <TextView
-        android:id="@+id/editRun_textView_Sport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sport: "
-        app:layout_constraintBottom_toBottomOf="@+id/editRun_spinner_SportValue"
-        app:layout_constraintStart_toStartOf="@+id/editRun_textView_Name"
-        app:layout_constraintTop_toTopOf="@+id/editRun_spinner_SportValue" />
-
-    <Spinner
-        android:id="@+id/editRun_spinner_SportValue"
-        android:layout_width="108dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="@+id/editRun_editText_NameValue"
-        app:layout_constraintTop_toBottomOf="@+id/editRun_editText_NameValue" />
-
-    <SeekBar
-        android:id="@+id/editRun_seekBar_FeelValue"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="256dp"
-        android:layout_height="59dp"
-        android:max="10"
-        android:progress="3"
-        app:layout_constraintStart_toStartOf="@+id/editRun_textView_feel"
-        app:layout_constraintTop_toBottomOf="@+id/editRun_textView_feel" />
-
-    <EditText
-        android:id="@+id/editRun_editText_DescriptionValue"
-        android:layout_width="264dp"
-        android:layout_height="78dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="How did it go? Were you rested? How was the weather? Leave your notes here."
-        android:inputType="textMultiLine"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/editRun_textView_Description"
-        app:layout_constraintTop_toBottomOf="@+id/editRun_textView_Description" />
-
-    <EditText
-        android:id="@+id/editRun_editText_NameValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:ems="10"
-        android:hint="Run Name"
-        android:inputType="textPersonName"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editRun_textView_Name"
-        app:layout_constraintStart_toEndOf="@+id/editRun_textView_Name"
-        app:layout_constraintTop_toTopOf="@+id/editRun_textView_Name" />
+        app:layout_constraintTop_toTopOf="@+id/editRun_button_update" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
