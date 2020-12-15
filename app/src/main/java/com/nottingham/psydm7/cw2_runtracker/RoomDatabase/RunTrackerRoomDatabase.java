@@ -16,7 +16,7 @@ import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.Entities.SavedRun;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {SavedRun.class}, version = 2, exportSchema=false)
+@Database(entities = {SavedRun.class}, version = 1, exportSchema=false)
 public abstract class RunTrackerRoomDatabase extends RoomDatabase {
 
     public  abstract SavedRunDAO savedRunDAO();

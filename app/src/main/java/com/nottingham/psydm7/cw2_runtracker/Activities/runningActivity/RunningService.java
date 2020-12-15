@@ -37,6 +37,8 @@ public class RunningService extends Service {
     private static MyLocationListener locationListener;
     float totalDistance=0;
 
+    int sportIndex;
+
     public RunningService() {
     }
 
@@ -89,9 +91,12 @@ public class RunningService extends Service {
 
     //region "lifecycle methods"
     @Override
-    public void onCreate() {
-        Log.d("g53mdp","RunningService onCreate");
-        super.onCreate();
+    public int onStartCommand (Intent intent, int flags, int startId) {
+        //region "retrieving the bundle passed to this activity"
+        Bundle bundle = intent.getExtras();
+        sportIndex = bundle.getInt("SportIndex");
+        Log.d("g53mdp3","sportIndex: "+sportIndex);
+        //endregion
 
         //region "setting up the notification manager"
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -111,34 +116,41 @@ public class RunningService extends Service {
 
         //endregion
 
-        startForeground(FOREGROUND_ID, buildForegroundNotification());
-
         //region "setting up location manager and listener"
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationListener = new MyLocationListener();
 
         // if this doesn't have access to location permission, return as you cannot do anything
         if (ActivityCompat.checkSelfPermission(RunningService.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(RunningService.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+            return super.onStartCommand(intent, flags, startId);
         }
 
+        startForeground(FOREGROUND_ID, buildForegroundNotification()); // starting in the foreground so that we can continue to track location without it getting killed by OS
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, locationListener);
         //endregion
+
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onCreate() {
+        Log.d("g53mdp","RunningService onCreate");
+        super.onCreate();
     }
 
     @Override
     public void onDestroy(){
         Log.d("g53mdp","RunningService onDestroy");
-        //stopForeground(true);
         super.onDestroy();
     }
     //endregion
 
     // used to build the foreground notifacation necessetated to make this a foreground service
     private Notification buildForegroundNotification(){
+        Log.d("g53mdp3","sportIndex foreground: "+sportIndex);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(RunningService.this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("You are currently on a run!")
+                .setContentTitle("You are currently on a "+getResources().getStringArray(R.array.sports_array)[sportIndex]+"!")
                 .setContentText("Your progress is being tracked!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setOngoing(true);

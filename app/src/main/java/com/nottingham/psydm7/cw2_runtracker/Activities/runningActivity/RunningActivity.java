@@ -15,6 +15,7 @@ import android.location.Location;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -35,9 +36,12 @@ public class RunningActivity extends AppCompatActivity {
 
     public final static int REQUEST_CODE_PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 1;
 
-    TextView tvTime;
-    TextView tvKilos;
-    TextView tvAverageSpeed;
+    int sportIndex;
+
+    TextView textView_timeValue;
+    TextView textView_distanceValue;
+    TextView textView_averageSpeedValue;
+    Button button_save;
 
     RunTrackerRoomDatabase db;
     SavedRunDAO savedRunDAO;
@@ -67,8 +71,8 @@ public class RunningActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             float averageSpeed = calculateSpeed(totalDistance, getDuration());
-                            tvTime.setText(formatTimeNicely(getDuration()));
-                            tvAverageSpeed.setText(averageSpeed  +" km/h");
+                            textView_timeValue.setText(formatTimeNicely(getDuration()));
+                            textView_averageSpeedValue.setText(averageSpeed  +" km/h"); // update average speed when time increases as well as when distance increases
                         }
                     });
 
@@ -87,6 +91,11 @@ public class RunningActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running);
 
+        //region "retrieving the bundle passed to this activity"
+        Bundle bundle = getIntent().getExtras();
+        sportIndex = bundle.getInt("SportIndex");
+        //endregion
+
         //region "initialising DAOs"
         db = RunTrackerRoomDatabase.getDatabase(getApplicationContext());
         savedRunDAO = db.savedRunDAO();
@@ -95,9 +104,16 @@ public class RunningActivity extends AppCompatActivity {
         //region "creating and binding service"
         // MY BOUND
         Log.d("g53mdp", "RunningActivity starting MyBoundService");
-        this.startService(new Intent(this, RunningService.class));
+
+        Bundle startServiceBundle = new Bundle();
+        startServiceBundle.putInt("SportIndex", sportIndex);
+        Intent startServiceIntent = new Intent(this, RunningService.class);
+        startServiceIntent.putExtras(startServiceBundle);
+
+        this.startService(startServiceIntent);
         Log.d("g53mdp", "RunningActivity binding MyBoundService");
         this.bindService(new Intent(this, RunningService.class), serviceConnection, Context.BIND_AUTO_CREATE);
+
         //endregion
 
         //getting start time
@@ -107,11 +123,14 @@ public class RunningActivity extends AppCompatActivity {
         mapsFragment = (RunningMapsFragment) RunningActivity.this.getSupportFragmentManager().findFragmentById(R.id.fragment_runningMap);
         //endregion
 
-        //region "sorting out stuff for text views"
-        tvTime = (TextView) findViewById(R.id.textViewTimeValue);
-        tvKilos = (TextView) findViewById(R.id.textViewKilometersValue);
-        tvAverageSpeed = (TextView) findViewById(R.id.textViewAverageSpeedValue);
+        //region "getting references to views we will update"
+        textView_timeValue = (TextView) findViewById(R.id.textViewTimeValue);
+        textView_distanceValue = (TextView) findViewById(R.id.textViewKilometersValue);
+        textView_averageSpeedValue = (TextView) findViewById(R.id.textViewAverageSpeedValue);
+        button_save = (Button) findViewById(R.id.running_button_save);
         //endregion
+
+        button_save.setText("Save "+getResources().getStringArray(R.array.sports_array)[sportIndex]);
 
         // starting the thread that will update the text view for playback duration every second
         playBackTextViewThread.start();
@@ -134,7 +153,7 @@ public class RunningActivity extends AppCompatActivity {
         // generically handling button presses via id
         switch (v.getId()) {
 
-            case R.id.button_stop: {
+            case R.id.running_button_save: {
 
                 Log.d("g53mdp", "Finished the current run!");
 
@@ -147,11 +166,7 @@ public class RunningActivity extends AppCompatActivity {
                     String stringTime = formatTimeNicely(totalTime);
                     float averageSpeed = calculateSpeed(totalDistance, totalTime);
                     Date date = Calendar.getInstance().getTime();
-
-                    //TODO - Sport index value from spinner before the service is launched
-                    int sportIndex = 3;
                     String sport = getResources().getStringArray(R.array.sports_array)[sportIndex];
-
                     DateFormat dateFormat = new SimpleDateFormat("'"+sport+" on 'MMMM, dd");
                     String name = dateFormat.format(date);
                     ArrayList<LatLng> path = mapsFragment.getPath();
@@ -256,7 +271,9 @@ public class RunningActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     mapsFragment.updateMap(location, lastLocation);
-                    tvKilos.setText(totalDistance + " km");
+                    textView_distanceValue.setText(totalDistance + " km");
+                    float averageSpeed = calculateSpeed(totalDistance, getDuration());
+                    textView_averageSpeedValue.setText(averageSpeed  +" km/h"); // update average speed when location changes as well as when time increases
                 }
             });
 

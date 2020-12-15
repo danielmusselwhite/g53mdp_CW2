@@ -73,6 +73,7 @@ public class SavedRunsActivity extends AppCompatActivity {
 
         //region "sorting entries based on the spinners value"
         spinner_sorting.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
                 Log.d("g53mdp","sorting spinner has changed to: '"+getResources().getStringArray(R.array.sorting_array)[pos]+"'");

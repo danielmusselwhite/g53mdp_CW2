@@ -84,8 +84,8 @@ public class ViewSavedRunMapsFragment extends Fragment {
             Log.d("g53mdp", "SavedRunsMapFragment, updating the map with path of size: " + path.size() + "; start coords" + start.toString() + "; end coords" + end.toString());
 
             //region "adding markers for start and end of the run"
-            googleMap.addMarker(new MarkerOptions().position(start).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("Start of run"));
-            googleMap.addMarker(new MarkerOptions().position(end).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("End of run"));
+            googleMap.addMarker(new MarkerOptions().position(start).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("Start"));
+            googleMap.addMarker(new MarkerOptions().position(end).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("End"));
             //endregion
 
             //moving the camera to the start of the run
