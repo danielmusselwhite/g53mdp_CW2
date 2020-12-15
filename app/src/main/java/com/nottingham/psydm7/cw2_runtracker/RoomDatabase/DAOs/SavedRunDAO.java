@@ -25,7 +25,7 @@ public interface SavedRunDAO {
     void deleteRun(long id);
 
     //region "sorting the entries by different columns"
-    @Query("SELECT * FROM savedRun_table ORDER BY name ASC")
+    @Query("SELECT * FROM savedRun_table ORDER BY UPPER(name) ASC")
     LiveData<List<SavedRun>> getRunsSortedByName();
 
     @Query("SELECT * FROM savedRun_table ORDER BY date DESC")

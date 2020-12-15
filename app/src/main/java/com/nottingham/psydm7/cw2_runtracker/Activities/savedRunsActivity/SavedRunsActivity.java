@@ -1,5 +1,6 @@
 package com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
@@ -10,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.media.Image;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -65,30 +69,69 @@ public class SavedRunsActivity extends AppCompatActivity {
         spinner_sorting.setAdapter(spinnerAdapter);
         //endregion
 
-        //region "Getting the runs DAO and creating observer for live data"
-        RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
-            savedRuns = savedRunDAO.getRunsSortedByDate(); //getting all runs default sorted by date
+        //endregion
 
-            //region "creating and attaching obsever for the live data"
-            //running on the UI thread as necessary for attaching observer and updating the UI
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+        //region "sorting entries based on the spinners value"
+        spinner_sorting.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-                    // telling the recyclerView to update when Runs have changed
-                    final Observer<List<SavedRun>> runsObserver = new Observer<List<SavedRun>>() {
-                        @Override
-                        public void onChanged(@Nullable final List<SavedRun> newRuns) {
-                            ((SavedRunsRecyclerViewAdapter) recyclerView.getAdapter()).setData(newRuns);
-                        }
-                    };
+                Log.d("g53mdp","sorting spinner has changed to: '"+getResources().getStringArray(R.array.sorting_array)[pos]+"'");
 
-                    //attaching the observer to the runs livedata
-                    savedRuns.observe(SavedRunsActivity.this, runsObserver);
+                //region "Handling cleaning of previous savedRuns if it exists"
+                if(savedRuns!=null){
+                    Log.d("g53mdp","handling cleaning of prior savedRuns");
+                    savedRuns.removeObservers(SavedRunsActivity.this); // removing observers as we no longer care about it
+                    savedRuns = null; // remove reference to it so java can deallocate memory
                 }
-            });
-            //endregion
+                //endregion
+
+                RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
+                    //region "Sorting the runs based on the spinners value"
+                    switch(pos) {
+                        case 0:
+                            savedRuns = savedRunDAO.getRunsSortedByDate();
+                            break;
+                        case 1:
+                            savedRuns = savedRunDAO.getRunsSortedByName();
+                            break;
+                        case 2:
+                            savedRuns = savedRunDAO.getRunsSortedByDistance();
+                            break;
+                        case 3:
+                            savedRuns = savedRunDAO.getRunsSortedByTime();
+                            break;
+                        case 4:
+                            savedRuns = savedRunDAO.getRunsSortedBySport();
+                            break;
+                    }
+                    //endregion
+
+                    //region "creating and attaching obsever for the live data"
+                    //running on the UI thread as necessary for attaching observer and updating the UI
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            // telling the recyclerView to update when Runs have changed
+                            final Observer<List<SavedRun>> runsObserver = new Observer<List<SavedRun>>() {
+                                @Override
+                                public void onChanged(@Nullable final List<SavedRun> newRuns) {
+                                    ((SavedRunsRecyclerViewAdapter) recyclerView.getAdapter()).setData(newRuns);
+                                }
+                            };
+
+                            //attaching the observer to the runs livedata
+                            savedRuns.observe(SavedRunsActivity.this, runsObserver);
+                        }
+                    });
+                    //endregion
+                });
+            }
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
         });
+
         //endregion
 
     }
