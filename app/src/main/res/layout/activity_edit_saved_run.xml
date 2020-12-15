@@ -43,7 +43,7 @@
                     android:layout_width="256dp"
                     android:layout_height="59dp"
                     android:layout_marginTop="1dp"
-                    android:max="10"
+                    android:max="4"
                     android:progress="3"
                     app:layout_constraintStart_toStartOf="@+id/editRun_textView_feel"
                     app:layout_constraintTop_toBottomOf="@+id/editRun_textView_feel" />
@@ -82,7 +82,7 @@
                     android:id="@+id/editRun_textView_feelEasy2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/easy"
+                    android:text="@string/min_effort"
                     app:layout_constraintStart_toStartOf="@+id/editRun_seekBar_FeelValue"
                     app:layout_constraintTop_toBottomOf="@+id/editRun_seekBar_FeelValue" />
 
@@ -111,6 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:contentDescription="@string/users_associated_image"
                     app:layout_constraintEnd_toEndOf="@+id/editRun_button_removeImage"
                     app:layout_constraintStart_toStartOf="@+id/editRun_button_loadImage"
                     app:layout_constraintTop_toBottomOf="@+id/editRun_button_loadImage"
@@ -140,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:onClick="onButtonClick"
-                    android:text="Load Image"
+                    android:text="@string/load_image"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toStartOf="@+id/editRun_button_removeImage"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -152,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onButtonClick"
-                    android:text="Remove Image"
+                    android:text="@string/remove_image"
                     android:textSize="14sp"
                     android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/editRun_button_loadImage"

@@ -56,6 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:contentDescription="@string/users_associated_image"
                     app:layout_constraintEnd_toStartOf="@+id/viewRun_guideline_right"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/viewRun_guideline_left"
@@ -140,7 +141,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewDescription" />
 
                 <TextView
-                    android:id="@+id/viewRunTextViewFeeling"
+                    android:id="@+id/viewRunTextViewEffort"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -155,38 +156,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@string/associated_image"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/viewRunTextViewDescriptionValue"
-                    app:layout_constraintTop_toBottomOf="@+id/viewRun_textView_feelEasy" />
-
-                <SeekBar
-                    android:id="@+id/viewRun_seekBar_FeelValue"
-                    style="@style/Widget.AppCompat.SeekBar.Discrete"
-                    android:layout_width="315dp"
-                    android:layout_height="47dp"
-                    android:clickable="false"
-                    android:longClickable="false"
-                    android:max="10"
-                    android:progress="3"
-                    app:layout_constraintEnd_toStartOf="@+id/viewRun_guideline_right"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/viewRun_guideline_left"
-                    app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewFeeling" />
-
-                <TextView
-                    android:id="@+id/viewRun_textView_feelMaxEffort"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/max_effort"
-                    app:layout_constraintEnd_toEndOf="@+id/viewRun_seekBar_FeelValue"
-                    app:layout_constraintTop_toBottomOf="@+id/viewRun_seekBar_FeelValue" />
-
-                <TextView
-                    android:id="@+id/viewRun_textView_feelEasy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/easy"
-                    app:layout_constraintStart_toStartOf="@+id/viewRun_seekBar_FeelValue"
-                    app:layout_constraintTop_toBottomOf="@+id/viewRun_seekBar_FeelValue" />
+                    app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewEffortValue" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/viewRun_guideline_right"
@@ -201,6 +173,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_begin="39dp" />
+
+                <TextView
+                    android:id="@+id/viewRunTextViewEffortValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/viewRun_guideline_left"
+                    app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewEffort" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

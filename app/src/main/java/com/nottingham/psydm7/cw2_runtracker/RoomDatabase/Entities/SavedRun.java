@@ -16,7 +16,7 @@ import java.util.Date;
 @Entity(tableName = "savedRun_table")
 public class SavedRun {
 
-    @PrimaryKey(autoGenerate=true)
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "_id")
     private long _id;
@@ -55,20 +55,20 @@ public class SavedRun {
     @ColumnInfo(name = "description")
     private String description;
 
-    @ColumnInfo(name = "difficulty")
-    private Integer difficulty; //can be NULL so Integer not int
+    @ColumnInfo(name = "effortIndex")
+    private Integer effortIndex; //can be NULL before annotating so Integer not int
 
     @ColumnInfo(name = "picturePath")
     private String picturePath;
 
-    public SavedRun(@NonNull String name, @NonNull Date date, @NonNull float distance, @NonNull float speed, @NonNull String time, @NonNull  ArrayList<LatLng> path, @NonNull int sportIndex) {
+    public SavedRun(@NonNull String name, @NonNull Date date, @NonNull float distance, @NonNull float speed, @NonNull String time, @NonNull ArrayList<LatLng> path, @NonNull int sportIndex) {
         this.name = name;
         this.date = date;
         this.distance = distance;
         this.speed = speed;
         this.time = time;
         this.path = path;
-        this.sportIndex=sportIndex;
+        this.sportIndex = sportIndex;
     }
 
     public long get_id() {
@@ -147,19 +147,19 @@ public class SavedRun {
         this.description = description;
     }
 
-    public Integer getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(Integer difficulty) {
-        this.difficulty = difficulty;
-    }
-
     public String getPicturePath() {
         return picturePath;
     }
 
     public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
+    }
+
+    public Integer getEffortIndex() {
+        return effortIndex;
+    }
+
+    public void setEffortIndex(Integer effortIndex) {
+        this.effortIndex = effortIndex;
     }
 }

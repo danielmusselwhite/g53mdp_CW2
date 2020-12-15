@@ -39,7 +39,7 @@ public class EditSavedRunActivity extends AppCompatActivity {
     ImageView iv_associatedPhoto;
     Button button_removeImage;
     Spinner spinner_sportValue;
-    SeekBar seekBar_difficulty;
+    SeekBar seekBar_effort;
 
     RunTrackerRoomDatabase db;
     SavedRunDAO savedRunDAO;
@@ -63,7 +63,7 @@ public class EditSavedRunActivity extends AppCompatActivity {
         button_removeImage = findViewById(R.id.editRun_button_removeImage);
         spinner_sportValue = (Spinner) findViewById(R.id.editRun_spinner_SportValue);
         et_description = findViewById(R.id.editRun_editText_DescriptionValue);
-        seekBar_difficulty = (SeekBar) findViewById(R.id.editRun_seekBar_FeelValue);
+        seekBar_effort = (SeekBar) findViewById(R.id.editRun_seekBar_FeelValue);
         //endregion
 
         //region "populating the spinner for sports"
@@ -126,11 +126,11 @@ public class EditSavedRunActivity extends AppCompatActivity {
                                 iv_associatedPhoto.setVisibility(View.INVISIBLE);
                             }
 
-                            Integer difficulty = newRun.getDifficulty();
-                            if(difficulty!=null)
-                                seekBar_difficulty.setProgress(difficulty);
+                            Integer effort = newRun.getEffortIndex();
+                            if(effort!=null)
+                                seekBar_effort.setProgress(effort);
                             else{
-                                seekBar_difficulty.setProgress(0);
+                                seekBar_effort.setProgress(0);
                             }
                         }
                     };
@@ -165,7 +165,7 @@ public class EditSavedRunActivity extends AppCompatActivity {
 
                         savedRunDAO.updateName(savedRunID, name);
                         savedRunDAO.updateSportIndex(savedRunID, spinner_sportValue.getSelectedItemPosition());
-                        savedRunDAO.updateDifficulty(savedRunID, seekBar_difficulty.getProgress());
+                        savedRunDAO.updateEffortIndex(savedRunID, seekBar_effort.getProgress());
 
                         String description = et_description.getText().toString();
                         if(!description.isEmpty())

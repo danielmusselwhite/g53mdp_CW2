@@ -40,8 +40,8 @@ public class ViewSavedRunActivity extends AppCompatActivity {
     TextView tv_image;
     ImageView iv_associatedPhoto;
 
-    TextView tv_difficulty;
-    SeekBar seekBar_difficulty;
+    TextView tv_effort;
+    TextView tv_effortValue;
 
     ViewSavedRunMapsFragment mapFragment;
 
@@ -67,8 +67,8 @@ public class ViewSavedRunActivity extends AppCompatActivity {
         tv_description  = findViewById(R.id.viewRunTextViewDescription);
         tv_descriptionValue  = findViewById(R.id.viewRunTextViewDescriptionValue);
         tv_image  = findViewById(R.id.viewRunTextViewImage);
-        tv_difficulty  = findViewById(R.id.viewRunTextViewFeeling);
-        seekBar_difficulty = (SeekBar) findViewById(R.id.viewRun_seekBar_FeelValue);
+        tv_effort  = findViewById(R.id.viewRunTextViewEffort);
+        tv_effortValue  = findViewById(R.id.viewRunTextViewEffortValue);
         iv_associatedPhoto = (ImageView) findViewById(R.id.viewRun_imageView_associatedPhoto);
 
         //getting the map fragment
@@ -133,6 +133,18 @@ public class ViewSavedRunActivity extends AppCompatActivity {
                                 else{
                                     tv_description.setVisibility(View.GONE);
                                     tv_descriptionValue.setVisibility(View.GONE);
+                                }
+
+                                Integer effortIndex = newRun.getEffortIndex();
+                                if(effortIndex!=null){
+                                    String effort = getResources().getStringArray(R.array.effort_array)[effortIndex];
+                                    tv_effortValue.setText(effort);
+                                    tv_effort.setVisibility(View.VISIBLE);
+                                    tv_effortValue.setVisibility(View.VISIBLE);
+                                }
+                                else{
+                                    tv_effort.setVisibility(View.GONE);
+                                    tv_effortValue.setVisibility(View.GONE);
                                 }
 
                                 String picturePath = newRun.getPicturePath();

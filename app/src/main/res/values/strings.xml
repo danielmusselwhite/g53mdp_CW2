@@ -26,7 +26,11 @@
     <string name="how_did_it_go_were_you_rested_how_was_the_weather_leave_your_notes_here">How did it go? Were you rested? How was the weather? Leave your notes here.</string>
     <string name="max_effort">Max Effort</string>
     <string name="edit">Edit</string>
-    <string name="this_activity_felt">This activity felt:</string>
+    <string name="this_activity_felt">This activity felt like it required:</string>
     <string name="associated_image">Associated Image:</string>
+    <string name="min_effort">Min Effort</string>
+    <string name="load_image">Load Image</string>
+    <string name="remove_image">Remove Image</string>
+    <string name="users_associated_image">Users\' associated image</string>
 
 </resources>

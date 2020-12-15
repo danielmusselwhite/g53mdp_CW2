@@ -8,4 +8,12 @@
         <item>Hike</item>
     </string-array>
 
+    <string-array name="effort_array">
+        <item>Minimal Effort</item>
+        <item>Some Effort</item>
+        <item>Moderate Effort</item>
+        <item>Significant Effort</item>
+        <item>Maximum Effort</item>
+    </string-array>
+
 </resources>

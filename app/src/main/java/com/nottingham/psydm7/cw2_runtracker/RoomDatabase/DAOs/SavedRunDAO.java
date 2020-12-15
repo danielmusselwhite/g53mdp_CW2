@@ -60,8 +60,8 @@ public interface SavedRunDAO {
     @Query("Update savedRun_table SET description = :newDescription WHERE _id = :id")
     void updateDescription(long id, String newDescription);
 
-    @Query("Update savedRun_table SET difficulty = :newDifficulty WHERE _id = :id")
-    void updateDifficulty(long id, Integer newDifficulty);
+    @Query("Update savedRun_table SET effortIndex = :newEffortIndex WHERE _id = :id")
+    void updateEffortIndex(long id, Integer newEffortIndex);
 
     @Query("Update savedRun_table SET picturePath = :newPicturePath WHERE _id = :id")
     void updatePicturePath(long id, String newPicturePath);
