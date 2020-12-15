@@ -11,6 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.Spinner;
 
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.DAOs.SavedRunDAO;
@@ -22,6 +26,7 @@ import java.util.List;
 public class SavedRunsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    Spinner spinner_sorting;
 
     RunTrackerRoomDatabase db;
     SavedRunDAO savedRunDAO;
@@ -45,6 +50,19 @@ public class SavedRunsActivity extends AppCompatActivity {
         final SavedRunsRecyclerViewAdapter adapter = new SavedRunsRecyclerViewAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //endregion
+
+        //region "getting references to the different views"
+        spinner_sorting = (Spinner) findViewById(R.id.savedRuns_spinner_sorting);
+        //endregion
+
+        //region "populating the spinner for sorting"
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.sorting_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner_sorting.setAdapter(spinnerAdapter);
         //endregion
 
         //region "Getting the runs DAO and creating observer for live data"

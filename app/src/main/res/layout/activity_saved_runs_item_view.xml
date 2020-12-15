@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="@string/distance"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerTextViewSpeed"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerTextViewSport"
         app:layout_constraintStart_toStartOf="@+id/viewRunTextViewDistanceValue" />
 
     <TextView
@@ -42,10 +42,10 @@
         android:layout_height="wrap_content"
         android:text="@string/_0_km"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/viewRunTextViewSpeedValue"
+        app:layout_constraintEnd_toStartOf="@+id/viewRunTextViewSportValue"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/viewRunTextViewTimeValue"
-        app:layout_constraintTop_toTopOf="@+id/viewRunTextViewSpeedValue" />
+        app:layout_constraintTop_toTopOf="@+id/viewRunTextViewSportValue" />
 
     <TextView
         android:id="@+id/viewRunTextViewTimeValue"
@@ -59,18 +59,17 @@
         app:layout_constraintTop_toTopOf="@+id/viewRunTextViewDistanceValue" />
 
     <TextView
-        android:id="@+id/viewRunTextViewSpeedValue"
+        android:id="@+id/viewRunTextViewSportValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="32dp"
-        android:text="@string/_0_km_h"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/viewRunTextViewDistanceValue"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerTextViewSpeed"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerTextViewSport"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -86,14 +85,14 @@
         app:layout_constraintVertical_bias="0.022" />
 
     <TextView
-        android:id="@+id/recyclerTextViewSpeed"
+        android:id="@+id/recyclerTextViewSport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/average_speed"
+        android:text="@string/sport"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/viewRunTextViewSpeedValue"
+        app:layout_constraintStart_toStartOf="@+id/viewRunTextViewSportValue"
         app:layout_constraintTop_toBottomOf="@+id/recyclerTextViewRunTitle"
         app:layout_constraintVertical_bias="0.01" />
 

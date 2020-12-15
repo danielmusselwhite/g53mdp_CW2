@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -59,7 +58,7 @@ public class ViewSavedRunActivity extends AppCompatActivity {
         //region "getting the different components we will update"
         nameView = findViewById(R.id.viewRunTextViewRunTitle);
         dateView = findViewById(R.id.viewRunTextViewDate);
-        speedView = findViewById(R.id.viewRunTextViewSpeedValue);
+        speedView = findViewById(R.id.viewRunTextViewSportValue);
         distanceView = findViewById(R.id.viewRunTextViewDistanceValue);
         timeView = findViewById(R.id.viewRunTextViewTimeValue);
         tv_sport = findViewById(R.id.viewRunTextViewSport);

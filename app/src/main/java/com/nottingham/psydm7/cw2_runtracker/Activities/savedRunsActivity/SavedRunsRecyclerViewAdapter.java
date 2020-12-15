@@ -68,7 +68,7 @@ public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRuns
 
         TextView nameView;
         TextView dateView;
-        TextView speedView;
+        TextView sportView;
         TextView distanceView;
         TextView timeView;
 
@@ -77,7 +77,7 @@ public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRuns
             //getting all text views
             nameView = itemView.findViewById(R.id.recyclerTextViewRunTitle);
             dateView = itemView.findViewById(R.id.recyclerTextViewDate);
-            speedView = itemView.findViewById(R.id.viewRunTextViewSpeedValue);
+            sportView = itemView.findViewById(R.id.viewRunTextViewSportValue);
             distanceView = itemView.findViewById(R.id.viewRunTextViewDistanceValue);
             timeView = itemView.findViewById(R.id.viewRunTextViewTimeValue);
 
@@ -95,7 +95,8 @@ public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRuns
             //endregion
 
             dateView.setText(dateString);
-            speedView.setText(savedRun.getSpeed()+" km/h");
+            String sport = context.getResources().getStringArray(R.array.sports_array)[savedRun.getSportIndex()];
+            sportView.setText(sport);
             distanceView.setText(savedRun.getDistance()+" km");
             timeView.setText(savedRun.getTime());
         }

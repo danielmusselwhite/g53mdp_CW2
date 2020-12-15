@@ -16,4 +16,12 @@
         <item>Maximum Effort</item>
     </string-array>
 
+    <string-array name="sorting_array">
+        <item>Sort by: Date</item>
+        <item>Sort by: Name</item>
+        <item>Sort by: Distance</item>
+        <item>Sort by: Time</item>
+        <item>Sort by: Sport</item>
+    </string-array>
+
 </resources>
