@@ -234,8 +234,8 @@ public class MainActivity extends AppCompatActivity{
 
                         //if we have done a run today; this will not be null
                         if(runningDistanceToday!=null){
-                            textView_todaysTotalTime.setText("You have spent "+ MyUtilities.formatTimeNicely(runningTimeToday)+" running today");
-                            textView_todaysTotalDistance.setText("You have traveled "+ runningDistanceToday+" km whilst running today");
+                            textView_todaysRunningTime.setText("You have spent "+ MyUtilities.formatTimeNicely(runningTimeToday)+" running today");
+                            textView_todaysRunningDistance.setText("You have traveled "+ runningDistanceToday+" km whilst running today");
                             textView_todaysRunningStats.setVisibility(View.VISIBLE);
                             textView_todaysRunningDistance.setVisibility(View.VISIBLE);
                             textView_todaysRunningTime.setVisibility(View.VISIBLE);
@@ -271,8 +271,8 @@ public class MainActivity extends AppCompatActivity{
 
                         //if we have done a run this week; this will not be null
                         if(runningDistanceWeek!=null){
-                            textView_weeksTotalTime.setText("You have spent "+ MyUtilities.formatTimeNicely(runningTimeToday)+" running this week");
-                            textView_weeksTotalDistance.setText("You have traveled "+ runningDistanceToday+" km whilst running this week");
+                            textView_weeksRunningTime.setText("You have spent "+ MyUtilities.formatTimeNicely(runningTimeToday)+" running this week");
+                            textView_weeksRunningDistance.setText("You have traveled "+ runningDistanceToday+" km whilst running this week");
                             textView_weeksRunningStats.setVisibility(View.VISIBLE);
                             textView_weeksRunningDistance.setVisibility(View.VISIBLE);
                             textView_weeksRunningTime.setVisibility(View.VISIBLE);

@@ -97,11 +97,11 @@ public interface SavedRunDAO {
 
     //region "each individual sport"
     // "how far have I travelled during this sport this week?"
-    @Query("SELECT SUM(distance) FROM savedRun_table WHERE _id = :thisSportIndex AND date >= :dateLimit")
+    @Query("SELECT SUM(distance) FROM savedRun_table WHERE sportIndex = :thisSportIndex AND date >= :dateLimit")
     Float  getSportsTotalDistanceWithinTimePeriod(long dateLimit, int thisSportIndex);
 
     // "how much time have I spent doing this sports within this limit?"
-    @Query("SELECT SUM(time) FROM savedRun_table WHERE _id = :thisSportIndex AND date >= :dateLimit")
+    @Query("SELECT SUM(time) FROM savedRun_table WHERE sportIndex = :thisSportIndex AND date >= :dateLimit")
     Long getSportsTotalTimeWithinTimePeriod(long dateLimit, int thisSportIndex);
     //endregion
     //endregion
