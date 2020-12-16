@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSavedRunActivity.ViewSavedRunActivity;
+import com.nottingham.psydm7.cw2_runtracker.MyUtilities;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.Entities.SavedRun;
 
@@ -98,7 +99,7 @@ public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRuns
             String sport = context.getResources().getStringArray(R.array.sports_array)[savedRun.getSportIndex()];
             sportView.setText(sport);
             distanceView.setText(savedRun.getDistance()+" km");
-            timeView.setText(savedRun.getTime());
+            timeView.setText(MyUtilities.formatTimeNicely(savedRun.getTime()));
         }
 
 

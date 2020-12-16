@@ -40,8 +40,8 @@ public class RunningMapsFragment extends Fragment {
             googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             RunningMapsFragment.googleMap = googleMap;
             googleMap.getUiSettings().setAllGesturesEnabled(false);
-
             googleMap.setMyLocationEnabled(true); // not sure if its better to have this or the marker?
+
         }
     };
 

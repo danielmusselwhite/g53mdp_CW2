@@ -40,7 +40,7 @@ public class SavedRun {
 
     @NonNull
     @ColumnInfo(name = "time")
-    private String time;
+    private long time;
 
     @NonNull
     @ColumnInfo(name = "path")
@@ -61,7 +61,7 @@ public class SavedRun {
     @ColumnInfo(name = "picturePath")
     private String picturePath;
 
-    public SavedRun(@NonNull String name, @NonNull Date date, @NonNull float distance, @NonNull float speed, @NonNull String time, @NonNull ArrayList<LatLng> path, @NonNull int sportIndex) {
+    public SavedRun(@NonNull String name, @NonNull Date date, @NonNull float distance, @NonNull float speed, @NonNull long time, @NonNull ArrayList<LatLng> path, @NonNull int sportIndex) {
         this.name = name;
         this.date = date;
         this.distance = distance;
@@ -114,11 +114,11 @@ public class SavedRun {
     }
 
     @NonNull
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(@NonNull String time) {
+    public void setTime(@NonNull long time) {
         this.time = time;
     }
 

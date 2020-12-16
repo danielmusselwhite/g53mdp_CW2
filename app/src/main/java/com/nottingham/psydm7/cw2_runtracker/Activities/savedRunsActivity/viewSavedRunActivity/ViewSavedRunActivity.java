@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSavedRunActivity.editSavedRunActivity.EditSavedRunActivity;
+import com.nottingham.psydm7.cw2_runtracker.MyUtilities;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.DAOs.SavedRunDAO;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.Entities.SavedRun;
@@ -110,7 +111,7 @@ public class ViewSavedRunActivity extends AppCompatActivity {
                                 String dateString = dateFormat.format(newRun.getDate());
                                 String speed = (newRun.getSpeed() + " km/h");
                                 String distance = (newRun.getDistance() + " km");
-                                String time = newRun.getTime();
+                                String time = MyUtilities.formatTimeNicely(newRun.getTime());
                                 ArrayList<LatLng> path = newRun.getPath();
                                 String sport = getResources().getStringArray(R.array.sports_array)[newRun.getSportIndex()];
 

@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.nottingham.psydm7.cw2_runtracker.MyUtilities;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.DAOs.SavedRunDAO;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.Entities.SavedRun;
@@ -71,7 +72,7 @@ public class RunningActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             float averageSpeed = calculateSpeed(totalDistance, getDuration());
-                            textView_timeValue.setText(formatTimeNicely(getDuration()));
+                            textView_timeValue.setText(MyUtilities.formatTimeNicely(getDuration()));
                             textView_averageSpeedValue.setText(averageSpeed  +" km/h"); // update average speed when time increases as well as when distance increases
                         }
                     });
@@ -163,7 +164,6 @@ public class RunningActivity extends AppCompatActivity {
                 RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
                     //region "values which will be saved in database"
                     long totalTime = getDuration();
-                    String stringTime = formatTimeNicely(totalTime);
                     float averageSpeed = calculateSpeed(totalDistance, totalTime);
                     Date date = Calendar.getInstance().getTime();
                     String sport = getResources().getStringArray(R.array.sports_array)[sportIndex];
@@ -175,10 +175,10 @@ public class RunningActivity extends AppCompatActivity {
 
                     //endregion
 
-                    Log.d("g53mdp","Saving run to savedRuns table, with values: name = "+name+";time = "+stringTime+"; distance = "+totalDistance+"km; speed = "+averageSpeed+"km/h; path size= "+path.size()+"; sportIndex = "+sportIndex);
+                    Log.d("g53mdp","Saving run to savedRuns table, with values: name = "+name+";time = "+MyUtilities.formatTimeNicely(totalTime)+"; distance = "+totalDistance+"km; speed = "+averageSpeed+"km/h; path size= "+path.size()+"; sportIndex = "+sportIndex);
 
                     //region "updating savedRuns table"
-                    SavedRun savedRun = new SavedRun(name, date, totalDistance, averageSpeed, stringTime, path,sportIndex);
+                    SavedRun savedRun = new SavedRun(name, date, totalDistance, averageSpeed, totalTime, path,sportIndex);
                     savedRunDAO.insert(savedRun);
                     //endregion
                 });
@@ -206,36 +206,6 @@ public class RunningActivity extends AppCompatActivity {
     private long getDuration(){
         return System.currentTimeMillis() - startTime;
     }
-    //endregion
-
-    //region "formatting time nice"
-    private String formatTimeNicely(long timeMillis){
-        String stringHours = "";
-        String stringMinutes = "";
-        String stringSeconds = "";
-
-        long hours= TimeUnit.MILLISECONDS.toHours(timeMillis); // converting milliseconds into hours
-        //if the duration is greater than an hour...
-        if(TimeUnit.MILLISECONDS.toHours(timeMillis)>0){
-            //.. add the extra section for hours
-            stringHours = String.format("%02d", hours);
-        }
-
-        long totalMinutes = TimeUnit.MILLISECONDS.toMinutes(timeMillis); // converting milliseconds into minutes
-        long actualMinutes =  totalMinutes - TimeUnit.HOURS.toMinutes(hours); // actual minutes = total minutes - the number of hours into minutes
-        stringMinutes = String.format("%02d", actualMinutes)+":";
-
-        long totalSeconds = TimeUnit.MILLISECONDS.toSeconds(timeMillis); // converting milliseconds into seconds
-        long actualSeconds = totalSeconds - TimeUnit.MINUTES.toSeconds(totalMinutes); // actual seconds = totalseconds - number of seconds in the minutes
-        stringSeconds = String.format("%02d", actualSeconds);
-
-        // used if statements so for example if a song is 3m42s long it will display 03:42 instead of 00:03:42
-        String getDuration = stringHours +  stringMinutes +  stringSeconds;
-
-        return getDuration;
-
-    }
-
     //endregion
 
     //region "service and callback logic"

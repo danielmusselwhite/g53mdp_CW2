@@ -36,4 +36,173 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/main_button_pastExercise"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/main_textView_mostRecentExercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your most recent exercise was" />
+
+            <TextView
+                android:id="@+id/main_textView_wellDone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Well done!"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/main_textView_beatenFarthestRun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You have beaten your farthest run today!" />
+
+            <TextView
+                android:id="@+id/main_textView_beatenBestRunningTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You have beaten your best running time today!" />
+
+            <TextView
+                android:id="@+id/main_textView_beatenFastestRunningSpeed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You have beaten your fastest speed today!" />
+
+            <TextView
+                android:id="@+id/main_textView_todaysStats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Todays Stats"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/main_textView_todaysTotals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Todays Totals"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/main_textView_todaysTotalTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You have spent xxx time today exercising" />
+
+            <TextView
+                android:id="@+id/main_textView_todaysTotalDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You have traveled xxx km today whilst exercising" />
+
+            <TextView
+                android:id="@+id/main_textView_todaysRunningStats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Todays Running Stats"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/main_textView_todaysTotalTimeRunning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You have spent xxx time running today" />
+
+            <TextView
+                android:id="@+id/main_textView_todaysTotalDistanceRunning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You have traveled  xxx km whilst running today" />
+
+            <TextView
+                android:id="@+id/main_textView_weeksStats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Weeks Stats"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/main_textView_weeksTotals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="This Weeks Totals"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/main_textView_weeksTotalTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You have spent xxx time exercising this past 7 days" />
+
+            <TextView
+                android:id="@+id/main_textView_weeksTotalDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You have traveled  xxx km whilst exercising this past 7 days" />
+
+            <TextView
+                android:id="@+id/main_textView_weeksRunningStats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="This Weeks Running Stats"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/main_textView_weeksTotalTimeRunning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You have spent xxx time running this past 7 days" />
+
+            <TextView
+                android:id="@+id/main_textView_weeksTotalDistanceRunning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You have traveled  xxx km whilst running this past 7 days" />
+
+            <TextView
+                android:id="@+id/main_textView_records"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Records"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/main_textView_runningRecords"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Running Records"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/main_textView_farthestRun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your farthest run is xxx km" />
+
+            <TextView
+                android:id="@+id/main_textView_bestRunningTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your best running time is 00:00" />
+
+            <TextView
+                android:id="@+id/main_textView_fastestRunningSpeed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your fastest average running speed is 0 km/h" />
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -95,7 +95,6 @@ public class RunningService extends Service {
         //region "retrieving the bundle passed to this activity"
         Bundle bundle = intent.getExtras();
         sportIndex = bundle.getInt("SportIndex");
-        Log.d("g53mdp3","sportIndex: "+sportIndex);
         //endregion
 
         //region "setting up the notification manager"
@@ -147,7 +146,6 @@ public class RunningService extends Service {
 
     // used to build the foreground notifacation necessetated to make this a foreground service
     private Notification buildForegroundNotification(){
-        Log.d("g53mdp3","sportIndex foreground: "+sportIndex);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(RunningService.this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle("You are currently on a "+getResources().getStringArray(R.array.sports_array)[sportIndex]+"!")
