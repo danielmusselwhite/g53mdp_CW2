@@ -108,36 +108,31 @@ public interface SavedRunDAO {
 
     //region "getting records for each sport (shortest time/greatest distance/fastest speed)"
     //"what is my farthest for this sport?"
-    @Query("SELECT MAX(distance) FROM savedRun_table WHERE sportIndex = :thisSportIndex")
-    Float getSportsRecordDistance(int thisSportIndex);
+    @Query("SELECT MAX(distance) FROM savedRun_table WHERE sportIndex = :thisSportIndex AND date >= :dateLimit")
+    Float getSportsRecordDistanceWithinTimePeriod(long dateLimit, int thisSportIndex);
 
     //"what is my best time for this sport? (shortest) "
-    @Query("SELECT MIN(time) FROM savedRun_table WHERE sportIndex = :thisSportIndex")
-    Long getSportsRecordTime(int thisSportIndex);
+    @Query("SELECT MIN(time) FROM savedRun_table WHERE sportIndex = :thisSportIndex AND date >= :dateLimit")
+    Long getSportsRecordTimeWithinTimePeriod(long dateLimit, int thisSportIndex);
 
     //"what is my fastest speed for this sport?"
-    @Query("SELECT MAX(speed) FROM savedRun_table WHERE sportIndex = :thisSportIndex")
-    Float getSportsRecordSpeed(int thisSportIndex);
+    @Query("SELECT MAX(speed) FROM savedRun_table WHERE sportIndex = :thisSportIndex AND date >= :dateLimit")
+    Float getSportsRecordSpeedWithinTimePeriod(long dateLimit, int thisSportIndex);
     //endregion
 
     //region "finding out if you have beaten your records today today (shortest time/greatest distance/fastest speed)"
-    // 86400000 = milliseconds in day
 
-    //"have I beaten my record for this sport today?"
-    /* Pseudocode:
-        select max distance from saved run table
-        where
-             sportIndex = thisSportIndex
-             MaxDistance for today for this sport = MaxDistance for this sport
+    //"have I beaten my record for this sport?"
+    /* select max distance from saved run table WHERE sportIndex = thisSportIndex AND MaxDistance for today for this sport = MaxDistance for this sport
      this way will get null if empty and highest value if not*/
     @Query("SELECT MAX(distance) FROM savedRun_table WHERE sportIndex = :thisSportIndex AND (SELECT MAX(distance) from savedRun_table WHERE date >= :dateLimit AND sportIndex = :thisSportIndex) = (SELECT MAX(distance) from savedRun_table WHERE sportIndex = :thisSportIndex)")
-    Float checkIfBeatenSportsRecordDistanceToday(long dateLimit, int thisSportIndex);
+    Float checkIfBeatenSportsRecordDistanceWithinTimePeriod(long dateLimit, int thisSportIndex);
 
     @Query("SELECT MIN(time) FROM savedRun_table WHERE sportIndex = :thisSportIndex AND (SELECT MIN(time) from savedRun_table WHERE date >= :dateLimit AND sportIndex = :thisSportIndex) = (SELECT MIN(time) from savedRun_table WHERE sportIndex = :thisSportIndex)")
-    Long checkIfBeatenSportsRecordTimeToday(long dateLimit, int thisSportIndex);
+    Long checkIfBeatenSportsRecordTimeWithinTimePeriod(long dateLimit, int thisSportIndex);
 
     @Query("SELECT MAX(speed) FROM savedRun_table WHERE sportIndex = :thisSportIndex AND (SELECT MAX(speed) from savedRun_table WHERE date >= :dateLimit AND sportIndex = :thisSportIndex) = (SELECT MAX(speed) from savedRun_table WHERE sportIndex = :thisSportIndex)")
-    Float checkIfBeatenSportsRecordSpeedToday(long dateLimit, int thisSportIndex);
+    Float checkIfBeatenSportsRecordSpeedWithinTimePeriod(long dateLimit, int thisSportIndex);
     //endregion
 
     //region "most recent exercising"

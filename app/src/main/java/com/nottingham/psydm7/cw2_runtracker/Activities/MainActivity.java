@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.SavedRunsActivity;
+import com.nottingham.psydm7.cw2_runtracker.Activities.statisticsActivity.StatisticsActivity;
 import com.nottingham.psydm7.cw2_runtracker.MyUtilities;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity.RunningActivity;
@@ -43,35 +44,8 @@ public class MainActivity extends AppCompatActivity{
     RunTrackerRoomDatabase db;
     SavedRunDAO savedRunDAO;
 
-    //region "views for updating all the statistics"
     TextView textView_mostRecentExercise;
-    TextView textView_wellDone;
-    TextView textView_beatenFarthestRunDistance;
-    TextView textView_beatenQuickestRunTime;
-    TextView textView_beatenFastestRunSpeed;
-    TextView textView_todaysStats;
-    TextView textView_todaysTotals;
-    TextView textView_todaysTotalTime;
-    TextView textView_todaysTotalDistance;
-    TextView textView_todaysRunningStats;
-    TextView textView_todaysRunningTime;
-    TextView textView_todaysRunningDistance;
-    TextView textView_weeksStats;
-    TextView textView_weeksTotals;
-    TextView textView_weeksTotalTime;
-    TextView textView_weeksTotalDistance;
-    TextView textView_weeksRunningStats;
-    TextView textView_weeksRunningTime;
-    TextView textView_weeksRunningDistance;
-    TextView textView_records;
-    TextView textView_runningRecords;
-    TextView textView_farthestRunDistance;
-    TextView textView_quickestRunTime;
-    TextView textView_fastestRunSpeed;
-    //endregion
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("g53mdp","MainActivity onCreate");
@@ -82,33 +56,7 @@ public class MainActivity extends AppCompatActivity{
         spinner_sport = (Spinner) findViewById(R.id.main_spinner_sport);
         button_start = (Button) findViewById(R.id.main_button_startExercise);
 
-        //region "views for updating all the statistics"
         textView_mostRecentExercise = (TextView) findViewById(R.id.main_textView_mostRecentExercise);
-        textView_wellDone = (TextView) findViewById(R.id.main_textView_wellDone);
-        textView_beatenFarthestRunDistance = (TextView) findViewById(R.id.main_textView_beatenFarthestRun);
-        textView_beatenQuickestRunTime = (TextView) findViewById(R.id.main_textView_beatenBestRunningTime);
-        textView_beatenFastestRunSpeed = (TextView) findViewById(R.id.main_textView_beatenFastestRunningSpeed);
-        textView_todaysStats = (TextView) findViewById(R.id.main_textView_todaysStats);
-        textView_todaysTotals = (TextView) findViewById(R.id.main_textView_todaysTotals);
-        textView_todaysTotalTime = (TextView) findViewById(R.id.main_textView_todaysTotalTime);
-        textView_todaysTotalDistance = (TextView) findViewById(R.id.main_textView_todaysTotalDistance);
-        textView_todaysRunningStats = (TextView) findViewById(R.id.main_textView_todaysRunningStats);
-        textView_todaysRunningTime = (TextView) findViewById(R.id.main_textView_todaysTotalTimeRunning);
-        textView_todaysRunningDistance = (TextView) findViewById(R.id.main_textView_todaysTotalDistanceRunning);
-        textView_weeksStats = (TextView) findViewById(R.id.main_textView_weeksStats);
-        textView_weeksTotals = (TextView) findViewById(R.id.main_textView_weeksTotals);
-        textView_weeksTotalTime = (TextView) findViewById(R.id.main_textView_weeksTotalTime);
-        textView_weeksTotalDistance = (TextView) findViewById(R.id.main_textView_weeksTotalDistance);
-        textView_weeksRunningStats = (TextView) findViewById(R.id.main_textView_weeksRunningStats);
-        textView_weeksRunningTime = (TextView) findViewById(R.id.main_textView_weeksTotalTimeRunning);
-        textView_weeksRunningDistance = (TextView) findViewById(R.id.main_textView_weeksTotalDistanceRunning);
-        textView_records = (TextView) findViewById(R.id.main_textView_records);
-        textView_runningRecords = (TextView) findViewById(R.id.main_textView_runningRecords);
-        textView_farthestRunDistance = (TextView) findViewById(R.id.main_textView_farthestRun);
-        textView_quickestRunTime = (TextView) findViewById(R.id.main_textView_bestRunningTime);
-        textView_fastestRunSpeed = (TextView) findViewById(R.id.main_textView_fastestRunningSpeed);
-        //endregion
-
         //endregion
 
         //region "populating the spinner for sorting"
@@ -139,53 +87,14 @@ public class MainActivity extends AppCompatActivity{
         savedRunDAO = db.savedRunDAO();
         //endregion
 
-        //region "getting the start of today and of last week"
-        LocalDate todayLocalDate = LocalDate.now();
-        Date todayDate = Date.from(todayLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        LocalDate weekStartLocalDate = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY ));
-        Date weekStartDate = Date.from(weekStartLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        //endregion
-
         //region "accessing database to display useful information to the user"
         RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
 
             //TODO - convert to live data and then add listeners for the live data
 
-            //region "getting the different stats we want to display"
             //region "most recent exercise"
             Integer sportIndexOfMostRecentExercise = savedRunDAO.getSportIndexOfMostRecentExercise();
             Date dateOfMostRecentExercise = savedRunDAO.getDateOfMostRecentExercise();
-            //endregion
-
-            //region "record beaten checks"
-            Float beatenFarthestRunDistance = savedRunDAO.checkIfBeatenSportsRecordDistanceToday(todayDate.getTime(),0);
-            Long beatenShortestRunTime = savedRunDAO.checkIfBeatenSportsRecordTimeToday(todayDate.getTime(),0);
-            Float beatenFastestRunSpeed = savedRunDAO.checkIfBeatenSportsRecordSpeedToday(todayDate.getTime(),0);
-
-            //endregion
-
-            //region "todays stats"
-            Float totalDistanceToday = savedRunDAO.getTotalDistanceWithinTimePeriod(todayDate.getTime());
-            Long totalTimeToday = savedRunDAO.getTotalTimeWithinTimePeriod(todayDate.getTime());
-
-            Float runningDistanceToday = savedRunDAO.getSportsTotalDistanceWithinTimePeriod(todayDate.getTime(),0);
-            Long runningTimeToday = savedRunDAO.getSportsTotalTimeWithinTimePeriod(todayDate.getTime(),0);
-            //endregion
-
-            //region "weeks stats"
-            Float totalDistanceWeek = savedRunDAO.getTotalDistanceWithinTimePeriod(weekStartDate.getTime());
-            Long totalTimeWeek = savedRunDAO.getTotalTimeWithinTimePeriod(weekStartDate.getTime());
-
-            Float runningDistanceWeek = savedRunDAO.getSportsTotalDistanceWithinTimePeriod(weekStartDate.getTime(),0);
-            Long runningTimeWeek = savedRunDAO.getSportsTotalTimeWithinTimePeriod(weekStartDate.getTime(),0);
-            //endregion
-
-            //region "records"
-            Float farthestRunDistance = savedRunDAO.getSportsRecordDistance(0);
-            Long quickestRunTime = savedRunDAO.getSportsRecordTime(0);
-            Float fastestRunSpeed = savedRunDAO.getSportsRecordSpeed(0);
-            //endregion
-            //endregion
 
             //region "handling which views should be shown and updating the text views to these values"
             runOnUiThread(new Runnable() {
@@ -193,159 +102,15 @@ public class MainActivity extends AppCompatActivity{
                 public void run() {
                     //region "most recent exercise"
                     // if we have at least one record stored this will not be null as there will be a most recent exercise
-                    if(sportIndexOfMostRecentExercise != null){
+                    if (sportIndexOfMostRecentExercise != null) {
                         DateFormat dateFormat = new SimpleDateFormat("MMM, dd, yyyy 'at' HH:mm");
-                        textView_mostRecentExercise.setText("Your most recent exercise was the "+MainActivity.this.getResources().getStringArray(R.array.sports_array)[sportIndexOfMostRecentExercise]+ "you did on "+dateFormat.format(dateOfMostRecentExercise));
+                        textView_mostRecentExercise.setText("Your most recent exercise was the " + MainActivity.this.getResources().getStringArray(R.array.sports_array)[sportIndexOfMostRecentExercise] + " you did on " + dateFormat.format(dateOfMostRecentExercise));
                         textView_mostRecentExercise.setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         textView_mostRecentExercise.setVisibility(View.GONE);
                     }
                     //endregion
-
-                    //region "beaten records todays"
-                    // if we have beaten at least one record today; display the well done text view
-                    if(beatenFarthestRunDistance!=null||beatenShortestRunTime!=null||beatenFastestRunSpeed!=null){
-                        if(beatenFarthestRunDistance!=null)
-                            textView_beatenFarthestRunDistance.setVisibility(View.VISIBLE);
-                        else
-                            textView_beatenFarthestRunDistance.setVisibility(View.GONE);
-                        if(beatenShortestRunTime!=null)
-                            textView_beatenQuickestRunTime.setVisibility(View.VISIBLE);
-                        else
-                            textView_beatenQuickestRunTime.setVisibility(View.GONE);
-                        if(beatenFastestRunSpeed!=null)
-                            textView_beatenFastestRunSpeed.setVisibility(View.VISIBLE);
-                        else
-                            textView_beatenFastestRunSpeed.setVisibility(View.GONE);
-                        textView_wellDone.setVisibility(View.VISIBLE);
-                    }
-                    else{
-                        textView_wellDone.setVisibility(View.GONE);
-                        textView_beatenFarthestRunDistance.setVisibility(View.GONE);
-                        textView_beatenQuickestRunTime.setVisibility(View.GONE);
-                        textView_beatenFastestRunSpeed.setVisibility(View.GONE);
-                    }
-                    //endregion
-
-                    //region "todays stats"
-                    // if we have done anything today; this will not be null
-                    if(totalDistanceToday!=null){
-
-                        //if we have done a run today; this will not be null
-                        if(runningDistanceToday!=null){
-                            textView_todaysRunningTime.setText("You have spent "+ MyUtilities.formatTimeNicely(runningTimeToday)+" running today");
-                            textView_todaysRunningDistance.setText("You have traveled "+ runningDistanceToday+" km whilst running today");
-                            textView_todaysRunningStats.setVisibility(View.VISIBLE);
-                            textView_todaysRunningDistance.setVisibility(View.VISIBLE);
-                            textView_todaysRunningTime.setVisibility(View.VISIBLE);
-                        }
-                        else{
-                            Log.d("g53mdp3","runningDistanceToday is null");
-                            textView_todaysRunningStats.setVisibility(View.GONE);
-                            textView_todaysRunningDistance.setVisibility(View.GONE);
-                            textView_todaysRunningTime.setVisibility(View.GONE);
-                        }
-
-                        textView_todaysTotalTime.setText("You have spent "+ MyUtilities.formatTimeNicely(totalTimeToday)+" exercising today");
-                        textView_todaysTotalDistance.setText("You have traveled "+ totalDistanceToday+" km whilst exercising today");
-                        textView_todaysStats.setVisibility(View.VISIBLE);
-                        textView_todaysTotals.setVisibility(View.VISIBLE);
-                        textView_todaysTotalTime.setVisibility(View.VISIBLE);
-                        textView_todaysTotalDistance.setVisibility(View.VISIBLE);
-                    }
-                    else{
-                        textView_todaysRunningStats.setVisibility(View.GONE);
-                        textView_todaysRunningDistance.setVisibility(View.GONE);
-                        textView_todaysRunningTime.setVisibility(View.GONE);
-                        textView_todaysStats.setVisibility(View.GONE);
-                        textView_todaysTotals.setVisibility(View.GONE);
-                        textView_todaysTotalTime.setVisibility(View.GONE);
-                        textView_todaysTotalDistance.setVisibility(View.GONE);
-                    }
-                    //endregion
-
-                    //region "weeks stats"
-                    // if we have done this week; this will not be null
-                    if(totalDistanceWeek!=null){
-
-                        //if we have done a run this week; this will not be null
-                        if(runningDistanceWeek!=null){
-                            textView_weeksRunningTime.setText("You have spent "+ MyUtilities.formatTimeNicely(runningTimeToday)+" running this week");
-                            textView_weeksRunningDistance.setText("You have traveled "+ runningDistanceToday+" km whilst running this week");
-                            textView_weeksRunningStats.setVisibility(View.VISIBLE);
-                            textView_weeksRunningDistance.setVisibility(View.VISIBLE);
-                            textView_weeksRunningTime.setVisibility(View.VISIBLE);
-                        }
-                        else{
-                            textView_weeksRunningStats.setVisibility(View.GONE);
-                            textView_weeksRunningDistance.setVisibility(View.GONE);
-                            textView_weeksRunningTime.setVisibility(View.GONE);
-                        }
-
-                        textView_weeksTotalTime.setText("You have spent "+ MyUtilities.formatTimeNicely(totalTimeToday)+" exercising this week");
-                        textView_weeksTotalDistance.setText("You have traveled "+ totalDistanceToday+" km whilst exercising this week");
-                        textView_weeksStats.setVisibility(View.VISIBLE);
-                        textView_weeksTotals.setVisibility(View.VISIBLE);
-                        textView_weeksTotalTime.setVisibility(View.VISIBLE);
-                        textView_weeksTotalDistance.setVisibility(View.VISIBLE);
-                    }
-                    else{
-                        textView_weeksRunningStats.setVisibility(View.GONE);
-                        textView_weeksRunningDistance.setVisibility(View.GONE);
-                        textView_weeksRunningTime.setVisibility(View.GONE);
-                        textView_weeksStats.setVisibility(View.GONE);
-                        textView_weeksTotals.setVisibility(View.GONE);
-                        textView_weeksTotalTime.setVisibility(View.GONE);
-                        textView_weeksTotalDistance.setVisibility(View.GONE);
-                    }
-                    //endregion
-
-                    //region "records"
-                    // if we have at least one record today; display the records text view
-                    if(farthestRunDistance!=null||quickestRunTime!=null||fastestRunSpeed!=null) {
-
-                        //if we have have a running record stored; displaying the running records text view
-                        if (farthestRunDistance != null || quickestRunTime != null || fastestRunSpeed != null) {
-                            if (farthestRunDistance != null){
-                                textView_farthestRunDistance.setText("Your farthest run is "+farthestRunDistance+" km");
-                                textView_farthestRunDistance.setVisibility(View.VISIBLE);
-                            }
-                            else
-                                textView_farthestRunDistance.setVisibility(View.GONE);
-
-                            if (quickestRunTime != null){
-                                textView_quickestRunTime.setText("Your quickest running time is "+MyUtilities.formatTimeNicely(quickestRunTime));
-                                textView_quickestRunTime.setVisibility(View.VISIBLE);
-                            }
-                            else
-                                textView_quickestRunTime.setVisibility(View.GONE);
-
-                            if (fastestRunSpeed != null){
-                                textView_fastestRunSpeed.setText("Your fastest running speed is "+fastestRunSpeed+" km/h");
-                                textView_fastestRunSpeed.setVisibility(View.VISIBLE);
-                            }
-                            else
-                                textView_fastestRunSpeed.setVisibility(View.GONE);
-                            textView_runningRecords.setVisibility(View.VISIBLE);
-                        }
-                        else{
-                            textView_runningRecords.setVisibility(View.GONE);
-                            textView_farthestRunDistance.setVisibility(View.GONE);
-                            textView_quickestRunTime.setVisibility(View.GONE);
-                            textView_fastestRunSpeed.setVisibility(View.GONE);
-                        }
-                    }
-                    else{
-                        textView_records.setVisibility(View.GONE);
-                        textView_runningRecords.setVisibility(View.GONE);
-                        textView_farthestRunDistance.setVisibility(View.GONE);
-                        textView_quickestRunTime.setVisibility(View.GONE);
-                        textView_fastestRunSpeed.setVisibility(View.GONE);
-                    }
-                    //endregion
                 }
-
             });
 
             //endregion
@@ -385,6 +150,16 @@ public class MainActivity extends AppCompatActivity{
 
                 Log.d("g53mdp", "Starting the saved runs activity!");
                 Intent intent = new Intent(MainActivity.this, SavedRunsActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+
+
+            case R.id.main_button_viewStatistics: {
+
+                Log.d("g53mdp", "Starting the saved statistics activity!");
+                Intent intent = new Intent(MainActivity.this, StatisticsActivity.class);
                 startActivity(intent);
                 break;
             }

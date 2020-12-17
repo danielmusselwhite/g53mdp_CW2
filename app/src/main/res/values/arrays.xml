@@ -24,4 +24,12 @@
         <item>Sort by: Sport</item>
     </string-array>
 
+    <string-array name="timePeriod_array">
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+        <item>Year</item>
+        <item>All Time</item>
+    </string-array>
+
 </resources>
