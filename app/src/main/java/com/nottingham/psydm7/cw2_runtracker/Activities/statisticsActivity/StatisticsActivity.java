@@ -243,7 +243,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         //so lets populate the totals
                         textView_totalStatsTitle.setText(timePeriod+" Total Statistics");
                         textView_totalStatsTime.setText("You have spent "+MyUtilities.formatLargeTimeNicely(totalTime)+" exercising "+finalTimePeriodString);
-                        textView_totalStatsDistance.setText("You have traveled "+totalDistance+" km whilst exercising "+finalTimePeriodString);
+                        textView_totalStatsDistance.setText("You have traveled "+MyUtilities.roundToDP(totalDistance,2)+" km whilst exercising "+finalTimePeriodString);
                         textView_totalStatsTitle.setVisibility(View.VISIBLE);
                         textView_totalStatsTime.setVisibility(View.VISIBLE);
                         textView_totalStatsDistance.setVisibility(View.VISIBLE);
@@ -255,11 +255,11 @@ public class StatisticsActivity extends AppCompatActivity {
                             //so lets populate this sports fields
                             textView_sportStatsTitle.setText(timePeriod+" "+sport+" Statistics");
                             textView_sportStatsTime.setText("You have spent "+MyUtilities.formatLargeTimeNicely(sportTotalTime)+" "+finalSporting+" "+finalTimePeriodString);
-                            textView_sportStatsDistance.setText("You have traveled "+sportTotalDistance+" km whilst "+finalSporting+" "+finalTimePeriodString);
+                            textView_sportStatsDistance.setText("You have traveled "+MyUtilities.roundToDP(sportTotalDistance,2)+" km whilst "+finalSporting+" "+finalTimePeriodString);
                             textView_sportRecordsTitle.setText(timePeriod+" Records");
-                            textView_sportRecordsDistance.setText("The farthest distance you travelled in a single "+sport+" "+finalTimePeriodString+" is "+sportRecordDistance+" km");
+                            textView_sportRecordsDistance.setText("The farthest distance you travelled in a single "+sport+" "+finalTimePeriodString+" is "+MyUtilities.roundToDP(sportRecordDistance,2)+" km");
                             textView_sportRecordsTime.setText("The quickest time you finished a single "+sport+" in "+finalTimePeriodString+" is "+MyUtilities.formatLargeTimeNicely(sportRecordTime));
-                            textView_sportRecordsSpeed.setText("The fastest average speed you had for a single "+sport+" "+finalTimePeriodString+" is "+sportRecordSpeed+" km/h");
+                            textView_sportRecordsSpeed.setText("The fastest average speed you had for a single "+sport+" "+finalTimePeriodString+" is "+MyUtilities.roundToDP(sportRecordSpeed,2)+" km/h");
                             textView_sportStatsTitle.setVisibility(View.VISIBLE);
                             textView_sportStatsTime.setVisibility(View.VISIBLE);
                             textView_sportStatsDistance.setVisibility(View.VISIBLE);

@@ -98,7 +98,7 @@ public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRuns
             dateView.setText(dateString);
             String sport = context.getResources().getStringArray(R.array.sports_array)[savedRun.getSportIndex()];
             sportView.setText(sport);
-            distanceView.setText(savedRun.getDistance()+" km");
+            distanceView.setText(MyUtilities.roundToDP(savedRun.getDistance(),2)+" km");
             timeView.setText(MyUtilities.formatTimeNicely(savedRun.getTime()));
         }
 

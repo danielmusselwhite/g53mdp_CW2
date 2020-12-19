@@ -109,8 +109,8 @@ public class ViewSavedRunActivity extends AppCompatActivity {
                                 String name = newRun.getName();
                                 DateFormat dateFormat = new SimpleDateFormat("MMM, dd, yyyy 'at' HH:mm");
                                 String dateString = dateFormat.format(newRun.getDate());
-                                String speed = (newRun.getSpeed() + " km/h");
-                                String distance = (newRun.getDistance() + " km");
+                                String speed = (MyUtilities.roundToDP(newRun.getSpeed(),2) + " km/h");
+                                String distance = (MyUtilities.roundToDP(newRun.getDistance(),2) + " km");
                                 String time = MyUtilities.formatTimeNicely(newRun.getTime());
                                 ArrayList<LatLng> path = newRun.getPath();
                                 String sport = getResources().getStringArray(R.array.sports_array)[newRun.getSportIndex()];

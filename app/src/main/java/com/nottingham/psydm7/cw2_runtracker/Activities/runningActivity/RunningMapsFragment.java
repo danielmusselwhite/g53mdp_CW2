@@ -34,13 +34,11 @@ public class RunningMapsFragment extends Fragment {
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
-        @SuppressLint("MissingPermission") // NEEDED FOR SETMYLOCATIONENABLED TRUE, Okay to surpress as we have already checked that the permission is granted in the activity
         @Override
         public void onMapReady(GoogleMap googleMap) {
             googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             RunningMapsFragment.googleMap = googleMap;
             googleMap.getUiSettings().setAllGesturesEnabled(false);
-            googleMap.setMyLocationEnabled(true); // not sure if its better to have this or the marker?
 
         }
     };

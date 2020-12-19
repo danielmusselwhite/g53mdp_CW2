@@ -73,4 +73,12 @@ public class MyUtilities {
 
     }
     //endregion
+    
+    //region "rounding"
+
+    static public float roundToDP (float number, int dp){
+        return Math.round(number*(float) Math.pow(10, dp))/(float) Math.pow(10, dp);
+    }
+
+    //endregion
 }
