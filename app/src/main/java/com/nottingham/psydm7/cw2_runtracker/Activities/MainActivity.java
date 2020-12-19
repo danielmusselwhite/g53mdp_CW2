@@ -3,6 +3,8 @@ package com.nottingham.psydm7.cw2_runtracker.Activities;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import android.Manifest;
 import android.content.Intent;
@@ -26,6 +28,7 @@ import com.nottingham.psydm7.cw2_runtracker.MyUtilities;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity.RunningActivity;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.DAOs.SavedRunDAO;
+import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.Entities.SavedRun;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.RunTrackerRoomDatabase;
 
 import java.text.DateFormat;
@@ -90,31 +93,34 @@ public class MainActivity extends AppCompatActivity{
         //region "accessing database to display useful information to the user"
         RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
 
-            //TODO - convert to live data and then add listeners for the live data
+            //getting the most recent exercise
+            LiveData<SavedRun> mostRecentExercise = savedRunDAO.getMostRecentExercise();
 
-            //region "most recent exercise"
-            Integer sportIndexOfMostRecentExercise = savedRunDAO.getSportIndexOfMostRecentExercise();
-            Date dateOfMostRecentExercise = savedRunDAO.getDateOfMostRecentExercise();
-
-            //region "handling which views should be shown and updating the text views to these values"
+            //region "creating and attaching observer for the livedata holding the date of the most recent exercise"
+            //running on the UI thread as necessary for attaching observer and updating the UI
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    //region "most recent exercise"
-                    // if we have at least one record stored this will not be null as there will be a most recent exercise
-                    if (sportIndexOfMostRecentExercise != null) {
-                        DateFormat dateFormat = new SimpleDateFormat("MMM, dd, yyyy 'at' HH:mm");
-                        textView_mostRecentExercise.setText("Your most recent exercise was the " + MainActivity.this.getResources().getStringArray(R.array.sports_array)[sportIndexOfMostRecentExercise] + " you did on " + dateFormat.format(dateOfMostRecentExercise));
-                        textView_mostRecentExercise.setVisibility(View.VISIBLE);
-                    } else {
-                        textView_mostRecentExercise.setVisibility(View.GONE);
-                    }
-                    //endregion
+
+                    mostRecentExercise.observe(MainActivity.this, new Observer<SavedRun>(){
+
+
+                        @Override
+                        public void onChanged(SavedRun newMostRecentExercise) {
+                            //if we haven't done any exercise yet then say that then return
+                            if(newMostRecentExercise==null){
+                                textView_mostRecentExercise.setText("We haven't got any recorded exercise from you yet, why not start today?");
+                            }
+                            // else we have then display the most recent exercise to the user!
+                            else{
+                                DateFormat dateFormat = new SimpleDateFormat("MMM, dd, yyyy 'at' HH:mm");
+                                textView_mostRecentExercise.setText("Your most recent exercise was the " + MainActivity.this.getResources().getStringArray(R.array.sports_array)[newMostRecentExercise.getSportIndex()] + " you did on " + dateFormat.format(newMostRecentExercise.getDate()));
+                            }
+
+                        }
+                    });
                 }
             });
-
-            //endregion
-
             //endregion
         });
         //endregion

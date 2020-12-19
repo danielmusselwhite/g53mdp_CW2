@@ -116,7 +116,6 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 switch(parent.getId()){
-                    // TODO - when made live data will do queries in here and attach the listeners as I did in SavedRunsActivity
                     case R.id.statistics_spinner_sport:
                         sportIndex = spinner_sport.getSelectedItemPosition();
                         break;
@@ -144,7 +143,6 @@ public class StatisticsActivity extends AppCompatActivity {
         //region "handling the sport"
         String sporting = "";
         switch(sportIndex){
-            //TODO - datebase queries in here
             case 0:
                 sporting="Running";
                 break;
@@ -168,7 +166,6 @@ public class StatisticsActivity extends AppCompatActivity {
         Date dateLimit;
         String timePeriodString = "";
         switch(timePeriodIndex){
-            //TODO - datebase queries in here
             case 0:
                 LocalDate todayLocalDate = LocalDate.now();
                 dateLimit = Date.from(todayLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -205,8 +202,6 @@ public class StatisticsActivity extends AppCompatActivity {
 
         //region "accessing database to display useful information to the user"
         RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
-            //TODO - convert to live data and then add listeners for the live data inside the spinners like in SavedRunsActivity
-
             //region "getting the different stats we want to display"
 
             //region "Total Stats"
@@ -236,8 +231,6 @@ public class StatisticsActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    //TODO - this should look way nicer once made to use live date as with observer pattern we won't need all these if elses
-                    //TODO - but will need a separate observer for each record which is like 10 observers but we'll work that out when we get there lol
                     //if totalTime is not null we have done any exercise of any type during this time period
                     if(totalTime!=null){
                         //so lets populate the totals

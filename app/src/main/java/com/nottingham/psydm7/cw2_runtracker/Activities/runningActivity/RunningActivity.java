@@ -73,7 +73,7 @@ public class RunningActivity extends AppCompatActivity {
                         public void run() {
                             float averageSpeed = calculateSpeed(totalDistance, getDuration());
                             textView_timeValue.setText(MyUtilities.formatTimeNicely(getDuration()));
-                            textView_averageSpeedValue.setText(averageSpeed  +" km/h"); // update average speed when time increases as well as when distance increases
+                            textView_averageSpeedValue.setText(MyUtilities.roundToDP(averageSpeed, 2)  +" km/h"); // update average speed when time increases as well as when distance increases
                         }
                     });
 
@@ -241,9 +241,9 @@ public class RunningActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     mapsFragment.updateMap(location, lastLocation);
-                    textView_distanceValue.setText(totalDistance + " km");
+                    textView_distanceValue.setText(MyUtilities.roundToDP(totalDistance,2) + " km");
                     float averageSpeed = calculateSpeed(totalDistance, getDuration());
-                    textView_averageSpeedValue.setText(averageSpeed  +" km/h"); // update average speed when location changes as well as when time increases
+                    textView_averageSpeedValue.setText(MyUtilities.roundToDP(averageSpeed,2)  +" km/h"); // update average speed when location changes as well as when time increases
                 }
             });
 

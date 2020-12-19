@@ -80,10 +80,6 @@ public interface SavedRunDAO {
 
     //region "answering user 'questions'"
 
-
-
-    // TODO - CONVERT THESE TO LIVEDATA
-
     //region "getting total exercising distance and time within a time period"
     //region "total for all sports"
     // "how far have I travelled during excercising within time period?"
@@ -136,14 +132,9 @@ public interface SavedRunDAO {
     //endregion
 
     //region "most recent exercising"
-    // "when was the last time I exercised?"
-    @TypeConverters({dateConverter.class})
-    @Query("SELECT MAX(date) FROM savedRun_table")
-    Date getDateOfMostRecentExercise();
-
     // "what was the last exercise I did?"
-    @Query("SELECT sportIndex[0] FROM savedRun_table ORDER BY date DESC")
-    Integer getSportIndexOfMostRecentExercise();
+    @Query("SELECT * FROM savedRun_table ORDER BY date DESC LIMIT 1")
+    LiveData<SavedRun> getMostRecentExercise();
     //endregion
 
 
