@@ -191,7 +191,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 break;
             default:
                 dateLimit = new Date(0); // All Time so get every date after 0 (1970)
-                timePeriodString="all time";
+                timePeriodString="";
                 break;
         }
 
@@ -267,7 +267,7 @@ public class StatisticsActivity extends AppCompatActivity {
                             textView_sportRecordsDistance.setVisibility(View.VISIBLE);
                             textView_sportRecordsTime.setVisibility(View.VISIBLE);
                             textView_sportRecordsSpeed.setVisibility(View.VISIBLE);
-                            textView_noRecordedExercise.setVisibility(View.GONE);
+                            textView_noRecordedSport.setVisibility(View.GONE);
 
                             //then check if we have beaten any of our records within this time period
                             // if this timePeriod is not set to All Time (as obviously you'll have beaten your record) AND at least one of these exist display well done then display message for each
@@ -275,21 +275,21 @@ public class StatisticsActivity extends AppCompatActivity {
                                 textView_wellDoneTitle.setVisibility(View.VISIBLE);
 
                                 if(beatenSportRecordDistance!=null){
-                                    textView_beatenSportRecordsDistance.setText("You beat your farthest distance record for a single "+sport+" "+finalTimePeriodString);
+                                    textView_beatenSportRecordsDistance.setText("You beat your all time farthest distance record for a single "+sport+" "+finalTimePeriodString);
                                     textView_beatenSportRecordsDistance.setVisibility(View.VISIBLE);
                                 }
                                 else
                                     textView_beatenSportRecordsDistance.setVisibility(View.GONE);
 
                                 if(beatenSportRecordTime!=null){
-                                    textView_beatenSportRecordsTime.setText("You beat your quickest "+sport+" time record "+finalTimePeriodString);
+                                    textView_beatenSportRecordsTime.setText("You beat your all time quickest "+sport+" time record "+finalTimePeriodString);
                                     textView_beatenSportRecordsTime.setVisibility(View.VISIBLE);
                                 }
                                 else
                                     textView_beatenSportRecordsTime.setVisibility(View.GONE);
 
                                 if(beatenSportRecordSpeed!=null){
-                                    textView_beatenSportRecordsSpeed.setText("You beat your fastest average time record for a "+sport+" "+finalTimePeriodString);
+                                    textView_beatenSportRecordsSpeed.setText("You beat your all time fastest average speed record for a "+sport+" "+finalTimePeriodString);
                                     textView_beatenSportRecordsSpeed.setVisibility(View.VISIBLE);
                                 }
                                 else

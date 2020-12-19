@@ -6,6 +6,184 @@
     android:layout_height="match_parent"
     tools:context=".Activities.statisticsActivity.StatisticsActivity">
 
+    <TextView
+        android:id="@+id/statistics_textView_timePeriodTotalStatsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="clip_horizontal"
+        android:text="(Time Period) Total Stats"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_NoRecordedExercise" />
+
+    <TextView
+        android:id="@+id/statistics_textView_NoRecordedSport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="clip_horizontal"
+        android:text="No recorded (Sport) since (Date Limit)"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_timePeriodTotalDistance" />
+
+    <TextView
+        android:id="@+id/statistics_textView_timePeriodSportRecordSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="The fastest average speed you had for a single (Sport) this (Time Period) is xxx km/h"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_timePeriodSportRecordTime" />
+
+    <TextView
+        android:id="@+id/statistics_textView_timePeriodSportRecordDistance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="The farthest distance you traveled in a single (Sport) this (Time Period) is xxx km"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_timePeriodSportRecordTitle" />
+
+    <TextView
+        android:id="@+id/statistics_textView_timePeriodSportBeatenRecordTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You beat your Quickest (Sport) record this (Time Period)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_timePeriodSportBeatenRecordDistance" />
+
+    <TextView
+        android:id="@+id/statistics_textView_timePeriodTotalDistance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You have traveled xxx km whilst exercising this (Time Period)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_timePeriodTotalTime" />
+
+    <TextView
+        android:id="@+id/statistics_textView_timePeriodSportTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You have spent xxx (Sport)ing this (Time Period)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_timePeriodSportStatsTitle" />
+
+    <TextView
+        android:id="@+id/statistics_textView_timePeriodSportBeatenRecordDistance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You beat your farthest distance record for (Sport) this (Time Period)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_wellDoneTitle" />
+
+    <TextView
+        android:id="@+id/statistics_textView_timePeriodTotalTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You have spent xxx exercising this (Time Period)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_timePeriodTotalStatsTitle" />
+
+    <TextView
+        android:id="@+id/statistics_textView_timePeriodSportBeatenRecordSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You beat your Fastest speed record for a (Sport) this (Time Period)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_timePeriodSportBeatenRecordTime" />
+
+    <TextView
+        android:id="@+id/statistics_textView_timePeriodSportDistance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You have traveled xxx km whilst (Sport)ing this (Time Period)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_timePeriodSportTime" />
+
+    <TextView
+        android:id="@+id/statistics_textView_wellDoneTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="clip_horizontal"
+        android:text="Well done!"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_timePeriodSportRecordSpeed" />
+
+    <TextView
+        android:id="@+id/statistics_textView_timePeriodSportRecordTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="The quickest you finished a single (Sport) in this (Time Period) is xxx"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_timePeriodSportRecordDistance" />
+
+    <TextView
+        android:id="@+id/statistics_textView_timePeriodSportRecordTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="clip_horizontal"
+        android:text="Your (Sport) Records This (Time Period)"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_timePeriodSportDistance" />
+
+    <TextView
+        android:id="@+id/statistics_textView_timePeriodSportStatsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="clip_horizontal"
+        android:text="(Time Period) (Sport) Stats"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_textView_NoRecordedSport" />
+
+    <TextView
+        android:id="@+id/statistics_textView_NoRecordedExercise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="clip_horizontal"
+        android:text="No recorded exercise since (Date Limit)"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_spinner_sport" />
+
     <Spinner
         android:id="@+id/statistics_spinner_timePeriod"
         android:layout_width="match_parent"
@@ -13,132 +191,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ScrollView
-        android:id="@+id/statistics_scrollView_stats"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statistics_spinner_sport">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/statistics_textView_NoRecordedExercise"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="clip_horizontal"
-                android:text="No recorded exercise since (Date Limit)"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/statistics_textView_timePeriodTotalStatsTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="clip_horizontal"
-                android:text="(Time Period) Total Stats"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/statistics_textView_timePeriodTotalTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="You have spent xxx exercising this (Time Period)" />
-
-            <TextView
-                android:id="@+id/statistics_textView_timePeriodTotalDistance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="You have traveled xxx km whilst exercising this (Time Period)" />
-
-            <TextView
-                android:id="@+id/statistics_textView_NoRecordedSport"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="clip_horizontal"
-                android:text="No recorded (Sport) since (Date Limit)"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/statistics_textView_timePeriodSportStatsTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="clip_horizontal"
-                android:text="(Time Period) (Sport) Stats"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/statistics_textView_timePeriodSportTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="You have spent xxx (Sport)ing this (Time Period)" />
-
-            <TextView
-                android:id="@+id/statistics_textView_timePeriodSportDistance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="You have traveled xxx km whilst (Sport)ing this (Time Period)" />
-
-            <TextView
-                android:id="@+id/statistics_textView_timePeriodSportRecordTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="clip_horizontal"
-                android:text="Your (Sport) Records This (Time Period)"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/statistics_textView_timePeriodSportRecordDistance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="The farthest distance you traveled in a single (Sport) this (Time Period) is xxx km" />
-
-            <TextView
-                android:id="@+id/statistics_textView_timePeriodSportRecordTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="The quickest you finished a single (Sport) in this (Time Period) is xxx" />
-
-            <TextView
-                android:id="@+id/statistics_textView_timePeriodSportRecordSpeed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="The fastest average speed you had for a single (Sport) this (Time Period) is xxx km/h" />
-
-            <TextView
-                android:id="@+id/statistics_textView_wellDoneTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="clip_horizontal"
-                android:text="Well done!"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/statistics_textView_timePeriodSportBeatenRecordDistance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="You beat your farthest distance record for (Sport) this (Time Period)" />
-
-            <TextView
-                android:id="@+id/statistics_textView_timePeriodSportBeatenRecordTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="You beat your Quickest (Sport) record this (Time Period)" />
-
-            <TextView
-                android:id="@+id/statistics_textView_timePeriodSportBeatenRecordSpeed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="You beat your Fastest speed record for a (Sport) this (Time Period)" />
-
-        </LinearLayout>
-    </ScrollView>
 
     <Spinner
         android:id="@+id/statistics_spinner_sport"
