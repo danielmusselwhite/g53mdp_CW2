@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -45,11 +46,10 @@ public class ViewSavedRunActivity extends AppCompatActivity {
 
     ViewSavedRunMapsFragment mapFragment;
 
-    long savedRunID;
-    LiveData<SavedRun> savedRun;
-
     RunTrackerRoomDatabase db;
     SavedRunDAO savedRunDAO;
+
+    ViewSavedRunViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,106 +82,87 @@ public class ViewSavedRunActivity extends AppCompatActivity {
 
         //region "retrieving the bundle passed to this activity"
         Bundle bundle = getIntent().getExtras();
-        savedRunID = bundle.getLong("SavedRunID");
         //endregion
 
-        //region "updating using the values from the database"
-        RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
+        // creating new view model
+        viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(ViewSavedRunViewModel.class);
+        viewModel.setSavedRunID(bundle.getLong("SavedRunID"));
 
-            savedRun = savedRunDAO.getRunWithID(savedRunID); //getting this run
+        //observing changes to the livedata within the viewmodel
+        viewModel.getSavedRun().observe(this, newRun -> {
+            //if this entry has been deleted
+            if(newRun==null){
+                finish();
+            }
+            //else this has been updated
+            else {
+                String name = newRun.getName();
+                DateFormat dateFormat = new SimpleDateFormat("MMM, dd, yyyy 'at' HH:mm");
+                String dateString = dateFormat.format(newRun.getDate());
+                String speed = (MyUtilities.roundToDP(newRun.getSpeed(),2) + " km/h");
+                String distance = (MyUtilities.roundToDP(newRun.getDistance(),2) + " km");
+                String time = MyUtilities.formatTimeNicely(newRun.getTime());
+                ArrayList<LatLng> path = newRun.getPath();
+                String sport = getResources().getStringArray(R.array.sports_array)[newRun.getSportIndex()];
 
-            //region "creating and attaching observer for the live data"
-            //running on the UI thread as necessary for attaching observer and updating the UI
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+                nameView.setText(name);
+                dateView.setText(dateString);
+                speedView.setText(speed);
+                distanceView.setText(distance);
+                timeView.setText(time);
+                tv_sport.setText(sport);
+                mapFragment.savePath(path);
 
-                    // observer that updates the UI when the run has changed
-                    final Observer<SavedRun> runObserver = new Observer<SavedRun>() {
-                        @Override
-                        public void onChanged(@Nullable final SavedRun newRun) {
-                            //if this entry has been deleted
-                            if(newRun==null){
-                                finish();
-                            }
-                            //else this has been updated
-                            else {
-                                String name = newRun.getName();
-                                DateFormat dateFormat = new SimpleDateFormat("MMM, dd, yyyy 'at' HH:mm");
-                                String dateString = dateFormat.format(newRun.getDate());
-                                String speed = (MyUtilities.roundToDP(newRun.getSpeed(),2) + " km/h");
-                                String distance = (MyUtilities.roundToDP(newRun.getDistance(),2) + " km");
-                                String time = MyUtilities.formatTimeNicely(newRun.getTime());
-                                ArrayList<LatLng> path = newRun.getPath();
-                                String sport = getResources().getStringArray(R.array.sports_array)[newRun.getSportIndex()];
+                //region "handling columns which can contain nulls"
+                String description = newRun.getDescription();
+                if(description!=null){
+                    tv_descriptionValue.setText(description);
+                    tv_description.setVisibility(View.VISIBLE);
+                    tv_descriptionValue.setVisibility(View.VISIBLE);
+                }
+                else{
+                    tv_description.setVisibility(View.GONE);
+                    tv_descriptionValue.setVisibility(View.GONE);
+                }
 
-                                nameView.setText(name);
-                                dateView.setText(dateString);
-                                speedView.setText(speed);
-                                distanceView.setText(distance);
-                                timeView.setText(time);
-                                tv_sport.setText(sport);
-                                mapFragment.savePath(path);
+                Integer effortIndex = newRun.getEffortIndex();
+                if(effortIndex!=null){
+                    String effort = getResources().getStringArray(R.array.effort_array)[effortIndex];
+                    tv_effortValue.setText(effort);
+                    tv_effort.setVisibility(View.VISIBLE);
+                    tv_effortValue.setVisibility(View.VISIBLE);
+                }
+                else{
+                    tv_effort.setVisibility(View.GONE);
+                    tv_effortValue.setVisibility(View.GONE);
+                }
 
-                                //region "handling columns which can contain nulls"
-                                String description = newRun.getDescription();
-                                if(description!=null){
-                                    tv_descriptionValue.setText(description);
-                                    tv_description.setVisibility(View.VISIBLE);
-                                    tv_descriptionValue.setVisibility(View.VISIBLE);
-                                }
-                                else{
-                                    tv_description.setVisibility(View.GONE);
-                                    tv_descriptionValue.setVisibility(View.GONE);
-                                }
-
-                                Integer effortIndex = newRun.getEffortIndex();
-                                if(effortIndex!=null){
-                                    String effort = getResources().getStringArray(R.array.effort_array)[effortIndex];
-                                    tv_effortValue.setText(effort);
-                                    tv_effort.setVisibility(View.VISIBLE);
-                                    tv_effortValue.setVisibility(View.VISIBLE);
-                                }
-                                else{
-                                    tv_effort.setVisibility(View.GONE);
-                                    tv_effortValue.setVisibility(View.GONE);
-                                }
-
-                                String picturePath = newRun.getPicturePath();
-                                if(picturePath!=null){
-                                    try {
-                                        iv_associatedPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                                        //TODO - either remove this or implement it; decide which look you prefer
-                                        //region "scaling the image for taking up 75% of the screens width
+                String picturePath = newRun.getPicturePath();
+                if(picturePath!=null){
+                    try {
+                        iv_associatedPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                        //TODO - either remove this or implement it; decide which look you prefer
+                        //region "scaling the image for taking up 75% of the screens width
 //                                        int screenWidth = ViewSavedRunActivity.this.getResources().getDisplayMetrics().widthPixels;
 //                                        iv_associatedPhoto.getLayoutParams().width = (int) (0.75 * screenWidth);
-                                        //endregion
-                                        tv_image.setVisibility(View.VISIBLE);
-                                        iv_associatedPhoto.setVisibility(View.VISIBLE);
-                                    } catch (Exception e) {
-                                        Log.d("g53mdp", "Exception when trying to set image: " + e.toString());
-                                        iv_associatedPhoto.setImageBitmap(null);
-                                        tv_image.setVisibility(View.GONE);
-                                        iv_associatedPhoto.setVisibility(View.GONE);
-                                    }
-                                }
-                                else{
-                                    iv_associatedPhoto.setImageBitmap(null);
-                                    tv_image.setVisibility(View.GONE);
-                                    iv_associatedPhoto.setVisibility(View.GONE);
-                                }
-                                //endregion
-                            }
-                        }
-                    };
-
-                    //attaching the observer to the runs livedata
-                    savedRun.observe(ViewSavedRunActivity.this, runObserver);
+                        //endregion
+                        tv_image.setVisibility(View.VISIBLE);
+                        iv_associatedPhoto.setVisibility(View.VISIBLE);
+                    } catch (Exception e) {
+                        Log.d("g53mdp", "Exception when trying to set image: " + e.toString());
+                        iv_associatedPhoto.setImageBitmap(null);
+                        tv_image.setVisibility(View.GONE);
+                        iv_associatedPhoto.setVisibility(View.GONE);
+                    }
                 }
-            });
-            //endregion
+                else{
+                    iv_associatedPhoto.setImageBitmap(null);
+                    tv_image.setVisibility(View.GONE);
+                    iv_associatedPhoto.setVisibility(View.GONE);
+                }
+                //endregion
+            }
         });
-        //endregion
     }
 
     //region "inter-activity communication"
@@ -193,7 +174,7 @@ public class ViewSavedRunActivity extends AppCompatActivity {
             case R.id.editButton: {
 
                 Bundle bundle = new Bundle();
-                bundle.putLong("SavedRunID",savedRunID);
+                bundle.putLong("SavedRunID",viewModel.getSavedRunID());
                 Intent intent = new Intent(ViewSavedRunActivity.this, EditSavedRunActivity.class);
                 intent.putExtras(bundle);
 

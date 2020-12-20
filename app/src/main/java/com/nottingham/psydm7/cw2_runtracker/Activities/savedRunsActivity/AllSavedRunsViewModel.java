@@ -34,7 +34,7 @@ public class AllSavedRunsViewModel extends AndroidViewModel {
     }
 
     public void updateSavedRuns(int pos){
-        //region "Sorting the runs based on the spinners value"
+        //"Sorting the runs based on the spinners value"
         switch(pos) {
             case 0:
                 savedRuns = savedRunDAO.getRunsSortedByDate();
@@ -53,5 +53,4 @@ public class AllSavedRunsViewModel extends AndroidViewModel {
                 break;
         }
     }
-    //endregion
 }
