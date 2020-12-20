@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.content.Intent;
@@ -32,13 +33,13 @@ import java.text.SimpleDateFormat;
 
 public class MainActivity extends AppCompatActivity{
 
-    Spinner spinner_sport;
-    Button button_start;
+    private Spinner spinner_sport;
+    private Button button_start;
 
-    RunTrackerRoomDatabase db;
-    SavedRunDAO savedRunDAO;
+    private MainViewModel viewModel;
 
-    TextView textView_mostRecentExercise;
+
+    private TextView textView_mostRecentExercise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,45 +77,19 @@ public class MainActivity extends AppCompatActivity{
         });
         //endregion
 
-        //region "getting room database and DAOs"
-        db = RunTrackerRoomDatabase.getDatabase(getApplicationContext());
-        savedRunDAO = db.savedRunDAO();
-        //endregion
+        viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(MainViewModel.class);
+        viewModel.getMostRecentExercise().observe(this, newMostRecentExercise -> {
+                    //if we haven't done any exercise yet then say that then return
+                    if(newMostRecentExercise==null){
+                        textView_mostRecentExercise.setText("We haven't got any recorded exercise from you yet, why not start today?");
+                    }
+                    // else we have then display the most recent exercise to the user!
+                    else {
+                        DateFormat dateFormat = new SimpleDateFormat("MMM, dd, yyyy 'at' HH:mm");
+                        textView_mostRecentExercise.setText("Your most recent exercise was the " + MainActivity.this.getResources().getStringArray(R.array.sports_array)[newMostRecentExercise.getSportIndex()] + " you did on " + dateFormat.format(newMostRecentExercise.getDate()));
+                    }
+                });
 
-        //region "accessing database to display useful information to the user"
-        RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
-
-            //getting the most recent exercise
-            LiveData<SavedRun> mostRecentExercise = savedRunDAO.getMostRecentExercise();
-
-            //region "creating and attaching observer for the livedata holding the date of the most recent exercise"
-            //running on the UI thread as necessary for attaching observer and updating the UI
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-                    mostRecentExercise.observe(MainActivity.this, new Observer<SavedRun>(){
-
-
-                        @Override
-                        public void onChanged(SavedRun newMostRecentExercise) {
-                            //if we haven't done any exercise yet then say that then return
-                            if(newMostRecentExercise==null){
-                                textView_mostRecentExercise.setText("We haven't got any recorded exercise from you yet, why not start today?");
-                            }
-                            // else we have then display the most recent exercise to the user!
-                            else{
-                                DateFormat dateFormat = new SimpleDateFormat("MMM, dd, yyyy 'at' HH:mm");
-                                textView_mostRecentExercise.setText("Your most recent exercise was the " + MainActivity.this.getResources().getStringArray(R.array.sports_array)[newMostRecentExercise.getSportIndex()] + " you did on " + dateFormat.format(newMostRecentExercise.getDate()));
-                            }
-
-                        }
-                    });
-                }
-            });
-            //endregion
-        });
-        //endregion
     }
 
 
