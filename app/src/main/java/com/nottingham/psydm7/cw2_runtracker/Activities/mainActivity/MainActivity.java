@@ -2,8 +2,6 @@ package com.nottingham.psydm7.cw2_runtracker.Activities.mainActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
@@ -19,14 +17,11 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.SavedRunsActivity;
+import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.AllSavedRunsActivity;
 import com.nottingham.psydm7.cw2_runtracker.Activities.statisticsActivity.StatisticsActivity;
 import com.nottingham.psydm7.cw2_runtracker.MyUtilities;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity.RunningActivity;
-import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.DAOs.SavedRunDAO;
-import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.Entities.SavedRun;
-import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.RunTrackerRoomDatabase;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -121,7 +116,7 @@ public class MainActivity extends AppCompatActivity{
             case R.id.main_button_pastExercise: {
 
                 Log.d("g53mdp", "Starting the saved runs activity!");
-                Intent intent = new Intent(MainActivity.this, SavedRunsActivity.class);
+                Intent intent = new Intent(MainActivity.this, AllSavedRunsActivity.class);
                 startActivity(intent);
                 break;
             }

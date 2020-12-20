@@ -22,13 +22,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRunsRecyclerViewAdapter.ViewHolder>{
+public class AllSavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<AllSavedRunsRecyclerViewAdapter.ViewHolder>{
 
     private List<SavedRun> data;
     private Context context;
     private LayoutInflater layoutInflater;
 
-    public SavedRunsRecyclerViewAdapter(Context context){
+    public AllSavedRunsRecyclerViewAdapter(Context context){
         this.data = new ArrayList<>();
         this.context = context;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -36,7 +36,7 @@ public class SavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<SavedRuns
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.activity_saved_runs_item_view, parent, false);
+        View view = layoutInflater.inflate(R.layout.activity_all_saved_runs_item_view, parent, false);
         return new ViewHolder(view);
     }
 

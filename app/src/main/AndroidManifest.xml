@@ -46,8 +46,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".Activities.savedRunsActivity.SavedRunsItemViewActivity" />
-        <activity android:name=".Activities.savedRunsActivity.SavedRunsActivity" />
+        <activity android:name=".Activities.savedRunsActivity.AllSavedRunsItemViewActivity" />
+        <activity android:name=".Activities.savedRunsActivity.AllSavedRunsActivity" />
 
         <service
             android:name=".Activities.runningActivity.RunningService"
