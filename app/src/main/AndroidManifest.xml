@@ -56,13 +56,20 @@
             android:foregroundServiceType="location" />
 
         <activity android:name=".Activities.runningActivity.RunningActivity" />
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".Activities.mainActivity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:authorities="uk.ac.nott.cs.runs"
+            android:multiprocess="true"
+            android:exported="true"
+            android:name=".ContentProvider.RunsProvider">
+        </provider>
     </application>
 
 </manifest>

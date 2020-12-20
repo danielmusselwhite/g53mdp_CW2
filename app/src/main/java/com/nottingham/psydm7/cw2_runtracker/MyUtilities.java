@@ -3,6 +3,10 @@ package com.nottingham.psydm7.cw2_runtracker;
 import java.util.concurrent.TimeUnit;
 
 public class MyUtilities {
+
+    public final static int REQUEST_CODE_PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 1;
+    public final static int REQUEST_CODE_PERMISSION_REQUEST_ACCESS_READ_STORAGE = 2;
+
     //region "formatting time nice"
     static public String formatTimeNicely(long timeMillis){
         String stringHours = "";

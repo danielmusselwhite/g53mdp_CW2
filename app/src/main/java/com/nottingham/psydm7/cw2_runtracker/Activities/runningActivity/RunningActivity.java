@@ -35,8 +35,6 @@ public class RunningActivity extends AppCompatActivity {
 
     RunningMapsFragment mapsFragment;
 
-    public final static int REQUEST_CODE_PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 1;
-
     int sportIndex;
 
     TextView textView_timeValue;

@@ -1,6 +1,5 @@
-package com.nottingham.psydm7.cw2_runtracker.Activities;
+package com.nottingham.psydm7.cw2_runtracker.Activities.mainActivity;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.LiveData;
@@ -9,9 +8,6 @@ import androidx.lifecycle.Observer;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.icu.util.Calendar;
-import android.icu.util.TimeZone;
-import android.os.Build;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -33,11 +29,6 @@ import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.RunTrackerRoomDatabase;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.TemporalAdjusters;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -136,9 +127,9 @@ public class MainActivity extends AppCompatActivity{
 
             case R.id.main_button_startExercise: {
 
-                // if this doesn't have access to location permissions, request access, no point in launching activity if they cannot use it
+                // if this doesn't have access to location permissions, request access then return, no point in launching activity if they cannot use it
                 if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, RunningActivity.REQUEST_CODE_PERMISSION_REQUEST_ACCESS_FINE_LOCATION);
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MyUtilities.REQUEST_CODE_PERMISSION_REQUEST_ACCESS_FINE_LOCATION);
                     return;
                 }
 

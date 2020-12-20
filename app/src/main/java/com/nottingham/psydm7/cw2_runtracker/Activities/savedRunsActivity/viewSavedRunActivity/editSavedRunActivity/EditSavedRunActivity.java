@@ -2,10 +2,13 @@ package com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSa
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -20,7 +23,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
-import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSavedRunActivity.ViewSavedRunActivity;
+import com.nottingham.psydm7.cw2_runtracker.MyUtilities;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.DAOs.SavedRunDAO;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.Entities.SavedRun;
@@ -199,6 +202,12 @@ public class EditSavedRunActivity extends AppCompatActivity {
             }
 
             case R.id.editRun_button_loadImage: {
+
+                // if this doesn't have access to storage permissions, request access then return, no point in launching activity for picking image if they cannot use it
+                if (ActivityCompat.checkSelfPermission(EditSavedRunActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(EditSavedRunActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MyUtilities.REQUEST_CODE_PERMISSION_REQUEST_ACCESS_FINE_LOCATION);
+                    return;
+                }
 
                 Log.d("g53mdp", "Deleting entry for this run!");
 

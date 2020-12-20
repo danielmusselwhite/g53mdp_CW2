@@ -165,7 +165,7 @@ public class RunningService extends Service {
         public void onLocationChanged(Location location) {
             Log.d("g53mdp", "New lat long is: "+ location.getLatitude() + ", " + location.getLongitude());
 
-            // if this doesn't have access to location permissions, request access then return
+            // if this doesn't have access to location permissions, return
             if (ActivityCompat.checkSelfPermission(RunningService.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(RunningService.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
