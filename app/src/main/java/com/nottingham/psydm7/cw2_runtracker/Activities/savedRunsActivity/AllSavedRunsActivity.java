@@ -73,6 +73,10 @@ public class AllSavedRunsActivity extends AppCompatActivity {
 
                 Log.d("g53mdp","sorting spinner has changed to: '"+getResources().getStringArray(R.array.sorting_array)[pos]+"'");
 
+                //removing previous observers if one exists
+                if(viewModel.getSavedRuns()!=null)
+                    viewModel.getSavedRuns().removeObservers(AllSavedRunsActivity.this);
+
                 viewModel.updateSavedRuns(pos);
 
                 viewModel.getSavedRuns().observe(AllSavedRunsActivity.this, newRuns -> {

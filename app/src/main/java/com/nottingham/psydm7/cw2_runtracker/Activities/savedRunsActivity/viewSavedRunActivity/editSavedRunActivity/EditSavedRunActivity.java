@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.content.Intent;
@@ -23,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
+import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.AllSavedRunsViewModel;
+import com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSavedRunActivity.ViewSavedRunViewModel;
 import com.nottingham.psydm7.cw2_runtracker.MyUtilities;
 import com.nottingham.psydm7.cw2_runtracker.R;
 import com.nottingham.psydm7.cw2_runtracker.RoomDatabase.DAOs.SavedRunDAO;
@@ -44,10 +47,7 @@ public class EditSavedRunActivity extends AppCompatActivity {
     Spinner spinner_sportValue;
     SeekBar seekBar_effort;
 
-    RunTrackerRoomDatabase db;
-    SavedRunDAO savedRunDAO;
-
-    LiveData<SavedRun> savedRun;
+    EditSavedRunViewModel viewModel;
 
 
     @Override
@@ -78,71 +78,49 @@ public class EditSavedRunActivity extends AppCompatActivity {
         spinner_sportValue.setAdapter(adapter);
         //endregion
 
+        // creating new view model
+        viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(EditSavedRunViewModel.class);
+        viewModel.setSavedRunID(bundle.getLong("SavedRunID"));
 
+        //observing changes to the livedata within the viewmodel
+        viewModel.getSavedRun().observe(this, newRun -> {
 
-        //region "getting room database and DAOs"
-        db = RunTrackerRoomDatabase.getDatabase(getApplicationContext());
-        savedRunDAO = db.savedRunDAO();
-        //endregion
+            et_Name.setText(newRun.getName());
 
-        //region "updating UI using the values from the database"
-        RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
+            spinner_sportValue.setSelection(newRun.getSportIndex());
 
-            savedRun = savedRunDAO.getRunWithID(savedRunID); //getting this run
+            String description = newRun.getDescription();
+            if(description!=null)
+                et_description.setText(description);
+            else
+                et_description.setText("");
 
-            //region "creating and attaching observer for the live data"
-            //running on the UI thread as necessary for attaching observer and updating the UI
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-                    // observer that updates the UI when the run has changed
-                    final Observer<SavedRun> runObserver = new Observer<SavedRun>() {
-                        @Override
-                        public void onChanged(@Nullable final SavedRun newRun) {
-                            et_Name.setText(newRun.getName());
-
-                            spinner_sportValue.setSelection(newRun.getSportIndex());
-
-                            String description = newRun.getDescription();
-                            if(description!=null)
-                                et_description.setText(description);
-                            else
-                                et_description.setText("");
-
-                            String picturePath = newRun.getPicturePath();
-                            if(picturePath!=null) {
-                                try {
-                                    iv_associatedPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                                    iv_associatedPhoto.setVisibility(View.VISIBLE);
-                                    button_removeImage.setVisibility(View.VISIBLE);
-                                } catch (Exception e) {
-                                    Log.d("g53mdp", "Exception when trying to set image: " + e.toString());
-                                    iv_associatedPhoto.setImageBitmap(null);
-                                    button_removeImage.setVisibility(View.INVISIBLE);
-                                    iv_associatedPhoto.setVisibility(View.INVISIBLE);
-                                }
-                            }
-                            else{
-                                iv_associatedPhoto.setImageBitmap(null);
-                                button_removeImage.setVisibility(View.INVISIBLE);
-                                iv_associatedPhoto.setVisibility(View.INVISIBLE);
-                            }
-
-                            Integer effort = newRun.getEffortIndex();
-                            if(effort!=null)
-                                seekBar_effort.setProgress(effort);
-                            else{
-                                seekBar_effort.setProgress(0);
-                            }
-                        }
-                    };
-
-                    //attaching the observer to the runs livedata
-                    savedRun.observe(EditSavedRunActivity.this, runObserver);
+            String picturePath = newRun.getPicturePath();
+            if(picturePath!=null) {
+                try {
+                    iv_associatedPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    iv_associatedPhoto.setVisibility(View.VISIBLE);
+                    button_removeImage.setVisibility(View.VISIBLE);
+                } catch (Exception e) {
+                    Log.d("g53mdp", "Exception when trying to set image: " + e.toString());
+                    iv_associatedPhoto.setImageBitmap(null);
+                    button_removeImage.setVisibility(View.INVISIBLE);
+                    iv_associatedPhoto.setVisibility(View.INVISIBLE);
                 }
-            });
-            //endregion
+            }
+            else{
+                iv_associatedPhoto.setImageBitmap(null);
+                button_removeImage.setVisibility(View.INVISIBLE);
+                iv_associatedPhoto.setVisibility(View.INVISIBLE);
+            }
+
+            Integer effort = newRun.getEffortIndex();
+            if(effort!=null)
+                seekBar_effort.setProgress(effort);
+            else{
+                seekBar_effort.setProgress(0);
+            }
+
         });
         //endregion
 
@@ -161,28 +139,21 @@ public class EditSavedRunActivity extends AppCompatActivity {
 
                 //only allow the run to be saved if the name exists!
                 String name = et_Name.getText().toString();
-                if(name!=""){
-                    savedRun.removeObservers(this);
 
-                    RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
 
-                        savedRunDAO.updateName(savedRunID, name);
-                        savedRunDAO.updateSportIndex(savedRunID, spinner_sportValue.getSelectedItemPosition());
-                        savedRunDAO.updateEffortIndex(savedRunID, seekBar_effort.getProgress());
 
-                        String description = et_description.getText().toString();
-                        if(!description.isEmpty())
-                            savedRunDAO.updateDescription(savedRunID, description);
-                        else
-                            savedRunDAO.updateDescription(savedRunID, null);
 
-                        if(pictureUpdated==true)
-                            savedRunDAO.updatePicturePath(savedRunID, newPicturePath);
-                    });
+                viewModel.updateName(savedRunID, name);
+                viewModel.updateSportIndex(savedRunID, spinner_sportValue.getSelectedItemPosition());
+                viewModel.updateEffortIndex(savedRunID, seekBar_effort.getProgress());
 
-                    finish();
-                }
+                String description = et_description.getText().toString();
+                viewModel.updateDescription(savedRunID, description);
 
+                if(pictureUpdated==true)
+                    viewModel.updatePicturePath(savedRunID, newPicturePath);
+
+                finish();
 
                 break;
             }
@@ -190,11 +161,12 @@ public class EditSavedRunActivity extends AppCompatActivity {
             case R.id.editRun_button_delete: {
 
                 Log.d("g53mdp", "Deleting entry for this run!");
-                
-                savedRun.removeObservers(this);
+
+                if(viewModel.getSavedRun()!=null)
+                    viewModel.getSavedRun().removeObservers(this);
 
                 RunTrackerRoomDatabase.databaseWriteExecutor.execute(() -> {
-                    savedRunDAO.deleteRun(savedRunID);
+                    viewModel.deleteRun(savedRunID);
                 });
 
                 finish();
