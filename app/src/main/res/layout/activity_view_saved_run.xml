@@ -11,7 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/name"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/viewRun_mapFragment"
         app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewDate" />
@@ -20,7 +19,6 @@
         android:id="@+id/viewRunTextViewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/date"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/viewRunTextViewRunTitle"
         app:layout_constraintTop_toBottomOf="@+id/editButton" />
@@ -30,7 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="@string/sport"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/viewRunTextViewDate"
         app:layout_constraintStart_toStartOf="@+id/viewRunTextViewDate" />
@@ -67,7 +64,6 @@
                     android:id="@+id/viewRunTextViewSportValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/_0_km_h"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/viewRunTextViewTimeValue"
                     app:layout_constraintStart_toStartOf="@+id/viewRunTextViewSpeed" />
@@ -76,7 +72,6 @@
                     android:id="@+id/viewRunTextViewTimeValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/_00_00"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/viewRunTextViewDistanceValue"
                     app:layout_constraintStart_toStartOf="@+id/viewRunTextViewTime" />
@@ -116,7 +111,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="@string/_0_km"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/viewRunTextViewDistance"
                     app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewDistance" />
@@ -128,6 +122,7 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/description"
                     android:textSize="16sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="@+id/viewRunTextViewDistanceValue"
                     app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewDistanceValue" />
 
@@ -147,6 +142,7 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/this_activity_felt"
                     android:textSize="16sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="@+id/viewRunTextViewDescriptionValue"
                     app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewDescriptionValue" />
 
@@ -157,6 +153,7 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/associated_image"
                     android:textSize="16sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="@+id/viewRun_guideline_left"
                     app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewEffortValue" />
 
