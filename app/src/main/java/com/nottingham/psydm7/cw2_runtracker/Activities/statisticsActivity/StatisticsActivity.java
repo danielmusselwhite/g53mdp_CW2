@@ -249,7 +249,7 @@ public class StatisticsActivity extends AppCompatActivity {
                             textView_sportStatsTitle.setText(timePeriod+" "+sport+" Statistics");
                             textView_sportStatsTime.setText("You have spent "+MyUtilities.formatLargeTimeNicely(sportTotalTime)+" "+finalSporting+" "+finalTimePeriodString);
                             textView_sportStatsDistance.setText("You have traveled "+MyUtilities.roundToDP(sportTotalDistance,2)+" km whilst "+finalSporting+" "+finalTimePeriodString);
-                            textView_sportRecordsTitle.setText(timePeriod+" Records");
+                            textView_sportRecordsTitle.setText(timePeriod+" "+sport+" Records");
                             textView_sportRecordsDistance.setText("The farthest distance you travelled in a single "+sport+" "+finalTimePeriodString+" is "+MyUtilities.roundToDP(sportRecordDistance,2)+" km");
                             textView_sportRecordsTime.setText("The quickest time you finished a single "+sport+" in "+finalTimePeriodString+" is "+MyUtilities.formatLargeTimeNicely(sportRecordTime));
                             textView_sportRecordsSpeed.setText("The fastest average speed you had for a single "+sport+" "+finalTimePeriodString+" is "+MyUtilities.roundToDP(sportRecordSpeed,2)+" km/h");

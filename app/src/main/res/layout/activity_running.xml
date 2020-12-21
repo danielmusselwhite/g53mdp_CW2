@@ -10,8 +10,14 @@
     <fragment
         android:id="@+id/fragment_runningMap"
         android:name="com.nottingham.psydm7.cw2_runtracker.Activities.runningActivity.RunningMapsFragment"
-        android:layout_width="321dp"
-        android:layout_height="399dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textViewTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -23,11 +29,10 @@
         android:id="@+id/textViewAverageSpeed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/average_speed"
-        app:layout_constraintBottom_toTopOf="@+id/running_button_save"
-        app:layout_constraintEnd_toStartOf="@+id/textViewAverageSpeedValue"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textViewKilometers"
+        app:layout_constraintStart_toStartOf="@+id/textViewKilometers"
         app:layout_constraintTop_toBottomOf="@+id/textViewKilometers" />
 
     <TextView
@@ -35,21 +40,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_0_km_h"
-        app:layout_constraintBottom_toTopOf="@+id/running_button_save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textViewAverageSpeed"
-        app:layout_constraintTop_toBottomOf="@+id/textViewKilometersValue" />
+        app:layout_constraintBottom_toBottomOf="@+id/textViewAverageSpeed"
+        app:layout_constraintEnd_toEndOf="@+id/textViewKilometersValue"
+        app:layout_constraintStart_toStartOf="@+id/textViewKilometersValue" />
 
     <TextView
         android:id="@+id/textViewTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/time"
-        app:layout_constraintBottom_toTopOf="@+id/textViewKilometers"
         app:layout_constraintEnd_toStartOf="@+id/textViewTimeValue"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fragment_runningMap"
         app:layout_constraintTop_toBottomOf="@+id/fragment_runningMap" />
 
     <TextView
@@ -57,32 +60,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_0_km"
-        app:layout_constraintBottom_toTopOf="@+id/textViewAverageSpeedValue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textViewKilometers"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTimeValue" />
+        app:layout_constraintBottom_toBottomOf="@+id/textViewKilometers"
+        app:layout_constraintEnd_toEndOf="@+id/textViewTimeValue"
+        app:layout_constraintStart_toStartOf="@+id/textViewTimeValue" />
 
     <TextView
         android:id="@+id/textViewTimeValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_00_00"
-        app:layout_constraintBottom_toTopOf="@+id/textViewKilometersValue"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTime"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_runningMap"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewTime"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_runningMap" />
+        app:layout_constraintTop_toTopOf="@+id/textViewTime" />
 
     <TextView
         android:id="@+id/textViewKilometers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/distance"
-        app:layout_constraintBottom_toTopOf="@+id/textViewAverageSpeed"
-        app:layout_constraintEnd_toStartOf="@+id/textViewKilometersValue"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textViewTime"
+        app:layout_constraintStart_toStartOf="@+id/textViewTime"
         app:layout_constraintTop_toBottomOf="@+id/textViewTime" />
 
     <Button
@@ -92,9 +92,9 @@
         android:onClick="onButtonClick"
         android:text="@string/stop"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_runningMap"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fragment_runningMap"
         app:layout_constraintTop_toBottomOf="@+id/textViewAverageSpeed" />
 
     <!--

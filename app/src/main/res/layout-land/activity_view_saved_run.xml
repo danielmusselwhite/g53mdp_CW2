@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.savedRunsActivity.viewSavedRunActivity.ViewSavedRunActivity">
+
+    <fragment
+        android:id="@+id/viewRun_mapFragment"
+        android:name="com.nottingham.psydm7.cw2_runtracker.Activities.savedRunsActivity.viewSavedRunActivity.ViewSavedRunMapsFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/scrollView3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewRunTitle"
+        tools:layout="@layout/fragment_maps" />
+
+    <TextView
+        android:id="@+id/viewRunTextViewRunTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/name"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/viewRunTextViewDate"
+        app:layout_constraintStart_toStartOf="@+id/viewRunTextViewDate"
+        app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewDate" />
+
+    <TextView
+        android:id="@+id/viewRunTextViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/date"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/viewRunTextViewSport"
+        app:layout_constraintStart_toStartOf="@+id/viewRunTextViewSport"
+        app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewSport" />
+
+    <TextView
+        android:id="@+id/viewRunTextViewSport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/sport"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView3"
+        app:layout_constraintStart_toStartOf="@+id/viewRun_mapFragment"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewRun_mapFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewRun_mapFragment"
+        app:layout_constraintTop_toTopOf="@+id/viewRun_mapFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/viewRun_imageView_associatedPhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:contentDescription="@string/users_associated_image"
+                    app:layout_constraintEnd_toStartOf="@+id/viewRun_guideline_right"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/viewRun_guideline_left"
+                    app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewImage"
+                    app:srcCompat="@android:drawable/screen_background_dark" />
+
+                <TextView
+                    android:id="@+id/viewRunTextViewSportValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/_0_km_h"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/viewRunTextViewSpeed"
+                    app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewSpeed" />
+
+                <TextView
+                    android:id="@+id/viewRunTextViewTimeValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/_00_00"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/viewRunTextViewTime"
+                    app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewTime" />
+
+                <TextView
+                    android:id="@+id/viewRunTextViewDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/distance"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/viewRun_guideline_left"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/viewRunTextViewSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/average_speed"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/viewRunTextViewTimeValue"
+                    app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewTimeValue" />
+
+                <TextView
+                    android:id="@+id/viewRunTextViewTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/time"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/viewRunTextViewDistanceValue"
+                    app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewDistanceValue" />
+
+                <TextView
+                    android:id="@+id/viewRunTextViewDistanceValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/_0_km"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/viewRunTextViewDistance"
+                    app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewDistance" />
+
+                <TextView
+                    android:id="@+id/viewRunTextViewDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/description"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/viewRunTextViewSportValue"
+                    app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewSportValue" />
+
+                <TextView
+                    android:id="@+id/viewRunTextViewDescriptionValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/viewRunTextViewDescription"
+                    app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewDescription" />
+
+                <TextView
+                    android:id="@+id/viewRunTextViewEffort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/this_activity_felt"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/viewRunTextViewDescriptionValue"
+                    app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewDescriptionValue" />
+
+                <TextView
+                    android:id="@+id/viewRunTextViewImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/associated_image"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/viewRun_guideline_left"
+                    app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewEffortValue" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/viewRun_guideline_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="354dp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/viewRun_guideline_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="39dp" />
+
+                <TextView
+                    android:id="@+id/viewRunTextViewEffortValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/viewRun_guideline_left"
+                    app:layout_constraintTop_toBottomOf="@+id/viewRunTextViewEffort" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClick"
+        android:text="@string/edit"
+        app:layout_constraintBottom_toBottomOf="@+id/viewRunTextViewRunTitle"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView3"
+        app:layout_constraintTop_toTopOf="@+id/viewRunTextViewSport" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

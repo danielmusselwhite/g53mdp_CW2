@@ -32,5 +32,6 @@
     <string name="load_image">Load Image</string>
     <string name="remove_image">Remove Image</string>
     <string name="users_associated_image">Users\' associated image</string>
+    <string name="well_done">Well done!</string>
 
 </resources>

@@ -37,6 +37,7 @@ public class EditSavedRunActivity extends AppCompatActivity {
     private static int RESULT_LOAD_IMAGE = 1;
 
     Boolean pictureUpdated = false;
+    String originalPicturePath;
     String newPicturePath = null;
 
     long savedRunID;
@@ -82,49 +83,57 @@ public class EditSavedRunActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(EditSavedRunViewModel.class);
         viewModel.setSavedRunID(bundle.getLong("SavedRunID"));
 
-        //observing changes to the livedata within the viewmodel
-        viewModel.getSavedRun().observe(this, newRun -> {
 
-            et_Name.setText(newRun.getName());
+        //endregion
+        //if we have a saved state update the values inside it
+        if(savedInstanceState!=null){
+            pictureUpdated=savedInstanceState.getBoolean("PictureUpdated");
+            newPicturePath=savedInstanceState.getString("PicturePath");
+            updateUI(savedInstanceState.getString("Name"), savedInstanceState.getString("Description"), newPicturePath, savedInstanceState.getInt("SportIndex"), savedInstanceState.getInt("EffortIndex"));
+        }
+        else{
+            //observing changes to the livedata within the viewmodel
+            viewModel.getSavedRun().observe(this, newRun -> {
+                originalPicturePath=newRun.getPicturePath();
+                updateUI(newRun.getName(), newRun.getDescription(), originalPicturePath, newRun.getSportIndex(), newRun.getEffortIndex());
+                viewModel.getSavedRun().removeObservers(this);
+            });
+        }
+    }
 
-            spinner_sportValue.setSelection(newRun.getSportIndex());
+    public void updateUI(String name, String description, String picturePath, Integer sportIndex, Integer effortIndex){
+        et_Name.setText(name);
 
-            String description = newRun.getDescription();
-            if(description!=null)
-                et_description.setText(description);
-            else
-                et_description.setText("");
+        spinner_sportValue.setSelection(sportIndex);
 
-            String picturePath = newRun.getPicturePath();
-            if(picturePath!=null) {
-                try {
-                    iv_associatedPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                    iv_associatedPhoto.setVisibility(View.VISIBLE);
-                    button_removeImage.setVisibility(View.VISIBLE);
-                } catch (Exception e) {
-                    Log.d("g53mdp", "Exception when trying to set image: " + e.toString());
-                    iv_associatedPhoto.setImageBitmap(null);
-                    button_removeImage.setVisibility(View.INVISIBLE);
-                    iv_associatedPhoto.setVisibility(View.INVISIBLE);
-                }
-            }
-            else{
+        if(description!=null)
+            et_description.setText(description);
+        else
+            et_description.setText("");
+
+        if(picturePath!=null) {
+            try {
+                iv_associatedPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                iv_associatedPhoto.setVisibility(View.VISIBLE);
+                button_removeImage.setVisibility(View.VISIBLE);
+            } catch (Exception e) {
+                Log.d("g53mdp", "Exception when trying to set image: " + e.toString());
                 iv_associatedPhoto.setImageBitmap(null);
                 button_removeImage.setVisibility(View.INVISIBLE);
                 iv_associatedPhoto.setVisibility(View.INVISIBLE);
             }
+        }
+        else{
+            iv_associatedPhoto.setImageBitmap(null);
+            button_removeImage.setVisibility(View.INVISIBLE);
+            iv_associatedPhoto.setVisibility(View.INVISIBLE);
+        }
 
-            Integer effort = newRun.getEffortIndex();
-            if(effort!=null)
-                seekBar_effort.setProgress(effort);
-            else{
-                seekBar_effort.setProgress(0);
-            }
-
-        });
-        //endregion
-
-
+        if(effortIndex!=null)
+            seekBar_effort.setProgress(effortIndex);
+        else{
+            seekBar_effort.setProgress(0);
+        }
     }
 
     //region "inter-activity communication"
@@ -139,9 +148,6 @@ public class EditSavedRunActivity extends AppCompatActivity {
 
                 //only allow the run to be saved if the name exists!
                 String name = et_Name.getText().toString();
-
-
-
 
                 viewModel.updateName(savedRunID, name);
                 viewModel.updateSportIndex(savedRunID, spinner_sportValue.getSelectedItemPosition());
@@ -232,4 +238,17 @@ public class EditSavedRunActivity extends AppCompatActivity {
     //endregion
 
     //endregion
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        outState.putString("Name", et_Name.getText().toString());
+        outState.putInt("SportIndex",spinner_sportValue.getSelectedItemPosition());
+        outState.putInt("EffortIndex",seekBar_effort.getProgress());
+        outState.putString("Description",et_description.getText().toString());
+        outState.putString("PicturePath",pictureUpdated==true?newPicturePath:originalPicturePath);
+        outState.putBoolean("PictureUpdated",pictureUpdated);
+    }
 }

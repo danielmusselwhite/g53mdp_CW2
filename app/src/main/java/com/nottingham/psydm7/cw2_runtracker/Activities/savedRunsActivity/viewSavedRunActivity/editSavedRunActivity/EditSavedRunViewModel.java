@@ -19,6 +19,9 @@ public class EditSavedRunViewModel extends AndroidViewModel {
 
     private long savedRunID;
 
+    Boolean pictureUpdated = false;
+    String newPicturePath = null;
+
     public EditSavedRunViewModel(@NonNull Application application) {
         super(application);
 

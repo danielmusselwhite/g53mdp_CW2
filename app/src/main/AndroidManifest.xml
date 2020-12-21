@@ -55,7 +55,8 @@
             android:exported="true"
             android:foregroundServiceType="location" />
 
-        <activity android:name=".Activities.runningActivity.RunningActivity" />
+        <activity android:name=".Activities.runningActivity.RunningActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".Activities.mainActivity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

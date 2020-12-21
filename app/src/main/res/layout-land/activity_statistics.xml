@@ -45,20 +45,20 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_timePeriodTotalStatsTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:gravity="clip_horizontal"
                     android:textSize="20sp"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/statistics_textView_NoRecordedExercise" />
 
                 <TextView
                     android:id="@+id/statistics_textView_NoRecordedSport"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:gravity="clip_horizontal"
@@ -71,7 +71,7 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_timePeriodSportRecordSpeed"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +81,7 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_timePeriodSportRecordDistance"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +91,7 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_timePeriodSportBeatenRecordTime"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +101,7 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_timePeriodTotalDistance"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -111,7 +111,7 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_timePeriodSportTime"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -121,7 +121,7 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_timePeriodSportBeatenRecordDistance"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -131,7 +131,7 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_timePeriodTotalTime"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -141,7 +141,7 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_timePeriodSportBeatenRecordSpeed"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -151,7 +151,7 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_timePeriodSportDistance"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -161,7 +161,7 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_wellDoneTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:gravity="clip_horizontal"
@@ -175,7 +175,7 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_timePeriodSportRecordTime"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -185,7 +185,7 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_timePeriodSportRecordTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:gravity="clip_horizontal"
@@ -198,7 +198,7 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_timePeriodSportStatsTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:gravity="clip_horizontal"
@@ -211,7 +211,7 @@
 
                 <TextView
                     android:id="@+id/statistics_textView_NoRecordedExercise"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:gravity="clip_horizontal"
