@@ -25,11 +25,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.nottingham.psydm7.cw2_runtracker.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RunningMapsFragment extends Fragment {
 
     private static GoogleMap googleMap;
-    private static ArrayList<LatLng> path = new ArrayList<LatLng>();
     private Marker currentLocation = null;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
@@ -64,13 +64,11 @@ public class RunningMapsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        path.clear();
     }
 
     public void updateMap(Location location, Location lastLocation) {
 
         LatLng thisLatLng =  new LatLng(location.getLatitude(), location.getLongitude());
-        path.add(thisLatLng);
 
         if (currentLocation != null)
             currentLocation.remove();
@@ -87,7 +85,4 @@ public class RunningMapsFragment extends Fragment {
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(thisLatLng));
     }
 
-    public ArrayList<LatLng> getPath(){
-        return path;
-    }
 }

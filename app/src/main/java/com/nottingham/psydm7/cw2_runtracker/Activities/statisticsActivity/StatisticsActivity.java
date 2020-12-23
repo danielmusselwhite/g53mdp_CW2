@@ -140,7 +140,7 @@ public class StatisticsActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void updateUI(){
 
-        //region "handling the sport"
+        //region "handling the sport strings"
         String sporting = "";
         switch(sportIndex){
             case 0:
@@ -162,7 +162,7 @@ public class StatisticsActivity extends AppCompatActivity {
         String finalSporting = sporting; //effectively final temp string for use in thread
         //endregion
 
-        //region "handling the time period"
+        //region "handling the time period strings and the dateLimit"
         Date dateLimit;
         String timePeriodString = "";
         switch(timePeriodIndex){

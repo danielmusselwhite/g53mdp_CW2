@@ -25,7 +25,7 @@
         android:text="@string/distance"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerTextViewSport"
-        app:layout_constraintStart_toStartOf="@+id/viewRunTextViewDistanceValue" />
+        app:layout_constraintStart_toStartOf="@+id/recyclerTextViewDistanceValue" />
 
     <TextView
         android:id="@+id/recyclerTextViewTime"
@@ -34,32 +34,32 @@
         android:text="@string/time"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerTextViewDistance"
-        app:layout_constraintStart_toStartOf="@+id/viewRunTextViewTimeValue" />
+        app:layout_constraintStart_toStartOf="@+id/recyclerTextViewTimeValue" />
 
     <TextView
-        android:id="@+id/viewRunTextViewDistanceValue"
+        android:id="@+id/recyclerTextViewDistanceValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_0_km"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/viewRunTextViewSportValue"
+        app:layout_constraintEnd_toStartOf="@+id/recyclerTextViewSportValue"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/viewRunTextViewTimeValue"
-        app:layout_constraintTop_toTopOf="@+id/viewRunTextViewSportValue" />
+        app:layout_constraintStart_toEndOf="@+id/recyclerTextViewTimeValue"
+        app:layout_constraintTop_toTopOf="@+id/recyclerTextViewSportValue" />
 
     <TextView
-        android:id="@+id/viewRunTextViewTimeValue"
+        android:id="@+id/recyclerTextViewTimeValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_00_00"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/viewRunTextViewDistanceValue"
+        app:layout_constraintEnd_toStartOf="@+id/recyclerTextViewDistanceValue"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewRunTextViewDistanceValue" />
+        app:layout_constraintTop_toTopOf="@+id/recyclerTextViewDistanceValue" />
 
     <TextView
-        android:id="@+id/viewRunTextViewSportValue"
+        android:id="@+id/recyclerTextViewSportValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -68,7 +68,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/viewRunTextViewDistanceValue"
+        app:layout_constraintStart_toEndOf="@+id/recyclerTextViewDistanceValue"
         app:layout_constraintTop_toBottomOf="@+id/recyclerTextViewSport"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -92,7 +92,7 @@
         android:text="@string/sport"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/viewRunTextViewSportValue"
+        app:layout_constraintStart_toStartOf="@+id/recyclerTextViewSportValue"
         app:layout_constraintTop_toBottomOf="@+id/recyclerTextViewRunTitle"
         app:layout_constraintVertical_bias="0.01" />
 

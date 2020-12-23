@@ -78,9 +78,9 @@ public class AllSavedRunsRecyclerViewAdapter extends RecyclerView.Adapter<AllSav
             //getting all text views
             nameView = itemView.findViewById(R.id.recyclerTextViewRunTitle);
             dateView = itemView.findViewById(R.id.recyclerTextViewDate);
-            sportView = itemView.findViewById(R.id.viewRunTextViewSportValue);
-            distanceView = itemView.findViewById(R.id.viewRunTextViewDistanceValue);
-            timeView = itemView.findViewById(R.id.viewRunTextViewTimeValue);
+            sportView = itemView.findViewById(R.id.recyclerTextViewSportValue);
+            distanceView = itemView.findViewById(R.id.recyclerTextViewDistanceValue);
+            timeView = itemView.findViewById(R.id.recyclerTextViewTimeValue);
 
             // this can be clicked (allow user to view more info on the run and annotate the data)
             itemView.setOnClickListener(this);

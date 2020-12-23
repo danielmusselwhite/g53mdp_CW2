@@ -33,7 +33,6 @@ public abstract class RunTrackerRoomDatabase extends RoomDatabase {
                             RunTrackerRoomDatabase.class, "runTracker_database")
                             .fallbackToDestructiveMigration()
                             .addCallback(createCallback)
-                            //allowMainThreadQueries()
                             .build();
                 }
             }

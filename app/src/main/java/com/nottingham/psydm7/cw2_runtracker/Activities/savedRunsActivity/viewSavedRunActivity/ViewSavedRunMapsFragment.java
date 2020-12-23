@@ -75,8 +75,9 @@ public class ViewSavedRunMapsFragment extends Fragment {
 
     private void updateMap(ArrayList<LatLng> path) {
 
-        //region "getting the first and last coordinate in the path"
+
         if(!path.isEmpty()) {
+            //region "getting the first and last coordinate in the path"
             LatLng start = path.get(0);
             LatLng end = path.get(path.size() - 1);
             //endregion

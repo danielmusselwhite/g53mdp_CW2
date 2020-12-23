@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity{
 
     private MainViewModel viewModel;
 
-
     private TextView textView_mostRecentExercise;
 
     @Override

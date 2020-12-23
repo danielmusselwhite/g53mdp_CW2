@@ -101,6 +101,7 @@ public class EditSavedRunActivity extends AppCompatActivity {
         }
     }
 
+    // updating the UI for the loaded values
     public void updateUI(String name, String description, String picturePath, Integer sportIndex, Integer effortIndex){
         et_Name.setText(name);
 
@@ -248,7 +249,7 @@ public class EditSavedRunActivity extends AppCompatActivity {
         outState.putInt("SportIndex",spinner_sportValue.getSelectedItemPosition());
         outState.putInt("EffortIndex",seekBar_effort.getProgress());
         outState.putString("Description",et_description.getText().toString());
-        outState.putString("PicturePath",pictureUpdated==true?newPicturePath:originalPicturePath);
+        outState.putString("PicturePath",pictureUpdated==true?newPicturePath:originalPicturePath);// if the picture has been updated use the new path, if not use the original
         outState.putBoolean("PictureUpdated",pictureUpdated);
     }
 }

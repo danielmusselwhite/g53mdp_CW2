@@ -70,14 +70,6 @@ public interface SavedRunDAO {
     void updatePicturePath(long id, String newPicturePath);
     //endregion
 
-    //region "Used for ContentProvider as it requires cursors"
-    @Query("SELECT * FROM savedRun_table")
-    Cursor getMultipleSavedRunsCursor();
-    //endregion
-
-
-
-
     //region "answering user 'questions'"
 
     //region "getting total exercising distance and time within a time period"

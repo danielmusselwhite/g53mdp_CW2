@@ -2,9 +2,11 @@ package com.nottingham.psydm7.cw2_runtracker.ContentProvider;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteQuery;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.util.Log;
 
@@ -49,28 +51,30 @@ public class RunsProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
 
-        Log.d("g53mdp-2", "Querying: "+uri.toString() + " " + uriMatcher.match(uri));
+        //region "reference https://stackoverflow.com/questions/49221753/exposing-a-room-database-to-other-apps"
+        final Context context = getContext();
+        if (context == null)
+            return null;
 
-        Cursor cursor = null;
-
-        //region "Using the URI to insert to the correct table"
-        switch(uriMatcher.match(uri)) {
+        switch (uriMatcher.match(uri)) {
             case 1:
-                cursor =  savedRunsDAO.getMultipleSavedRunsCursor();
-//                cursor = db.query(new SimpleSQLiteQuery("SELECT * FROM savedRun_table "));
-                break;
+            SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+            builder.setTables("savedRun_table");
+            String query = builder.buildQuery(projection, selection, null, null, sortOrder, null);
+
+            final Cursor cursor = db
+                    .getOpenHelper()
+                    .getWritableDatabase()
+                    .query(query, selectionArgs);
+
+            cursor.setNotificationUri(context.getContentResolver(), uri);
+            Log.d("g53mdp","Returning the result of the savedRuns query");
+            return cursor;
+
             default:
-                Log.d("g53mdp","URI for this query doesn't match to a valid table");
+            throw new IllegalArgumentException("Unknown URI: " + uri);
         }
         //endregion
-
-        if (getContext() != null && cursor!=null) {
-            cursor.setNotificationUri(getContext()
-                    .getContentResolver(), uri);
-            return cursor;
-        }
-
-        return null;
     }
 
     //region "getType determines the form of the data users of the ContentProvder will get back"
@@ -90,23 +94,20 @@ public class RunsProvider extends ContentProvider {
     }
     //endregion
 
-    //region "Uneeded methods, asked Martin and he said that he only wants us to query the database and that there are no marks to be gained for implementing insert, update or delete"
+    //region "Uneeded methods brief states only that data can be accessed"
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-        // NOT implemented as I asked Martin as brief only says you have to implement query and he confirmed that no extra marks available for delete, update, or insert
         return null;
     }
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        // NOT implemented as I asked Martin as brief only says you have to implement query and he confirmed that no extra marks available for delete, update, or insert
         return 0;
     }
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        // NOT implemented as I asked Martin as brief only says you have to implement query and he confirmed that no extra marks available for delete, update, or insert
         return 0;
     }
     //endregion

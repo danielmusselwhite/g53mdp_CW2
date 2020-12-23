@@ -73,6 +73,7 @@ public class RunningService extends Service {
             remoteCallbackList.unregister(MyBinder.this);
         }
 
+        //cleaning up the service then stopping itself
         public void finishService(){
             locationManager.removeUpdates(locationListener);
             locationManager = null;

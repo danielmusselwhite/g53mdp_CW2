@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +36,8 @@ public class RunningActivity extends AppCompatActivity {
 
     RunningMapsFragment mapsFragment;
 
+    private ArrayList<LatLng> path = new ArrayList<LatLng>();
+
     int sportIndex;
 
     TextView textView_timeValue;
@@ -51,8 +54,7 @@ public class RunningActivity extends AppCompatActivity {
 
     private RunningService.MyBinder runningService = null;
 
-    //region "thread for updating the textview for displaying running time every 1 second"
-    //updating the text view every second whilst playing a song
+    //region "thread for updating the textview for displaying running time and speed every second"
     private Thread playBackTextViewThread = new Thread(){
 
         private boolean paused = true;
@@ -118,8 +120,14 @@ public class RunningActivity extends AppCompatActivity {
         //getting start time
         startTime = System.currentTimeMillis();
 
-        //region "setting up map"
-        mapsFragment = (RunningMapsFragment) RunningActivity.this.getSupportFragmentManager().findFragmentById(R.id.fragment_runningMap);
+        //region "setting up map, doing on a separate thread so it doesn't slow down main activity / freeze UI"
+        new Thread(new Runnable() {
+
+            public void run() {
+                mapsFragment = (RunningMapsFragment) RunningActivity.this.getSupportFragmentManager().findFragmentById(R.id.fragment_runningMap);
+            }
+        }).start();
+
         //endregion
 
         //region "getting references to views we will update"
@@ -167,10 +175,6 @@ public class RunningActivity extends AppCompatActivity {
                     String sport = getResources().getStringArray(R.array.sports_array)[sportIndex];
                     DateFormat dateFormat = new SimpleDateFormat("'"+sport+" on 'MMMM, dd");
                     String name = dateFormat.format(date);
-                    ArrayList<LatLng> path = mapsFragment.getPath();
-
-
-
                     //endregion
 
                     Log.d("g53mdp","Saving run to savedRuns table, with values: name = "+name+";time = "+MyUtilities.formatTimeNicely(totalTime)+"; distance = "+totalDistance+"km; speed = "+averageSpeed+"km/h; path size= "+path.size()+"; sportIndex = "+sportIndex);
@@ -192,9 +196,6 @@ public class RunningActivity extends AppCompatActivity {
     //endregion
 
     //region "calculations for distance and speed"
-    public float convertDistanceTo3Dp(float distance){
-        return Math.round(distance * 1000f) / 1000f; //rounding displayed value to 3 decimal places
-    }
     public float calculateSpeed(float distance, long time){
         if(totalDistance==0 || time==0)
             return 0;
@@ -232,13 +233,15 @@ public class RunningActivity extends AppCompatActivity {
         public void locationChangeEvent(Location location, Location lastLocation, float distance) {
             Log.d("g53mdp", "RunningActivity locationChangeEvent");
 
-            float newTotalDistance = convertDistanceTo3Dp(distance);
+            float newTotalDistance = MyUtilities.roundToDP(distance,2);
             totalDistance = newTotalDistance;
 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mapsFragment.updateMap(location, lastLocation);
+                    if(mapsFragment!=null)
+                        mapsFragment.updateMap(location, lastLocation);
+                    path.add(new LatLng(location.getLatitude(), location.getLongitude()));
                     textView_distanceValue.setText(MyUtilities.roundToDP(totalDistance,2) + " km");
                     float averageSpeed = calculateSpeed(totalDistance, getDuration());
                     textView_averageSpeedValue.setText(MyUtilities.roundToDP(averageSpeed,2)  +" km/h"); // update average speed when location changes as well as when time increases
